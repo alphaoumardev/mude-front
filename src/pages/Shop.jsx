@@ -1,8 +1,7 @@
 import { Fragment, useState } from 'react'
-import { Dialog, Disclosure,Popover, Menu, Transition } from '@headlessui/react'
-
-import {AiOutlineMenu, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
-import {BsFillBellFill, BsFillGridFill, BsSearch} from "react-icons/bs";
+import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
+import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
+import {BsFillGridFill, BsSearch} from "react-icons/bs";
 import {HiOutlineChevronDown,} from "react-icons/hi";
 import {FcClearFilters} from "react-icons/fc";
 
@@ -97,26 +96,8 @@ const sortOptions = [
     { name: 'Price: Low to High', href: '#', current: false },
     { name: 'Price: High to Low', href: '#', current: false },
 ]
-const user = {
-    name: 'Chelsea Hagon',
-    email: 'chelsea.hagon@example.com',
-    imageUrl:
-        'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
-const navigation = [
-    { name: 'Dashboard', href: '#', current: true },
-    { name: 'Calendar', href: '#', current: false },
-    { name: 'Teams', href: '#', current: false },
-    { name: 'Directory', href: '#', current: false },
-]
-const userNavigation = [
-    { name: 'Your Profile', href: '#' },
-    { name: 'Settings', href: '#' },
-    { name: 'Sign out', href: '#' },
-]
 
 function classNames(...classes) {return classes.filter(Boolean).join(' ')}
-
 export default function Shop()
 {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
@@ -251,7 +232,7 @@ export default function Shop()
                     </nav>
                 </div>
                 <div className=" bg-gray-800 px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
-                    <div className="  lg:w-7/12 block lg:ml-96 rounded-full">
+                    <div className="lg:w-7/12 block lg:ml-96 rounded-full">
                             <label htmlFor="search" className="sr-only">
                                 Search
                             </label>
@@ -272,7 +253,7 @@ export default function Shop()
 
                 <main className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="relative z-10 flex items-baseline justify-between pt-2 pb-6 border-b border-gray-200">
-                        <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">New Arrivals</h1>
+                        <h1 className="text-2xl font-extrabold tracking-tight text-gray-900">New Arrivals</h1>
 
                         <div className="flex items-center">
                             <Menu as="div" className="relative inline-block text-left">

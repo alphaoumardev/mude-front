@@ -1,9 +1,10 @@
 import { Fragment, useState } from 'react'
 import {Dialog, Popover, Tab, Transition} from '@headlessui/react'
-import {AiOutlineMenu, AiOutlinePlus, AiOutlineShopping} from "react-icons/ai";
+import {AiOutlineMenu, AiOutlinePlus} from "react-icons/ai";
 import {BsSearch} from "react-icons/bs";
 import PopOversInfo from "./PopOversInfo.jsx";
 import NotificationsPoper from "./NotificationsPoper.jsx";
+import HeaderCart from "./HeaderCart.jsx";
 
 const navigation = {
     categories: [
@@ -288,7 +289,7 @@ const Header = ()=>
 
                             {/* Logo */}
                             <div className="ml-4 flex lg:ml-0">
-                                <a href="/src/pages">
+                                <a href="/">
                                     <span className="sr-only">Workflow</span>
                                     <img
                                         className="h-10 w-auto"
@@ -298,7 +299,7 @@ const Header = ()=>
                                 </a>
                             </div>
                             <div className="hidden lg:ml-8 lg:block  ml-4 flex lg:ml-0">
-                                <a href="/src/pages/Shop">Mude</a>
+                                <a href="/shop">Mude</a>
                             </div>
 
                             {/* Flyout menus */}
@@ -412,17 +413,17 @@ const Header = ()=>
 
                             <div className="ml-auto flex items-center">
                                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                                    <a href="src/header/Header.jsx#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                                    <a href="/login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                                         Sign in
                                     </a>
                                     <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                                    <a href="src/header/Header.jsx#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                                    <a href="/register" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                                         Sign up
                                     </a>
                                 </div>
 
                                 <div className="hidden lg:ml-8 lg:flex">
-                                    <a href="src/header/Header.jsx#" className="text-gray-700 hover:text-gray-800 flex items-center">
+                                    <a href="/" className="text-gray-700 hover:text-gray-800 flex items-center">
                                         <img
                                             src="https://tailwindui.com/img/flags/flag-canada.svg"
                                             alt=""
@@ -434,25 +435,18 @@ const Header = ()=>
                                 </div>
 
                                 {/* Search */}
-                                <div className="flex lg:ml-6">
-                                    <a href="src/header/Header.jsx#" className="p-2 text-gray-400 hover:text-gray-500">
+                                <div className="flex lg:ml-2">
+                                    <a href="/shop" className="p-2 text-gray-400 hover:text-gray-500">
                                         <span className="sr-only">Search</span>
                                         <BsSearch className="w-4 h-4 text-black" aria-hidden="true" />
                                     </a>
                                 </div>
 
                                 {/* Cart */}
-                                <div className="ml-2 flow-root lg:ml-6">
-                                    <a href="src/header/Header.jsx#" className="group -m-2 p-2 flex items-center">
-                                        <AiOutlineShopping
-                                            className="flex-shrink-0 h-6 w-6 text-gray-800 group-hover:text-gray-500"
-                                            aria-hidden="true"
-                                        />
-                                        <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
-                                        <span className="sr-only">items in cart, view bag</span>
-                                    </a>
+                                <div className="ml-2 flow-root lg:ml-2">
+                                    <HeaderCart/>
                                 </div>
-                                <div className="ml-2 flow-root lg:ml-3">
+                                <div className="ml-2 flow-root lg:ml-1">
                                     <NotificationsPoper/>
                                 </div>
                                 <div className="ml-2 flow-root lg:ml-2">

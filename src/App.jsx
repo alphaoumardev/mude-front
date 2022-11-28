@@ -6,6 +6,11 @@ import Mude from "./pages/Mude";
 import Shop from "./pages/Shop";
 import Header from "./header/Header.jsx";
 import {Footer} from "./components/Footer.jsx";
+import SingleProduct from "./single-product/SingleProduct.jsx";
+import MudeCart from "./ShoppingCart/MudeCart.jsx";
+import CheckOut from "./checkouts/CheckOut";
+import OrderDetail from "./orders/OrderDetail.jsx";
+import OrderHistory from "./orders/OrderHistory.jsx";
 
 function App() {
 
@@ -21,6 +26,16 @@ function App() {
 
             <Route exact path="/" element={<Mude/>}/>
             <Route path="/shop" element={<Shop/>}/>
+            <Route path="/single/:id" element={<SingleProduct/>}/>
+            <Route path="/mude/cart" element={<MudeCart/>}/>
+            <Route path="/mude/checkout" element={<CheckOut/>}/>
+            <Route path="/mude/order/detail" element={<OrderDetail/>}/>
+            <Route path="/mude/order/history" element={<OrderHistory/>}/>
+
+
+
+
+
 
         </Routes>
         {window.location.pathname==="/login" ||

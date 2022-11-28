@@ -1,15 +1,9 @@
 import {Menu, Popover, Transition} from "@headlessui/react";
 import {AiOutlinePlus} from "react-icons/ai";
-import {BsFillBellFill, BsPersonCircle} from "react-icons/bs";
+import {BsFillBellFill} from "react-icons/bs";
 import {Fragment} from "react";
 import MyDropDown from "./MyDropDown.jsx";
 
-const user = {
-    name: 'Chelsea Hagon',
-    email: 'chelsea.hagon@example.com',
-    imageUrl:
-        'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
 const userNavigation = [
     { name: 'Your Profile', href: '#' },
     { name: 'Settings', href: '#' },
@@ -34,7 +28,7 @@ const NotificationsPoper = ()=>
                                 <AiOutlinePlus className="block h-6 w-6 rotate-45 flex justify-end" aria-hidden="true" />
                             ) : (
 
-                                <BsFillBellFill className="block h-6 w-6 text-black" aria-hidden="true" />
+                                <BsFillBellFill className="block h-4 w-4 text-black" aria-hidden="true" />
                             )}
                         </Popover.Button>
                     </div>
@@ -47,7 +41,7 @@ const NotificationsPoper = ()=>
                                     {/*Notifications*/}
                                     <a href={"#"} className="ml-5 flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                         <span className="sr-only">View notifications</span>
-                                        <BsFillBellFill className="h-6 w-6" aria-hidden="true" />
+                                        <BsFillBellFill className="h-4 w-4" aria-hidden="true" />
                                     </a>
                                 </Menu.Button>
                             </div>
