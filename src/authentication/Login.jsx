@@ -20,6 +20,14 @@ export default function Login()
     {
         e.preventDefault()
         dispatch(login(username, password))
+        if(error !== null)
+        {
+            setCredentialError("Your credentials are incrrect")
+        }
+        if(token)
+        {
+            navigate("/")
+        }
     }
     useEffect(() =>
     {
@@ -37,7 +45,7 @@ export default function Login()
         <div className="w-screen h-screen flex justify-center">
             <div className="flex justify-center items-center flex-wrap h-full  text-gray-800">
                 <div className="md:w-8/12 lg:w-5/12 ">
-                    <a href="/">
+                    <a href="/src/pages">
                         <img
                             src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
                             className="w-full"
@@ -86,7 +94,7 @@ export default function Login()
                                 />
                                 <label className="form-check-label inline-block text-gray-800" htmlFor="exampleCheck2">Remember me</label>
                             </div>
-                            <a  href="#" className="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 transition ease-in-out">Forgot password?</a>
+                            <a href="src/authentication/Login.jsx#" className="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 transition ease-in-out">Forgot password?</a>
 
                         </div>
                         {/*signup button*/}
@@ -111,7 +119,7 @@ export default function Login()
                         </a>
                         <a
                             className="px-7 py-3 font-normal text-sm bg-black text-white leading-snug uppercase rounded-xl shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center mb-3"
-                            href="#"
+                            href="src/authentication/Login.jsx#"
                             role="button"
                             data-mdb-ripple="true"
                             data-mdb-ripple-color="light"

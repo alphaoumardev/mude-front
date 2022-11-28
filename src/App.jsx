@@ -1,6 +1,6 @@
 import './App.css'
-import Login from "./components/Login";
-import Register from "./components/Register.jsx";
+import Login from "./authentication/Login.jsx";
+import Register from "./authentication/Register.jsx";
 import {Route, Routes} from "react-router-dom";
 import Mude from "./pages/Mude";
 import Shop from "./pages/Shop";

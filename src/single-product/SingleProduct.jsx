@@ -325,9 +325,8 @@ const SingleProduct =()=>
                 </div>
 
                 <section aria-labelledby="related-heading" className="mt-0 border-t border-gray-200 py-16 px-4 sm:px-0">
-
-                    <Reviews/>
                     <RelatedPurchases/>
+                    <Reviews/>
                     <ByCategory/>
                     <Policies/>
                 </section>

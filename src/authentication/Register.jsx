@@ -112,7 +112,7 @@ const Signup = () =>
 
                         <a
                             className="px-7 py-3 font-normal text-sm bg-black text-white leading-snug uppercase rounded-xl shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center mb-3"
-                            href="#"
+                            href="src/authentication/Register.jsx#"
                             role="button"
                             data-mdb-ripple="true"
                             data-mdb-ripple-color="light"

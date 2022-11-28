@@ -14,10 +14,12 @@ import {
     getShippingAddressReducer,
     orderCreateReducer
 } from "./reducers/orderReducer.js";
+import {getHeaderCatergoriesReducer} from "./reducers/headerReducer.js";
 
 export const store = configureStore({
     reducer: {
-        authReducer,
+        authReducer:authReducer,
+        getHeaderCatergoriesReducer:getHeaderCatergoriesReducer,
 
         cartReducer ,
         wishlistReducer,

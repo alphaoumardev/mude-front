@@ -7,24 +7,6 @@ import {
     REGISTER_FAIL,
     REGISTER_SUCCESS,
 
-    REFRESH_TOKEN,
-    REFRESH_FAIL,
-
-    LOAD_PROFILE_SUCCESS,
-    LOAD_PROFILE_FAIL,
-    AUTHENTICATED_SUCCESS,
-    AUTHENTICATED_FAIL,
-    PASSWORD_RESET_SUCCESS,
-    PASSWORD_RESET_FAIL,
-    PASSWORD_RESET_CONFIRM_SUCCESS,
-    PASSWORD_RESET_CONFIRM_FAIL,
-    ACTIVATION_SUCCESS,
-    ACTIVATION_FAIL,
-    GOOGLE_AUTH_SUCCESS,
-    GOOGLE_AUTH_FAIL,
-    FACEBOOK_AUTH_SUCCESS,
-    FACEBOOK_AUTH_FAIL,
-
     LOGOUT_REQUEST,
     LOGOUT_SUCCESS,
     LOGOUT_FAIL,
@@ -54,12 +36,14 @@ export const signup = (username, email, password, re_password)=> async dispatch 
     {
         dispatch({type:REGISTER_REQUEST})
 
-        const res = await axios.post('/api/signup/', body, signconfig)
-        dispatch(
-            {
-                type:REGISTER_SUCCESS,
-                payload: res.data,
-            })
+        await axios.post('/api/signup/', body, signconfig).then((res)=>
+        {
+            dispatch(
+                {
+                    type:REGISTER_SUCCESS,
+                    payload:res.data
+                })
+        })
     }
     catch (error)
     {
@@ -100,7 +84,6 @@ export const logout = () => async dispatch =>
 {
     try
     {
-
         const body = JSON.stringify({})
 
         await axios.post('/api/logout/', body, config).then(() =>
