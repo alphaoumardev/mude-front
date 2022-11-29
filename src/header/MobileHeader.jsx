@@ -1,14 +1,8 @@
-import {Fragment, useEffect, useState} from 'react'
-import {Dialog, Popover, Tab, Transition} from '@headlessui/react'
-import {AiOutlineMenu, AiOutlinePlus} from "react-icons/ai";
-import {BsSearch} from "react-icons/bs";
-import PopOversInfo from "./PopOversInfo.jsx";
-import NotificationsPoper from "./NotificationsPoper.jsx";
-import HeaderCart from "./HeaderCart.jsx";
-import {useDispatch, useSelector} from "react-redux";
-import {getHeaderCategoriesAction} from "../redux/Actions/headerActions.js";
+import {Fragment} from 'react'
+import {Dialog, Tab, Transition} from '@headlessui/react'
+import {AiOutlinePlus} from "react-icons/ai";
 
-const navigation = {
+const catenames = {
     categories: [
         {
             id: 'women',
@@ -245,7 +239,7 @@ const navigation = {
 }
 
 
-const MobileHeader = ({open, setOpen})=>
+const MobileHeader = ({open, setOpen, catenames})=>
 {
     function classNames(...classes) {return classes.filter(Boolean).join(' ')}
     return(
@@ -290,26 +284,20 @@ const MobileHeader = ({open, setOpen})=>
                             <Tab.Group as="div" className="mt-2">
                                 <div className="border-b border-gray-200">
                                     <Tab.List className="-mb-px flex px-4 space-x-8">
-                                        {navigation?.categories?.map((category, index) => (
+                                        {catenames?.map((category, index) => (
                                             <Tab
                                                 key={index}
-                                                className={({ selected }) =>
-                                                    classNames(
-                                                        selected ? 'text-indigo-600 border-indigo-600' : 'text-gray-900 border-transparent',
-                                                        'flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium'
-                                                    )
-                                                }
-                                            >
+                                                className={({ selected }) =>classNames(selected ? 'text-indigo-600 border-indigo-600' : 'text-gray-900 border-transparent','flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium')}>
                                                 {category.name}
                                             </Tab>
                                         ))}
                                     </Tab.List>
                                 </div>
                                 <Tab.Panels as={Fragment}>
-                                    {navigation?.categories?.map((category, index) => (
+                                    {catenames?.map((category, index) => (
                                         <Tab.Panel key={index} className="pt-10 pb-8 px-4 space-y-10">
                                             <div className="grid grid-cols-2 gap-x-4">
-                                                {category.featured.map((item,index) => (
+                                                {category?.subcates?.map((item,index) => (
                                                     <div key={index} className="group relative text-sm">
                                                         <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
                                                             <img src={item.imageSrc} alt={item.imageAlt} className="object-center object-cover" />
@@ -324,7 +312,7 @@ const MobileHeader = ({open, setOpen})=>
                                                     </div>
                                                 ))}
                                             </div>
-                                            {category?.sections?.map((section,index) => (
+                                            {category?.subcates?.map((section,index) => (
                                                 <div key={index}>
                                                     <p id={`${category.id}-${section.id}-heading-mobile`} className="font-medium text-gray-900">
                                                         {section.name}
@@ -350,13 +338,9 @@ const MobileHeader = ({open, setOpen})=>
                             </Tab.Group>
 
                             <div className="border-t border-gray-200 py-6 px-4 space-y-6">
-                                {navigation?.pages?.map((page,index) => (
-                                    <div key={index} className="flow-root">
-                                        <a href={page.href} className="-m-2 p-2 block font-medium text-gray-900">
-                                            {page.name}
-                                        </a>
-                                    </div>
-                                ))}
+                                <div className="flow-root">
+                                    <a href={"/mude/contact"} className="-m-2 p-2 block font-medium text-gray-900">Contact Us</a>
+                                </div>
                             </div>
 
                             <div className="border-t border-gray-200 py-6 px-4 space-y-6">

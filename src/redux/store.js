@@ -3,10 +3,20 @@ import {authReducer} from "./reducers/authReducer.js";
 import {cartReducer} from "./reducers/cartReducer.js";
 import {wishlistReducer} from "./reducers/wishlistReducer.js";
 import {
-    getAllProductsReducer, getColorsReducer, getImagesReducer, getNewProductsReducer,
-    getOneProductReducer, getOnsaleProductsReducer,
-    getProductBySubcategoriesReducer, getproductByVariantReducer, getProductsByCatNameReducer,
-    getProductsByPagegReducer, getSizesReducer, getSlidersReducer, getTagsReducer
+    getAllProductsReducer,
+    getColorsReducer,
+    getImagesReducer,
+    getNewProductsReducer,
+    getOnsaleProductsReducer,
+    getProductBySubcategoriesReducer,
+    getproductByVariantReducer,
+    getProductsByCatNameReducer,
+    getProductsByPagegReducer,
+    getSizesReducer,
+    getSlidersReducer,
+    getTagsReducer,
+    getProductsFiltersReducer,
+    getSingleProductReducer
 } from "./reducers/productsReducer.js";
 import {
     create_addressReducer,
@@ -21,12 +31,14 @@ export const store = configureStore({
         authReducer:authReducer,
         getHeaderCatergoriesReducer:getHeaderCatergoriesReducer,
 
+        getProductsByPagegReducer:getProductsByPagegReducer,
+        getProductsFiltersReducer:getProductsFiltersReducer,
+        getSingleProductReducer:getSingleProductReducer,
+
         cartReducer ,
         wishlistReducer,
 
         getAllProductsReducer,
-        getProductsByPagegReducer,
-        getOneProductReducer,
         getProductBySubcategoriesReducer,
         getproductByVariantReducer,
         getImagesReducer,

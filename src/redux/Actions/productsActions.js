@@ -1,6 +1,93 @@
 import * as P from '../Types'
 import axios from "axios";
 
+const freeAccess ={ headers: {'Content-Type': 'application/json'}}
+
+const config = {
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${localStorage.getItem('token')}`,
+        'Accept': 'application/json'
+    }
+}
+export const getProductByPageAction = (page) => async (dispatch) =>
+{
+    try
+    {
+        dispatch({type:P.GET_BY_PAGES_REQUEST})
+        await axios.get(`/api/products-by-page/?page=${page}`, ).then((res)=>
+        {
+            dispatch({
+                type: P.GET_BY_PAGES_SUCCESS,
+                payload: res.data
+            })
+            // console.log(res.data)
+        })
+
+    }
+    catch (error)
+    {
+        dispatch(
+            {
+                type: P.GET_BY_PAGES_FAIL,
+                payload: error.response && error.response.data.detail ?
+                    error.response.data.detail : error.message,
+            }
+        )
+    }
+}
+
+export const getProductFiltersAction = () => async (dispatch) =>
+{
+    try
+    {
+        await axios.get(`/api/products-filters/`, ).then((res)=>
+        {
+            dispatch(
+                {
+                type: P.S_PRODUCT_FILTERS,
+                payload: res.data
+            })
+            // console.log(res.data)
+        })
+    }
+    catch (error)
+    {
+        dispatch(
+            {
+                type: P.F_PRODUCT_FILTERS,
+                payload: error.response && error.response.data.detail ?
+                    error.response.data.detail : error.message,
+            }
+        )
+    }
+}
+
+export const getSingleProductAction = (id) => async (dispatch) =>
+{
+    try
+    {
+        dispatch({type:P.GET_ONE_PRODUCT_REQUEST})
+        await axios.get(`/api/single-product/${id}`).then((res)=>
+        {
+            dispatch(
+                {
+                    type:P.GET_ONE_PRODUCT_SUCCESS,
+                    payload: res.data
+                })
+        })
+    }catch (error)
+    {
+        dispatch(
+            {
+                type: P.GET_ONE_PRODUCT_FAIL,
+                payload: error.response && error.response.data.detail ?
+                    error.response.data.detail : error.message,
+            }
+        )
+    }
+}
+
 export const getAllProductAction = (genre, type, less_price, greater_price, query=null, color=null, size=null, ) => async (dispatch) =>
 {
     try
@@ -113,72 +200,6 @@ export const getProductsBySubcatesAction = (genre, type) => async (dispatch) =>
         dispatch(
             {
                 type: P.GET_SUBCATES_FAIL,
-                payload: error.response && error.response.data.detail ?
-                    error.response.data.detail : error.message,
-            }
-        )
-    }
-}
-
-export const getProductByPageAction = (genre, type, page) => async (dispatch) =>
-{
-    try
-    {
-        dispatch({type:P.GET_BY_PAGES_REQUEST})
-        if(type)
-        {
-            await axios.get(`/api/catename/${genre}/${type}`,).then((res)=>
-            {
-                dispatch(
-                    {
-                        type: P.GET_BY_PAGES_SUCCESS,
-                        payload: res.data,
-                    }
-                )
-            })
-        }
-        else
-        {
-            await axios.get(`/api/products/?page=${page}`,).then((res)=>
-            {
-                dispatch({
-                    type: P.GET_BY_PAGES_SUCCESS,
-                    payload: res.data.results,
-                    numberOfPages: res.data.total_pages
-                })
-            })
-
-        }
-    }catch (error)
-    {
-        dispatch(
-            {
-                type: P.GET_BY_PAGES_FAIL,
-                payload: error.response && error.response.data.detail ?
-                    error.response.data.detail : error.message,
-            }
-        )
-    }
-}
-
-export const getOneProduct = (id) => async (dispatch) =>
-{
-    try
-    {
-        dispatch({type:P.GET_ONE_PRODUCT_REQUEST})
-        await axios.get('/api/one/' +id,).then((res)=>
-        {
-            dispatch(
-                {
-                    type:P.GET_ONE_PRODUCT_SUCCESS,
-                    payload: res.data
-                })
-         })
-    }catch (error)
-    {
-        dispatch(
-            {
-                type: P.GET_ONE_PRODUCT_FAIL,
                 payload: error.response && error.response.data.detail ?
                     error.response.data.detail : error.message,
             }

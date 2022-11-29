@@ -7,7 +7,7 @@ export const postActionPayloadError = (type, error) => ({
     type: type,
     payload: error.response && error.response.data.detail ? error.response.data.detail : error.message,
 });
-const signconfig ={ headers: {'Content-Type': 'application/json'}}
+const freeAccess ={ headers: {'Content-Type': 'application/json'}}
 
 const config = {
     headers: {
@@ -21,7 +21,7 @@ export const getHeaderCategoriesAction = ()=> async dispatch =>
 {
     try
     {
-        await axios.get('/api/catename/', config).then((res)=>
+        await axios.get('/api/catename/', freeAccess).then((res)=>
         {
             dispatch(
                 {
