@@ -126,7 +126,7 @@ const SingleProduct =()=>
                     <Tab.Group as="div" className="flex flex-col-reverse">
                         {/* Image selector */}
                         <div className=" mt-6 w-full max-w-2xl  sm:block lg:max-w-none">
-                            <Tab.List className="grid grid-cols-4 gap-x-2">
+                            <Tab.List className="grid grid-cols-4 gap-x-8">
                                 {singleProduct?.images?.map((itemImage, index) => (
                                     <Tab key={index} className="relative h-24 bg-white rounded-md flex items-center justify-center text-sm font-medium uppercase text-gray-900 cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring focus:ring-offset-4 focus:ring-opacity-50">
                                         {({ selected }) =>

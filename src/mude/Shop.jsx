@@ -6,8 +6,9 @@ import {FcClearFilters} from "react-icons/fc";
 import MudeMobileFilter from "./MudeMobileFilter.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {getProductByPageAction} from "../redux/Actions/productsActions.js";
-import Paginations from "./Paginations.jsx";
+// import Paginations from "./Paginations.jsx";
 import ProductsFilters from "./ProductsFilters.jsx";
+import { Pagination } from 'antd';
 
 const sortOptions = [
     { name: 'Most Popular', href: '#', current: true },
@@ -22,22 +23,24 @@ function classNames(...classes) {return classes.filter(Boolean).join(' ')}
 export default function Shop()
 {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1);
+
     const dispatch = useDispatch()
-    const {articles, isLoading, error, currentPage, totalPages, articles_per_page, next, prevPage, }=
+    const {articles, isLoading, error, totalItems, totalPages, articles_per_page, next, prevPage, }=
         useSelector(state => state.getProductsByPagegReducer)
     useEffect(() =>
     {
         dispatch(getProductByPageAction(currentPage))
-    }, [dispatch]);
+    }, [dispatch, currentPage]);
 
-    console.log(articles)
+    const onChangePage = (page) => {setCurrentPage(page)}
     return (
         <div className="bg-white">
             <div>
                 <MudeMobileFilter mobileFiltersOpen={mobileFiltersOpen} setMobileFiltersOpen={setMobileFiltersOpen}/>
                 <main className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="relative z-10 flex items-baseline justify-between pt-2 pb-6 border-b border-gray-200">
-                        <h1 className="text-2xl font-extrabold tracking-tight text-gray-900">New Arrivals</h1>
+                        <h1 className="text-2xl font-extrabold  text-gray-900">New Arrivals</h1>
 
                         <div className="flex items-center">
                             <Menu as="div" className="relative inline-block text-left">
@@ -106,7 +109,7 @@ export default function Shop()
                                     <a key={index} href={`/single/product/${product?.id}`} className="group text-sm ">
                                         <div className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden group-hover:opacity-75">
                                             <img
-                                                src={product?.images[1]?.image}
+                                                src={product?.images[0]?.image}
                                                 alt={product?.name}
                                                 className="w-full h-full object-center object-cover"
                                             />
@@ -114,7 +117,7 @@ export default function Shop()
                                         <div className="flex items-center justify-between">
                                             <h3 className="mt-2 font-normal text-gray-900">{product?.name}</h3>
 
-                                            <p className="mt-2 font-medium text-gray-900">¥{product?.price}</p>
+                                            <p className="mt-2 font-medium text-gray-900"><span className="text-red-500 text-sm">¥</span>{product?.price}</p>
                                         </div>
                                         <ul role="list" className="flex items-center justify-center space-x-3">
                                             {product?.color?.map((color, index) => (
@@ -128,7 +131,11 @@ export default function Shop()
                                 )}
                             </div>
                         </div>
-                            <Paginations />
+                        {/*<Example/>*/}
+                        <div className="flex flex-col items-center justify-center mt-5">
+                            <Pagination current={currentPage} hideOnSinglePage={true} onChange={onChangePage} total={totalItems}  />
+                        </div>
+                            {/*<Paginations />*/}
                     </section>
 
                 </main>
