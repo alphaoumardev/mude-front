@@ -21,7 +21,7 @@ export const getHeaderCategoriesAction = ()=> async dispatch =>
 {
     try
     {
-        await axios.get('/api/catename/', freeAccess).then((res)=>
+        await axios.get('/api/catenames/', freeAccess).then((res)=>
         {
             dispatch(
                 {

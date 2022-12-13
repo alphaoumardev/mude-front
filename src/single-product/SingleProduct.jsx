@@ -7,9 +7,11 @@ import ByCategory from "../components/ByCategory.jsx";
 import RelatedPurchases from "./RelatedPurchases.jsx";
 import Policies from "./Policies.jsx";
 import Reviews from "./Reviews.jsx";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {getSingleProductAction} from "../redux/Actions/productsActions.js";
 import {useDispatch, useSelector} from "react-redux";
+import {addToCart} from "../redux/Actions/cartAction.js";
+import {getCustomerProfile} from "../redux/Actions/authActions.js";
 
 const product = {
     name: 'Zip Tote Basket',
@@ -106,17 +108,31 @@ function classNames(...classes) {return classes.filter(Boolean).join(' ')}
 const SingleProduct =()=>
 {
     const {id} = useParams()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const [selectedColor, setSelectedColor] = useState(product.colors[0])
-    const [selectedSize, setSelectedSize] = useState(product.sizes[2])
+    const [selectedSize, setSelectedSize] = useState(product.sizes[1])
+
+    const {customer} = useSelector((state) =>state.authReducer)
     const {singleProduct} = useSelector(state => state.getSingleProductReducer)
+
+    const [rating, setRating] = useState(3);
+    const [hoverRating, setHoverRating] = useState(-1);
+
+    const addItemToCart = (e)=>
+    {
+        e.preventDefault()
+        dispatch(addToCart(id, selectedColor, selectedSize, customer?.id, 1))
+        navigate('/mude/cart')
+    }
 
     useEffect(() =>
     {
         dispatch(getSingleProductAction(id))
+        dispatch(getCustomerProfile())
     }, [dispatch]);
 
-    // console.log(singleProduct)
+    // console.log(id, customer?.id)
     return(
         <main className="max-w-7xl mx-auto sm:pt-16 sm:px-6 lg:px-8">
             <div className="max-w-2xl mx-auto lg:max-w-none">
@@ -183,7 +199,7 @@ const SingleProduct =()=>
                             <div className="text-base text-gray-700 space-y-6" dangerouslySetInnerHTML={{ __html: singleProduct?.description }}/>
                         </div>
 
-                        <form className="mt-6">
+                        <form className="mt-6" onSubmit={addItemToCart}>
                             {/* Colors */}
                             <div>
                                 <h3 className="text-sm text-gray-600">Color</h3>

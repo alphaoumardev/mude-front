@@ -1,6 +1,7 @@
 import { Fragment,  } from 'react'
 import { Popover,  Transition} from '@headlessui/react'
 import {AiOutlineShopping} from "react-icons/ai";
+import {useNavigate} from "react-router-dom";
 
 const products = [
     {
@@ -24,15 +25,19 @@ const products = [
 ]
 const HeaderCart = ()=>
 {
+    const navigate = useNavigate()
     return (
         <div>
-            <Popover className="ml-4 flow-root text-sm lg:relative lg:ml-8">
-                <Popover.Button className="group -m-2 p-2 flex items-center">
-                    <AiOutlineShopping
-                        className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
-                        aria-hidden="true"
-                    />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+            <Popover className="ml-1 flow-root text-sm lg:relative">
+                <Popover.Button className="group -m-2 p-2 sm:m-2 flex items-center">
+                    <div className="relative">
+                        <AiOutlineShopping
+                            className="flex-shrink-0 h-7 w-7 text-gray-800 group-hover:text-gray-500"
+                            aria-hidden="true"
+                        />
+                    </div>
+
+                    <span className="absolute ml-2.5 mt-1.5 p-0  text-red-700  rounded-full text-xs font-bold text-gray-700 ">3</span>
                     <span className="sr-only">items in cart, view bag</span>
                 </Popover.Button>
                 <Transition
@@ -66,17 +71,17 @@ const HeaderCart = ()=>
                                 ))}
                             </ul>
 
-                            <a href="/mude/checkout"
+                            <button onClick={()=>navigate("/mude/checkout")}
                                 type="button"
                                 className="w-full flex justify-center bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-xl font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
                             >
                                 Checkout
-                            </a>
+                            </button>
 
                             <p className="mt-6 text-center">
-                                <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                <button onClick={()=>navigate("/mude/cart")} type="button" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                                     View Shopping Bag
-                                </a>
+                                </button>
                             </p>
                         </form>
                     </Popover.Panel>

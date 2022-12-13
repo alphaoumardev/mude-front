@@ -4,14 +4,15 @@ import {
     REGISTER_FAIL,
     REGISTER_SUCCESS,
     LOGOUT_SUCCESS,
+    USER_PROFILE,
     LOGOUT_FAIL, UPDATE_PROFILE_SUCCESS,
 } from '../Types'
 
 
 const accessToken = localStorage.getItem('token') ? localStorage.getItem('token') : null;
-const profileStorage = localStorage.getItem('profile')? JSON.parse(localStorage.getItem('profile')):null
+const profileStorage = localStorage.getItem('customer')? JSON.parse(localStorage.getItem('customer')):null
 
-export const authReducer = (state= {error:null, profile: profileStorage, token: accessToken}, action)=>
+export const authReducer = (state= {error:null, customer: profileStorage, token: accessToken}, action)=>
 {
     switch (action.type)
     {
@@ -25,14 +26,20 @@ export const authReducer = (state= {error:null, profile: profileStorage, token: 
             return{
                 ...state,
                 token: action.payload.token,
-                profile: action.payload,
+                customer: action.payload,
+            }
+        case USER_PROFILE:
+            return{
+                ...state,
+                token: action.payload.token,
+                customer: action.payload,
             }
         case UPDATE_PROFILE_SUCCESS:
             return{
                 ...state,
-                profile:{
+                customer:{
                     ...action.payload,
-                    ...state.profile
+                    ...state.customer
                 }
             }
         case LOGIN_FAIL:
@@ -41,7 +48,7 @@ export const authReducer = (state= {error:null, profile: profileStorage, token: 
             return {
                 ...state,
                 error: action.payload,
-                profile:null,
+                customer:null,
                 token: null,
             };
 
@@ -50,7 +57,7 @@ export const authReducer = (state= {error:null, profile: profileStorage, token: 
             sessionStorage.clear()
             return{
                 ...state,
-                profile: null,
+                customer: null,
                 token: null,
                 error: action.payload
             }

@@ -6,7 +6,6 @@ import {FcClearFilters} from "react-icons/fc";
 import MudeMobileFilter from "./MudeMobileFilter.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {getProductByPageAction} from "../redux/Actions/productsActions.js";
-// import Paginations from "./Paginations.jsx";
 import ProductsFilters from "./ProductsFilters.jsx";
 import { Pagination } from 'antd';
 
@@ -20,7 +19,7 @@ const sortOptions = [
 
 function classNames(...classes) {return classes.filter(Boolean).join(' ')}
 
-export default function Shop()
+export default function Mart()
 {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     const [currentPage, setCurrentPage] = useState(1);
@@ -106,7 +105,7 @@ export default function Shop()
                             {/* Product grid */}
                             <div className="grid grid-cols-2 gap-x-6 sm:grid-cols-4 lg:col-span-4 lg:gap-x-8 lg:gap-y-10">
                                 {articles?.map((product, index) =>
-                                    <a key={index} href={`/single/product/${product?.id}`} className="group text-sm ">
+                                    <a key={index} href={`/mude/single/product/${product?.id}`} className="group text-sm ">
                                         <div className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden group-hover:opacity-75">
                                             <img
                                                 src={product?.images[0]?.image}
@@ -120,12 +119,11 @@ export default function Shop()
                                             <p className="mt-2 font-medium text-gray-900"><span className="text-red-500 text-sm">¥</span>{product?.price}</p>
                                         </div>
                                         <ul role="list" className="flex items-center justify-center space-x-3">
-                                            {product?.color?.map((color, index) => (
-
+                                            {product?.color?.slice(0,4)?.map((color, index) =>
                                                 <li key={index} style={{ backgroundColor: color.color_name }} className="w-5 h-5 rounded-full border border-black border-opacity-10">
                                                     <span className="sr-only">{color.color_name}</span>
                                                 </li>
-                                            ))}
+                                            )}
                                         </ul>
                                     </a>
                                 )}

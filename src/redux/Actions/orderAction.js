@@ -5,18 +5,18 @@ import * as A from "../Types";
 const config = {
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': `JWT ${localStorage.getItem('access')}`,
+        'Authorization': `Token ${localStorage.getItem('token')}`,
         'Accept': 'application/json'
     }
 }
 
-export const addAddress = (username, country, state, zip, city, street, details, order_note) => async (dispatch) =>
+export const addAddress = (customer, country, state, zip, city, street, details, order_note) => async (dispatch) =>
 {
-    let user = username.id
+    // let user = username.id
     try
     {
         dispatch({type: O.ADDRESS_ADD_REQUEST})
-        const body = JSON.stringify({user, country, state, zip, city, street, details, order_note})
+        const body = JSON.stringify({customer, country, state, zip, city, street, details, order_note})
         await axios.post(`/api/address/`, body, config).then(res =>
         {
             dispatch({type: O.ADDRESS_SUCCESS, payload: res.data})
@@ -49,10 +49,10 @@ export const getAddressAction = () => async (dispatch) =>
         })
     }
 }
-export const createOrderAction = (username, address, amount) => async (dispatch) =>
+
+export const createOrderAction = (customer, address, amount, order_reference) => async (dispatch) =>
 {
-    let user = username.id
-    const body = JSON.stringify({user, address, amount})
+    const body = JSON.stringify({customer, address, amount, order_reference})
     try
     {
         dispatch({type: O.ORDER_CREATE_REQUEST})
@@ -63,10 +63,11 @@ export const createOrderAction = (username, address, amount) => async (dispatch)
                 payload: res.data,
             })
             // console.log(res.data)
-            // localStorage.removeItem('cartItems')
+            localStorage.removeItem('cartItems')
         })
     } catch (error)
     {
+        console.log(error)
         dispatch({
             type: O.ORDER_CREATE_FAIL,
             payload: error.response && error.response.data.detail ? error.response.data.detail : error.message

@@ -118,6 +118,11 @@ export const getCustomerProfile = ()=> async dispatch =>
     }
     catch (error)
     {
+        // dispatch(
+        //     {
+        //         type: USER_PROFILE_FAIL,
+        //         payload: res.data,
+        //     })
     }
 }
 

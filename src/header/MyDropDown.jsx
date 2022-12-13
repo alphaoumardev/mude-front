@@ -60,11 +60,11 @@ const MyDropDown = ()=>
                     <FiHelpCircle size={17}/>
                     <span className="mx-1">Help</span>
                 </a>
-                <p onClick={()=>dispatch(logout())}
+                <a href="/login" onClick={()=>dispatch(logout())}
                    className="flex items-center p-3 text-sm text-gray-600 cursor-pointer capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
                     <IoMdLogOut size={17}/>
                     <span className="mx-1"> Sign Out </span>
-                </p>
+                </a>
             </div>
         </div>
     )

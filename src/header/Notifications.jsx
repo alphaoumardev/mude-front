@@ -12,7 +12,7 @@ const Notifications =({notification})=>
     return(
         <div>
             <div className="block w-72 py-3  bg-white rounded-md shadow-xl dark:bg-gray-800">
-                <div className="block py-2 px-4 font-medium text-center text-gray-700 rounded bg-gray-50 dark:bg-gray-800 dark:text-white">
+                <div className="block py-2 font-medium text-center text-gray-700 rounded bg-gray-50 dark:bg-gray-800 dark:text-white">
                     Notifications
                 </div>
 
@@ -60,8 +60,8 @@ const Notifications =({notification})=>
                                         <BsFillPersonPlusFill className={"text-red-500"}/>
                                     </div>
                                 </div>
-                                <div className="pl-3 w-full">
-                                    <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
+                              <div className="pl-3 w-full">
+                                  <div className="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
                                         <span className="capitalize font-bold text-black mr-1">{item?.from_profile?.user?.username}</span>
                                         {item?.content}
                                     </div>

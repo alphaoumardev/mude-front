@@ -4,7 +4,7 @@ import axios from "axios";
 const config = {
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': `JWT ${localStorage.getItem('access')}`,
+        'Authorization': `Token ${localStorage.getItem('token')}`,
         'Accept': 'application/json'
     }
 }

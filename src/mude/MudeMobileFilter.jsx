@@ -73,7 +73,7 @@ const MudeMobileFilter = ({mobileFiltersOpen, setMobileFiltersOpen})=>
                             </li>
                         ))}
                         <li className="text-sm">
-                            <a href="src/mude/Shop.jsx#" aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
+                            <a href="src/mude/Mart.jsx#" aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
                                 New Arrivals
                             </a>
                         </li>
