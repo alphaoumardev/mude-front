@@ -105,24 +105,28 @@ export const logout = () => async dispatch =>
 
 export const getCustomerProfile = ()=> async dispatch =>
 {
-    try
+    if(localStorage.getItem('token'))
     {
-        await axios.get('/api/customer-profile/', config).then((res)=>
+        try
         {
-            dispatch(
-                {
-                    type: USER_PROFILE,
-                    payload: res.data,
-                })
-        })
-    }
-    catch (error)
-    {
-        // dispatch(
-        //     {
-        //         type: USER_PROFILE_FAIL,
-        //         payload: res.data,
-        //     })
+            await axios.get('/api/customer-profile/', config).then((res)=>
+            {
+                dispatch(
+                    {
+                        type: USER_PROFILE,
+                        payload: res.data,
+                    })
+            })
+        }
+        catch (error)
+        {
+            console.error(error)
+            // dispatch(
+            //     {
+            //         type: USER_PROFILE_FAIL,
+            //         payload: res.data,
+            //     })
+        }
     }
 }
 

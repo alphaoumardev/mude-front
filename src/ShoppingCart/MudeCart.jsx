@@ -7,7 +7,7 @@ import {getCartItems, removeItemFromCart, updateCartItem} from "../redux/Actions
 import {getAddressAction} from "../redux/Actions/orderAction.js";
 import {Popconfirm} from 'antd';
 import {AiOutlineQuestionCircle} from "react-icons/ai";
-import Empty from "./emptycart.png"
+import Empty from "../assets/emptycart.png"
 const MudeCart = ()=>
 {
     const dispatch = useDispatch()
@@ -16,6 +16,7 @@ const MudeCart = ()=>
     const {cart_item, order_total, } = useSelector((state) =>state.cartReducer)//cart_count
     const {address} = useSelector(state => state.getShippingAddressReducer)
 
+
     let cartItems = Array.from(cart_item)
 
     useEffect(() =>
@@ -23,6 +24,7 @@ const MudeCart = ()=>
         //if there is a customer in actions store
         dispatch(getCartItems())
         dispatch(getAddressAction())
+
     }, [dispatch]);
 
     return(

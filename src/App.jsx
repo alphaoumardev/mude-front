@@ -12,6 +12,7 @@ import CheckOut from "./orders/CheckOut.jsx";
 import OrderDetail from "./orders/OrderDetail.jsx";
 import OrderHistory from "./orders/OrderHistory.jsx";
 import Dashbord from "./admin/Dashbord";
+import NotFound from "./components/NotFound.jsx";
 
 function App() {
 
@@ -30,7 +31,7 @@ function App() {
 
             <Routes>
                 {/*<Route path="/"*/}
-                <Route exact path="/login" element={<Login/>}/>
+                <Route exact index path="/login" element={<Login/>}/>
                 <Route exact path="/register" element={<Register/>}/>
 
                 <Route exact path="/" element={<Mude/>}/>
@@ -40,6 +41,8 @@ function App() {
                 <Route exact path="/mude/checkout" element={<CheckOut/>}/>
                 <Route exact path="/mude/order/detail" element={<OrderDetail/>}/>
                 <Route exact path="/mude/order/history" element={<OrderHistory/>}/>
+
+                <Route path="*" element={<NotFound/>} />
             </Routes>
             {window.location.pathname==="/login" ||
             window.location.pathname==="/register" ||
