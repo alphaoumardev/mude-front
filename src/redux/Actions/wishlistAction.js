@@ -1,35 +1,39 @@
 import * as A from '../Types'
 import axios from "axios";
 
+const localToken = localStorage.getItem('token')
 const config = {
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.getItem('token')}`,
+        'Authorization': `Token ${localToken}`,
         'Accept': 'application/json'
     }
 }
 export const addToWishlist = (id, username) => async (dispatch) =>
 {
-    const product = id
-    const user = username.id
-    dispatch({type: A.WISHLIST_ADD_REQUEST})
-    const body = JSON.stringify({product, user})
-
-    await axios.post('/api/wishlist/', body, config).then((res)=>
+    if(localToken)
     {
-        dispatch({
-            type: A.WISHLIST_ADD_ITEM,
-            payload: res.data
-        })
-        localStorage.setItem('wish', JSON.stringify(res.data.product))
-    })
+        const product = id
+        const user = username.id
+        dispatch({type: A.WISHLIST_ADD_REQUEST})
+        const body = JSON.stringify({product, user})
 
+        await axios.post('/api/wishlist/', body, config).then((res) => {
+            dispatch({
+                type: A.WISHLIST_ADD_ITEM,
+                payload: res.data
+            })
+            localStorage.setItem('wish', JSON.stringify(res.data.product))
+        })
+    }
 }
 
 export const getWishlistItems = () => async (dispatch) =>
 {
-    await axios.get('/api/wishlist/', config).then((res)=>
+    if(localToken)
     {
+        await axios.get('/api/wishlist/', config).then((res)=>
+        {
         dispatch({
             type: A.WISHLIST_GET_ITEMS,
             payload: res.data.result,
@@ -37,6 +41,7 @@ export const getWishlistItems = () => async (dispatch) =>
         })
         localStorage.setItem('wishlistItem', JSON.stringify(res.data))
     })
+    }
 }
 export const removeItemFromWishlist = (id) => async (dispatch) =>
 {

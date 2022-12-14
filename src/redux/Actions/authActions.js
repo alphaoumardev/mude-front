@@ -15,6 +15,10 @@ import {
     CART_CLEAR_ITEMS, ORDER_MY_FAIL, USER_PROFILE, WISHLIST_CLEAR_ITEMS
 } from '../Types'
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
+import {useState} from "react";
+
+const localToken = localStorage.getItem('token')
 
 export const postActionPayloadError = (type, error) => ({
         type: type,
@@ -23,7 +27,7 @@ export const postActionPayloadError = (type, error) => ({
 const config = {
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.getItem('token')}`,
+        'Authorization': `Token ${localToken}`,
         'Accept': 'application/json'
     }
 }
@@ -105,7 +109,7 @@ export const logout = () => async dispatch =>
 
 export const getCustomerProfile = ()=> async dispatch =>
 {
-    if(localStorage.getItem('token'))
+    if(localToken)
     {
         try
         {

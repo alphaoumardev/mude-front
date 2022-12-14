@@ -20,9 +20,9 @@ import {
 } from "./reducers/productsReducer.js";
 import {
     create_addressReducer,
-    getMyorderReducer, getReviewReducer,
+    getMyorderReducer,
     getShippingAddressReducer,
-    orderCreateReducer
+    orderCreateReducer, postReviewReducer,
 } from "./reducers/orderReducer.js";
 import {getHeaderCatergoriesReducer} from "./reducers/headerReducer.js";
 
@@ -34,6 +34,7 @@ export const store = configureStore({
         getProductsByPagegReducer:getProductsByPagegReducer,
         getProductsFiltersReducer:getProductsFiltersReducer,
         getSingleProductReducer:getSingleProductReducer,
+        postReviewReducer:postReviewReducer,
 
         cartReducer ,
         wishlistReducer,
@@ -55,7 +56,5 @@ export const store = configureStore({
 
         orderCreateReducer,
         getMyorderReducer,
-        getReviewReducer
-
     }
 })

@@ -1,13 +1,16 @@
 import {Fragment,} from 'react'
-import {Tab } from '@headlessui/react'
+import {Disclosure, Tab} from '@headlessui/react'
 import {AiFillStar} from "react-icons/ai";
+import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
+import ReviewTextArea from "./ReviewTextArea";
+import {useNavigate} from "react-router-dom";
 
 const reviews = {
     average: 4,
     featured: [
         {
             id: 1,
-            rating: 5,
+            rating: 3,
             content: `
         <p>This icon pack is just what I need for my latest project. There's an icon for just about anything I could ever need. Love the playful look!</p>
       `,
@@ -74,12 +77,12 @@ const license = {
     </ul>
   `,
 }
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
+function classNames(...classes) {return classes.filter(Boolean).join(' ')}
 
-const Reviews = ()=>
+
+const Reviews = ({id, customer, singleProduct, reviews, count})=>
 {
+    const navigate = useNavigate()
     return(
 
         <div className="w-full max-w-2xl mx-auto mt-0 lg:max-w-none lg:mt-0 lg:col-span-4">
@@ -127,39 +130,56 @@ const Reviews = ()=>
                 <Tab.Panels as={Fragment}>
                     <Tab.Panel className="-mb-1">
                         <h3 className="sr-only">Customer Reviews</h3>
+                        {customer?
+                        <Disclosure as="div" className="mt-2 sm:w-4/12">
+                            {({ open }) => (
+                                <>
+                                    <Disclosure.Button className="flex w-full justify-between rounded-lg bg-purple-100 px-4 py-2 text-left text-sm font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
+                                        <span className="sm:text-xl">What do you think about this article?</span>
+                                        <AiOutlinePlus className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-purple-500`}/>
+                                    </Disclosure.Button>
+                                    <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
+                                        <ReviewTextArea id={id} customer={customer}/>
+                                    </Disclosure.Panel>
+                                </>
+                            )}
+                        </Disclosure>:
+                            <button type="button" onClick={()=>navigate("/login")}  className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full">
+                                Login To Add Review
+                            </button>}
 
-                        {reviews.featured.map((review, reviewIdx) => (
-                            <div key={review.id} className="flex text-sm text-gray-500 space-x-4">
+                        {reviews?.map((review, reviewIdx) =>
+                            <div key={reviewIdx} className="flex text-sm text-gray-500 space-x-4">
                                 <div className="flex-none py-10">
-                                    <img src={review.avatarSrc} alt="" className="w-10 h-10 bg-gray-100 rounded-full" />
+                                    <img
+                                        src={`http://127.0.0.1:8000/${review?.customer?.avatar}`}
+                                        alt="" className="w-10 h-10 bg-gray-100 rounded-full" />
                                 </div>
                                 <div className={classNames(reviewIdx === 0 ? '' : 'border-t border-gray-200', 'flex-1 py-10')}>
-                                    <h3 className="font-medium text-gray-900">{review.author}</h3>
-                                    <p>
-                                        <time dateTime={review.datetime}>{review.date}</time>
-                                    </p>
+                                    <h3 className="font-medium text-gray-900 capitalize ">{review?.customer?.user?.username}</h3>
+                                    {/*<span>*/}
+                                        <time dateTime={review?.reviewed_at?.slice(0,10)}>{review?.reviewed_at?.slice(0,10)}</time>
+                                        {/*<time dateTime={review.datetime}>{review.date}</time>*/}
+                                    {/*</span>*/}
 
                                     <div className="flex items-center mt-4">
-                                        {[0, 1, 2, 3, 4].map((rating) => (
+                                        {[0, 1, 2, 3, 4].map((rating, index) =>
                                             <AiFillStar
-                                                key={rating}
-                                                className={classNames(
-                                                    review.rating > rating ? 'text-yellow-400' : 'text-gray-300',
-                                                    'h-5 w-5 flex-shrink-0'
-                                                )}
+                                                key={index}
+                                                className={classNames(review.rate > rating ? 'text-yellow-400' : 'text-gray-300', 'h-5 w-5 flex-shrink-0')}
                                                 aria-hidden="true"
                                             />
-                                        ))}
+                                        )}
                                     </div>
-                                    <p className="sr-only">{review.rating} out of 5 stars</p>
+                                    <p className="sr-only">{review.rate} out of 5 stars</p>
 
                                     <div
                                         className="mt-4 prose prose-sm max-w-none text-gray-500"
-                                        dangerouslySetInnerHTML={{ __html: review.content }}
+                                        dangerouslySetInnerHTML={{ __html: review?.comment }}
                                     />
                                 </div>
                             </div>
-                        ))}
+                        )}
                     </Tab.Panel>
 
                     <Tab.Panel as="dl" className="text-sm text-gray-500">

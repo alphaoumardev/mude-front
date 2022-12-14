@@ -1,5 +1,5 @@
 import Billing from "./Billing.jsx";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {getAddressAction, getMyOrderAction} from "../redux/Actions/orderAction.js";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
@@ -85,6 +85,7 @@ const OrderDetail = ()=>
                                                     <span className="block"><span className="text-xs text-black font-bold">{address?.nickname}</span>{address?.customer?.contact}</span>
                                                     <span className="block">{address?.country +" "+address?.state+" "+address?.city}</span>
                                                     <span className="block">{address?.street +" "+address?.details+" "+address?.zip}</span>
+                                                    <span className="block  font-medium text-indigo-600 hover:text-indigo-500">Edit</span>
                                                 </dd>
                                             </div>
                                             <div>
@@ -92,8 +93,8 @@ const OrderDetail = ()=>
                                                 <dd className="mt-3 text-gray-500 space-y-3">
                                                     {/*<p>{product.email}</p>*/}
                                                     {/*<p>{product.phone}</p>*/}
-                                                    <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                                        View Details
+                                                    <button type="button" onClick={()=>navigate(`/mude/single/product/${product?.product?.id}`)}  className="font-medium text-indigo-600 hover:text-indigo-500">
+                                                        View Details/Review
                                                     </button>
                                                 </dd>
                                             </div>
@@ -110,17 +111,20 @@ const OrderDetail = ()=>
                                 <div className="mt-6" aria-hidden="true">
                                     <div className="bg-gray-200 rounded-full overflow-hidden">
                                         <div
-                                            className="h-2 bg-indigo-600 rounded-full"
-                                            style={{ width: `calc((${1} * 2 + 1) / 8 * 100%)` }}
+                                            className="h-2 bg-indigo-400 rounded-full"
+                                            style={{ width: `calc((${1.3} * 2 + 1) / 12 * 100%)` }}
                                         />
                                     </div>
-                                    <div className="hidden sm:grid grid-cols-4 text-sm font-medium text-gray-600 mt-6">
+                                    <div className="hidden sm:grid grid-cols-5 text-sm font-medium text-gray-600 mt-6">
                                         <div className="text-indigo-600">Order placed</div>
-                                        <div className={classNames(1 > 0 ? 'text-indigo-600' : '', 'text-center')}>
+                                        <div className={classNames(1 > 0 ? 'text-indigo-800' : '', 'text-center')}>
                                             Processing
                                         </div>
-                                        <div className={classNames(2 > 1 ? 'text-indigo-600' : '', 'text-center')}>
+                                        <div className={classNames(1 > 1 ? 'text-indigo-600' : '', 'text-center')}>
                                             Shipped
+                                        </div>
+                                        <div className={classNames(2 > 1 ? 'text-indigo-600' : '', 'text-center')}>
+                                            On The way
                                         </div>
                                         <div className={classNames(1 > 2 ? 'text-indigo-600' : '', 'text-right')}>
                                             Delivered

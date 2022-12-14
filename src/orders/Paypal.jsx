@@ -66,7 +66,7 @@ const Paypal = ({customer, order_total, address})=>
                         {
                             //create the order
                             dispatch(createOrderAction(customer?.id, address?.id, amount, order_reference))
-                            navigate('/mude/order/detail')
+                            // navigate('/mude/order/detail')
                         });
                     }}
                     onCancel={(data, actions)=>

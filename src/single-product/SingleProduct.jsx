@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {Fragment, useEffect, useState} from "react";
 import { Disclosure, RadioGroup, Tab } from '@headlessui/react'
 
 import {BsHeart} from "react-icons/bs";
@@ -12,6 +12,7 @@ import {getSingleProductAction} from "../redux/Actions/productsActions.js";
 import {useDispatch, useSelector} from "react-redux";
 import {addToCart} from "../redux/Actions/cartAction.js";
 import {getCustomerProfile} from "../redux/Actions/authActions.js";
+import {Alert} from "antd";
 
 const product = {
 
@@ -63,7 +64,7 @@ const SingleProduct = ()=>
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const {customer} = useSelector((state) =>state.authReducer)
-    const {singleProduct} = useSelector(state => state.getSingleProductReducer)
+    const {singleProduct, reviews, count} = useSelector(state => state.getSingleProductReducer)
 
     const [selectedColor, setSelectedColor] = useState(null)
     const [selectedSize, setSelectedSize] = useState(null)
@@ -74,9 +75,21 @@ const SingleProduct = ()=>
 
     const addItemToCart = (e)=>
     {
-        e.preventDefault()
-        dispatch(addToCart(id, selectedColor, selectedSize, customer?.id, 1))
-        navigate('/mude/cart')
+        if(singleProduct?.color?.length>0&&selectedColor===null)
+        {
+            return(<Fragment> <Alert message="Select a Color" type="warning" showIcon  /></Fragment>)
+        }
+        else if(singleProduct?.size?.length>0&&selectedSize===null)
+        {
+            return(<Fragment> <Alert message="Select the size" type="warning" showIcon  /></Fragment>)
+        }
+        else
+        {
+            e.preventDefault()
+            dispatch(addToCart(id, selectedColor, selectedSize, customer?.id, 1))
+            navigate('/mude/cart')
+        }
+
     }
 
     useEffect(() =>
@@ -85,8 +98,7 @@ const SingleProduct = ()=>
         dispatch(getCustomerProfile())
         // console.log(customer)
     }, [dispatch]);
-    console.log(selectedSize, selectedColor)
-
+    // console.log(selectedSize, selectedColor)
 
 
     return(
@@ -143,9 +155,9 @@ const SingleProduct = ()=>
                             <div className="flex items-center">
                                 <div className="flex items-center">
                                     {[0, 1, 2, 3, 4].map((rating) =>
-                                        <AiFillStar key={rating} className={classNames(product.rating > rating ? 'text-yellow-500' : 'text-gray-300', 'h-5 w-5 flex-shrink-0')} aria-hidden={"true"}/>
+                                        <AiFillStar key={rating} className={classNames(4 > rating ? 'text-yellow-500' : 'text-gray-300', 'h-5 w-5 flex-shrink-0')} aria-hidden={"true"}/>
                                     )}
-                                    <span>(23)</span>
+                                    <span>({count})</span>
                                 </div>
                             </div>
                         </div>
@@ -218,12 +230,14 @@ const SingleProduct = ()=>
 
                             {/*add to bag*/}
                             <div className="mt-10 flex sm:flex-col1">
-                                {customer? <button type="submit"  className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full">
+                                {customer?
+                                <button type="submit"  className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
+
+                                    disabled={''}>
                                     Add to bag
                                 </button>:
-                                <button type="submit" onClick={()=>navigate('/login')}  className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
-                                    disabled={(singleProduct?.color?.length>0&&selectedColor==='')|| (singleProduct?.size?.length>0&&selectedSize==='')}>
-                                    Add to bag login
+                                <button type="button" onClick={()=>navigate("/login")}  className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full">
+                                    Login
                                 </button>
                                 }
                                 <button type="button" className="ml-4 py-3 px-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500">
@@ -269,7 +283,7 @@ const SingleProduct = ()=>
 
                 <section aria-labelledby="related-heading" className="mt-0 border-t border-gray-200 py-16 px-4 sm:px-0">
                     <RelatedPurchases/>
-                    <Reviews/>
+                    <Reviews id={id} customer={customer} singleProduct={singleProduct} reviews={reviews} count={count}/>
                     <ByCategory/>
                     <Policies/>
                 </section>

@@ -2,6 +2,7 @@ import {
     S_HEADER_CATEGORY, F_HEADER_CATEGORY,
 } from '../Types'
 import axios from "axios";
+const localToken = localStorage.getItem('token')
 
 export const postActionPayloadError = (type, error) => ({
     type: type,
@@ -12,7 +13,7 @@ const freeAccess ={ headers: {'Content-Type': 'application/json'}}
 const config = {
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.getItem('token')}`,
+        'Authorization': `Token ${localToken}`,
         'Accept': 'application/json'
     }
 }

@@ -1,6 +1,6 @@
 import {Fragment, useEffect, useState} from 'react'
 import {Popover, Transition} from '@headlessui/react'
-import {AiOutlineMenu,} from "react-icons/ai";
+import {AiOutlineMenu} from "react-icons/ai";
 import {BsBoxSeam, BsSearch} from "react-icons/bs";
 import PopOversInfo from "./PopOversInfo.jsx";
 import NotificationsPoper from "./NotificationsPoper.jsx";
@@ -8,10 +8,39 @@ import HeaderCart from "./HeaderCart.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {getHeaderCategoriesAction} from "../redux/Actions/headerActions.js";
 import MobileHeader from "./MobileHeader.jsx";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import {getWishlistItems} from "../redux/Actions/wishlistAction.js";
+import {getCartItems} from "../redux/Actions/cartAction.js";
+import {getCustomerProfile} from "../redux/Actions/authActions.js";
+import Logo from "../assets/logo.png";
+import {getMyOrderAction} from "../redux/Actions/orderAction.js";
+import { Badge} from "antd";
+
 
 const Header = ()=>
 {
+    let date = new Date();
+    // const dispatch = useDispatch()
+    let month = (date.getMonth()+1);
+    let day = date.getDate()
+    let hour = date.getHours()
+    let minutes = date.getMinutes()
+    //
+    let token_ = localStorage.getItem('token')
+    let storage_profile = JSON.parse(localStorage.getItem('profile'));
+    let expiration_date = storage_profile?.expiry?.slice(0,17).replaceAll("-","").replaceAll(":",'').replace('T','')
+    month = month < 10 ? '0'+month : month;
+    day = day < 10 ? '0'+day : day;
+    hour = hour < 10 ? '0'+hour : hour;
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+
+    let current_date = date.getFullYear()+""+month+""+ day+""+hour+""+minutes
+
+    if((parseInt(current_date)>=parseInt(expiration_date)) || (token_===null))
+    {
+        localStorage.clear()
+        // navigate('/login')
+    }
     const navigate = useNavigate()
     const [open, setOpen] = useState(false)
     function classNames(...classes) {return classes.filter(Boolean).join(' ')}
@@ -19,12 +48,23 @@ const Header = ()=>
     const dispatch = useDispatch()
     const {catenames} = useSelector(state => state.getHeaderCatergoriesReducer)
 
+    const {customer} = useSelector((state) =>state.authReducer)
+    const {orderItem} = useSelector(state => state.getMyorderReducer)
+    const {cart_item, order_total, cart_count} = useSelector((state) =>state.cartReducer)
+    const {wishlist_count} = useSelector(state => state.wishlistReducer)
+
+    const cartItem = Array.from(cart_item)
+    let orderItemCount = orderItem.length
+
+
     useEffect(() =>
     {
-        return () =>
-        {
-            dispatch(getHeaderCategoriesAction())
-        };
+        dispatch(getCustomerProfile())
+
+        dispatch(getHeaderCategoriesAction())
+        dispatch(getWishlistItems())
+        dispatch(getCartItems())
+        dispatch(getMyOrderAction())
     }, [dispatch]);
 
     // console.log(catenames)
@@ -45,7 +85,7 @@ const Header = ()=>
                                     <span className="sr-only">Workflow</span>
                                     <img
                                         className="h-10 w-auto"
-                                        src="https://res.cloudinary.com/diallo/image/upload/v1649320496/s_cyptzh.png"
+                                        src={Logo}
                                         alt="Mude"
                                     />
                                 </a>
@@ -145,28 +185,6 @@ const Header = ()=>
 
 
                             <div className="ml-auto flex items-center">
-                                {/*<div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">*/}
-                                {/*    <a href="/login" className="text-sm font-medium text-gray-700 hover:text-gray-800">*/}
-                                {/*        Sign in*/}
-                                {/*    </a>*/}
-                                {/*    <span className="h-6 w-px bg-gray-200" aria-hidden="true" />*/}
-                                {/*    <a href="/register" className="text-sm font-medium text-gray-700 hover:text-gray-800">*/}
-                                {/*        Sign up*/}
-                                {/*    </a>*/}
-                                {/*</div>*/}
-
-                                {/*<div className="hidden lg:ml-8 lg:flex">*/}
-                                {/*    <a href="/" className="text-gray-700 hover:text-gray-800 flex items-center">*/}
-                                {/*        <img*/}
-                                {/*            src="https://tailwindui.com/img/flags/flag-canada.svg"*/}
-                                {/*            alt=""*/}
-                                {/*            className="w-5 h-auto block flex-shrink-0"*/}
-                                {/*        />*/}
-                                {/*        <span className="ml-3 block text-sm font-medium">CAD</span>*/}
-                                {/*        <span className="sr-only">, change currency</span>*/}
-                                {/*    </a>*/}
-                                {/*</div>*/}
-
                                 {/* Search */}
                                 <div className="flex lg:ml-2 ">
                                     <span onClick={()=>navigate("/mude/guowuchang")} className="p-2 text-gray-400 hover:text-gray-500">
@@ -176,12 +194,18 @@ const Header = ()=>
                                 </div>
 
                                 {/* Cart */}
+                                {cartItem?.length>0&&
                                 <div className="ml-2 flow-root">
-                                    <HeaderCart/>
-                                </div>
-                                <div className="ml-2 flow-root ">
-                                    <BsBoxSeam/>
-                                </div>
+                                    <HeaderCart cart_count={cart_count} cartItem={cartItem}/>
+                                </div>}
+                                {orderItemCount&&
+                                <div className="ml-2 flow-root cursor-pointer " onClick={()=>navigate("/mude/order/detail")}>
+                                    <Badge size="small" count={orderItemCount} showZero>
+                                        <div>
+                                            <BsBoxSeam  size={20} />
+                                        </div>
+                                    </Badge>
+                                </div>}
                                 <div className="ml-2 flow-root ">
                                     <NotificationsPoper/>
                                 </div>

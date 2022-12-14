@@ -102,17 +102,29 @@ export const getMyorderReducer = (state={orderItem: []}, action)=>
             return state
     }
 }
-
-export const getReviewReducer = (state={reviews: []}, action)=>
+export const getMyOrderItemsReducer = (state={myOrderItems: []}, action)=>
 {
     switch (action.type)
     {
-        case O.REVIEW_REQUEST:
+        case O.S_MY_ORDER_ITEMS:
             return{
-                ...state,
-                loading:true
+                loading: false,
+                myOrderItems: action.payload
             }
-
+        case O.F_MY_ORDER_ITEMS:
+            return{
+                loading: false,
+                myOrderItems:[],
+                error:action.payload
+            }
+        default:
+            return state
+    }
+}
+export const postReviewReducer = (state={reviews: []}, action)=>
+{
+    switch (action.type)
+    {
         case O.REVIEW_SUCCESS:
             return{
                 loading: false,

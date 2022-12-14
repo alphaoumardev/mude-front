@@ -56,7 +56,7 @@ const MudeCart = ()=>
                                         <div>
                                             <div className="flex justify-between ">
                                                 <h3 className="text-sm">
-                                                    <p onClick={()=>navigate(`/single/product/${product?.product?.id}`)} className="font-medium text-gray-700 hover:text-gray-800">
+                                                    <p onClick={()=>navigate(`/mude/single/product/${product?.product?.id}`)} className="font-medium text-gray-700 hover:text-gray-800">
                                                         {product?.product?.name}
                                                     </p>
                                                 </h3>
