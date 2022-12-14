@@ -1,6 +1,6 @@
 import {Fragment, useEffect, useState} from 'react'
 import {  Menu, Transition } from '@headlessui/react'
-import {BsFillGridFill} from "react-icons/bs";
+import {BsEye, BsFillGridFill} from "react-icons/bs";
 import {HiOutlineChevronDown,} from "react-icons/hi";
 import {FcClearFilters} from "react-icons/fc";
 import MudeMobileFilter from "./MudeMobileFilter.jsx";
@@ -8,6 +8,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {getProductByPageAction} from "../redux/Actions/productsActions.js";
 import ProductsFilters from "./ProductsFilters.jsx";
 import { Pagination } from 'antd';
+import {useNavigate} from "react-router-dom";
+import QuickView from "./QuickView.jsx";
 
 const sortOptions = [
     { name: 'Most Popular', href: '#', current: true },
@@ -21,8 +23,10 @@ function classNames(...classes) {return classes.filter(Boolean).join(' ')}
 
 export default function Mart()
 {
+    const navigate = useNavigate()
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     const [currentPage, setCurrentPage] = useState(1);
+    const [open, setOpen] = useState(false);
 
     const dispatch = useDispatch()
     const {articles, isLoading, error, totalItems, totalPages, articles_per_page, next, prevPage, }=
@@ -105,18 +109,25 @@ export default function Mart()
                             {/* Product grid */}
                             <div className="grid grid-cols-2 gap-x-6 sm:grid-cols-4 lg:col-span-4 lg:gap-x-8 lg:gap-y-10">
                                 {articles?.map((product, index) =>
-                                    <a key={index} href={`/mude/single/product/${product?.id}`} className="group text-sm ">
-                                        <div className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden group-hover:opacity-75">
+                                    <div key={index}  className="group text-sm ">
+                                        <div onClick={()=>navigate(`/mude/single/product/${product?.id}`)}  className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden group-hover:opacity-75">
                                             <img
+
                                                 src={product?.images[0]?.image}
                                                 alt={product?.name}
-                                                className="w-full h-full object-center object-cover"
+                                                className="w-full h-full object-center object-cover cursor-pointer"
                                             />
                                         </div>
                                         <div className="flex items-center justify-between">
-                                            <h3 className="mt-2 font-normal text-gray-900">{product?.name}</h3>
+                                            <h3 onClick={()=>navigate(`/mude/single/product/${product?.id}`)} className="mt-2 font-normal text-gray-900 cursor-pointer">{product?.name}</h3>
 
-                                            <p className="mt-2 font-medium text-gray-900"><span className="text-red-500 text-sm">¥</span>{product?.price}</p>
+                                            <div className="mt-2 font-medium text-gray-900"><span className="text-red-500 text-sm">¥</span>{product?.price}</div>
+                                            <div className="hidden  sm:block " onClick={()=>setOpen(!open)}>
+                                                <BsEye className="" size={20}/>
+                                            </div>
+                                            <QuickView open={open} setOpen={setOpen}/>
+
+
                                         </div>
                                         <ul role="list" className="flex items-center justify-center space-x-3">
                                             {product?.color?.slice(0,4)?.map((color, index) =>
@@ -125,7 +136,7 @@ export default function Mart()
                                                 </li>
                                             )}
                                         </ul>
-                                    </a>
+                                    </div>
                                 )}
                             </div>
                         </div>

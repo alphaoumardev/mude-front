@@ -1,8 +1,9 @@
 import Billing from "./Billing.jsx";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {getAddressAction, getMyOrderAction} from "../redux/Actions/orderAction.js";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import EditAddress from "./EditAddress.jsx";
 
 
 function classNames(...classes) {return classes.filter(Boolean).join(' ')}
@@ -11,6 +12,7 @@ const OrderDetail = ()=>
 {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [open, setOpen] = useState(false);
 
     const {address} = useSelector(state => state.getShippingAddressReducer)
     const {orderItem} = useSelector(state => state.getMyorderReducer)
@@ -85,7 +87,9 @@ const OrderDetail = ()=>
                                                     <span className="block"><span className="text-xs text-black font-bold">{address?.nickname}</span>{address?.customer?.contact}</span>
                                                     <span className="block">{address?.country +" "+address?.state+" "+address?.city}</span>
                                                     <span className="block">{address?.street +" "+address?.details+" "+address?.zip}</span>
-                                                    <span className="block  font-medium text-indigo-600 hover:text-indigo-500">Edit</span>
+                                                    <span className="block  font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer" onClick={()=>setOpen(!open)}>Edit</span>
+
+                                                    <EditAddress open={open} setOpen={setOpen}/>
                                                 </dd>
                                             </div>
                                             <div>

@@ -13,6 +13,7 @@ import OrderDetail from "./orders/OrderDetail.jsx";
 import OrderHistory from "./orders/OrderHistory.jsx";
 import Dashbord from "./admin/Dashbord";
 import NotFound from "./components/NotFound.jsx";
+import QuickView from "./mude/QuickView.jsx";
 
 function App() {
 
@@ -33,6 +34,8 @@ function App() {
                 {/*<Route path="/"*/}
                 <Route exact index path="/login" element={<Login/>}/>
                 <Route exact path="/register" element={<Register/>}/>
+
+                <Route exact path="/mude/quick" element={<QuickView/>}/>
 
                 <Route exact path="/" element={<Mude/>}/>
                 <Route exact path="/mude/guowuchang" element={<Mart/>}/>

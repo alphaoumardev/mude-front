@@ -340,7 +340,6 @@ const ProductsFilters = ()=>
                     </>
                 }
             </Disclosure>
-
          </form>
     )
 }

@@ -204,7 +204,7 @@ const SingleProduct = ()=>
                                 </div>
                                 <RadioGroup value={selectedSize} required onChange={setSelectedSize} className="mt-2">
                                     <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
-                                    <div className="grid grid-cols-4 gap-3 sm:grid-cols-8">
+                                    <div className="grid grid-cols-5 gap-3 sm:grid-cols-8">
                                         {singleProduct?.size?.map((size, index) => (
                                             <RadioGroup.Option
 

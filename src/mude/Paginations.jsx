@@ -1,6 +1,7 @@
 import {AiOutlineArrowLeft, AiOutlineArrowRight} from "react-icons/ai";
 
-export default function Paginations() {
+export default function Paginations()
+{
     return (
         <nav className="px-4 mt-10 max-w-5xl flex items-center justify-between sm:px-0 lg:ml-96">
             <div className="-mt-px w-0 flex-1 flex">
