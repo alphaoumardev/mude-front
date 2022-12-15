@@ -1,7 +1,12 @@
 import { Fragment, useState } from 'react'
-import { Dialog, RadioGroup, Transition } from '@headlessui/react'
-import {AiOutlinePlus} from "react-icons/ai";
+import {Dialog, Disclosure, RadioGroup, Tab, Transition} from '@headlessui/react'
+import {AiFillStar, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import { StarIcon } from '@heroicons/react/24/solid'
+import {BsHeart} from "react-icons/bs";
+import {useNavigate} from "react-router-dom";
+import {Alert} from "antd";
+import {addToCart} from "../redux/Actions/cartAction.js";
+import {useDispatch} from "react-redux";
 
 const product = {
     name: "Women's Basic Tee",
@@ -29,12 +34,31 @@ const product = {
 function classNames(...classes) {return classes.filter(Boolean).join(' ')}
 
 
-const QuickView = ({open, setOpen})=>
+const QuickView = ({open, setOpen, singleProduct, count, customer})=>
 {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     // const [open, setOpen] = useState(false)
-    const [selectedColor, setSelectedColor] = useState(product.colors[0])
-    const [selectedSize, setSelectedSize] = useState(product.sizes[2])
+    const [selectedColor, setSelectedColor] = useState(null)
+    const [selectedSize, setSelectedSize] = useState(null)
+    const addItemToCart = (e)=>
+    {
+        if(singleProduct?.color?.length>0&&selectedColor===null)
+        {
+            return(<Fragment> <Alert message="Select a Color" type="warning" showIcon  /></Fragment>)
+        }
+        else if(singleProduct?.size?.length>0&&selectedSize===null)
+        {
+            return(<Fragment> <Alert message="Select the size" type="warning" showIcon  /></Fragment>)
+        }
+        else
+        {
+            e.preventDefault()
+            dispatch(addToCart(id, selectedColor, selectedSize, customer?.id, 1))
+            navigate('/mude/cart')
+        }
 
+    }
     return (
         <>
             {/*<div onClick={()=>setOpen(true)}>al</div>*/}
@@ -44,13 +68,13 @@ const QuickView = ({open, setOpen})=>
                         <Transition.Child
                             as={Fragment}
                             enter="ease-out duration-300"
-                            enterFrom="opacity-0"
+                            enterFrom="opacity-50"
                             enterTo="opacity-100"
-                            leave="ease-in duration-200"
+                            // leave="ease-in duration-200"
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                         >
-                            <Dialog.Overlay className="hidden fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity md:block" />
+                            <div className=" fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity md:block" />
                         </Transition.Child>
 
                         {/* This element is to trick the browser into centering the modal contents. */}
@@ -62,161 +86,165 @@ const QuickView = ({open, setOpen})=>
                             enter="ease-out duration-300"
                             enterFrom="opacity-0 translate-y-4 md:translate-y-0 md:scale-95"
                             enterTo="opacity-100 translate-y-0 md:scale-100"
-                            leave="ease-in duration-200"
+                            // leave="ease-in duration-200"
                             leaveFrom="opacity-100 translate-y-0 md:scale-100"
                             leaveTo="opacity-0 translate-y-4 md:translate-y-0 md:scale-95"
                         >
-                            <div className="flex text-base text-left transform transition w-full md:inline-block md:max-w-2xl md:px-4 md:my-8 md:align-middle lg:max-w-4xl">
-                                <div className="w-full relative flex items-center bg-white px-4 pt-14 pb-8 overflow-hidden shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
-                                    <button
-                                        type="button"
-                                        className="absolute top-4 right-4 text-gray-400 hover:text-gray-500 sm:top-8 sm:right-6 md:top-6 md:right-6 lg:top-8 lg:right-8"
-                                        onClick={() => setOpen(false)}
-                                    >
-                                        <span className="sr-only">Close</span>
-                                        <AiOutlinePlus className="h-6 w-6 rotate-45 hover:text-red-600" title="close" aria-hidden="true" />
-                                    </button>
+                             <div className="flex text-base text-left transform transition w-full md:inline-block md:max-w-2xl md:px-4 md:my-8 md:align-middle lg:max-w-4xl">
+                                 <div className="w-full relative flex items-center bg-white px-4 pt-14 pb-8 overflow-hidden shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+                                     <button
+                                         type="button"
+                                         className="absolute top-4 right-4 text-gray-400 hover:text-gray-500 sm:top-8 sm:right-6 md:top-6 md:right-6 lg:top-8 lg:right-8"
+                                         onClick={() => setOpen(false)}
+                                     >
+                                         <span className="sr-only">Close</span>
+                                         <AiOutlinePlus className="h-6 w-6 rotate-45 hover:text-red-600" title="close" aria-hidden="true" />
+                                     </button>
+                                    <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
+                                {/* Image gallery */}
+                                <Tab.Group as="div" className="flex flex-col-reverse">
+                                    {/* Image selector */}
+                                    <div className=" mt-6 w-full max-w-2xl  sm:block lg:max-w-none">
+                                        <Tab.List className="grid grid-cols-4 gap-x-8">
+                                            {singleProduct?.images?.map((itemImage, index) => (
+                                                <Tab key={index} className="relative h-24 bg-white rounded-md flex items-center justify-center text-sm font-medium uppercase text-gray-900 cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring focus:ring-offset-4 focus:ring-opacity-50">
+                                                    {({ selected }) =>
+                                                        <>
+                                                            <span className="sr-only">None</span>
+                                                            <span className="absolute inset-0 rounded-md overflow-hidden">
+                                                    <img src={`http://127.0.0.1:8000/${itemImage?.image}`} alt={""} className="w-full h-full object-center object-cover" />
+                                                </span>
+                                                            <span className={classNames(selected ? 'ring-indigo-500' : 'ring-transparent','absolute inset-0 rounded-md ring-2 ring-offset-2 pointer-events-none')} aria-hidden="true"/>
+                                                        </>
+                                                    }
+                                                </Tab>
+                                            ))}
+                                        </Tab.List>
+                                    </div>
 
-                                    <div className="w-full grid grid-cols-1 gap-y-8 gap-x-6 items-start sm:grid-cols-12 lg:gap-x-8">
-                                        <div className="aspect-w-2 aspect-h-3 rounded-lg bg-gray-100 overflow-hidden sm:col-span-4 lg:col-span-5">
-                                            <img src={product.imageSrc} alt={product.imageAlt} className="object-center object-cover" />
-                                        </div>
-                                        <div className="sm:col-span-8 lg:col-span-7">
-                                            <h2 className="text-2xl font-extrabold text-gray-900 sm:pr-12">{product.name}</h2>
+                                    <Tab.Panels className="w-full aspect-w-1 aspect-h-1">
+                                        {singleProduct?.images?.map((itemImage, index) => (
+                                            <Tab.Panel key={index}>
+                                                <img
+                                                    src={`http://127.0.0.1:8000/${itemImage?.image}`}
+                                                    alt={''}
+                                                    className="w-full h-full object-center object-cover sm:rounded-lg"
+                                                />
+                                            </Tab.Panel>
+                                        ))}
+                                    </Tab.Panels>
+                                </Tab.Group>
 
-                                            <section aria-labelledby="information-heading" className="mt-2">
-                                                <h3 id="information-heading" className="sr-only">
-                                                    Product information
-                                                </h3>
+                                {/* Product info */}
+                                <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
+                                    <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">{singleProduct?.name}</h1>
 
-                                                <p className="text-2xl text-gray-900">{product.price}</p>
+                                    <div className="mt-3">
+                                        <h2 className="sr-only">Product information</h2>
+                                        <p className="text-3xl text-gray-900"><b className="text-red-500 text-xl">¥</b>{singleProduct?.price}</p>
+                                    </div>
 
-                                                {/* Reviews */}
-                                                <div className="mt-4">
-                                                    <h4 className="sr-only">Reviews</h4>
-                                                    <div className="flex items-center">
-                                                        <p className="text-sm text-gray-700">
-                                                            {product.rating}
-                                                            <span className="sr-only"> out of 5 stars</span>
-                                                        </p>
-                                                        <div className="ml-1 flex items-center">
-                                                            {[0, 1, 2, 3, 4].map((rating) => (
-                                                                <StarIcon
-                                                                    key={rating}
-                                                                    className={classNames(
-                                                                        product.rating > rating ? 'text-yellow-400' : 'text-gray-200',
-                                                                        'h-5 w-5 flex-shrink-0'
-                                                                    )}
-                                                                    aria-hidden="true"
-                                                                />
-                                                            ))}
-                                                        </div>
-                                                        <div className="hidden ml-4 lg:flex lg:items-center">
-                                                            <span className="text-gray-300" aria-hidden="true">
-                                                              &middot;
-                                                            </span>
-                                                            <a href="#" className="ml-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                                                                See all {product.reviewCount} reviews
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </section>
-
-                                            <section aria-labelledby="options-heading" className="mt-8">
-                                                <h3 id="options-heading" className="sr-only">
-                                                    Product options
-                                                </h3>
-
-                                                <form>
-                                                    {/* Color picker */}
-                                                    <div>
-                                                        <h4 className="text-sm font-medium text-gray-900">Color</h4>
-
-                                                        <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-2">
-                                                            <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
-                                                            <div className="flex items-center space-x-3">
-                                                                {product.colors.map((color) => (
-                                                                    <RadioGroup.Option
-                                                                        key={color.name}
-                                                                        value={color}
-                                                                        className={({ active, checked }) =>
-                                                                            classNames(
-                                                                                color.selectedColor,
-                                                                                active && checked ? 'ring ring-offset-1' : '',
-                                                                                !active && checked ? 'ring-2' : '',
-                                                                                '-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        <RadioGroup.Label as="p" className="sr-only">
-                                                                            {color.name}
-                                                                        </RadioGroup.Label>
-                                                                        <span
-                                                                            aria-hidden="true"
-                                                                            className={classNames(
-                                                                                color.bgColor,
-                                                                                'h-8 w-8 border border-black border-opacity-10 rounded-full'
-                                                                            )}
-                                                                        />
-                                                                    </RadioGroup.Option>
-                                                                ))}
-                                                            </div>
-                                                        </RadioGroup>
-                                                    </div>
-                                                    {/* Sizes */}
-                                                    <div className="mt-8">
-                                                        <div className="flex items-center justify-between">
-                                                            <h4 className="text-sm font-medium text-gray-900">Size</h4>
-                                                            <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                                                                Size guide
-                                                            </a>
-                                                        </div>
-
-                                                        <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-2">
-                                                            <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
-                                                            <div className="grid grid-cols-7 gap-2">
-                                                                {product.sizes.map((size) => (
-                                                                    <RadioGroup.Option
-                                                                        key={size.name}
-                                                                        value={size}
-                                                                        className={({ active, checked }) =>
-                                                                            classNames(
-                                                                                size.inStock
-                                                                                    ? 'cursor-pointer focus:outline-none'
-                                                                                    : 'opacity-25 cursor-not-allowed',
-                                                                                active ? 'ring-2 ring-offset-2 ring-indigo-500' : '',
-                                                                                checked
-                                                                                    ? 'bg-indigo-600 border-transparent text-white hover:bg-indigo-700'
-                                                                                    : 'bg-white border-gray-200 text-gray-900 hover:bg-gray-50',
-                                                                                'border rounded-md py-3 px-3 flex items-center justify-center text-sm font-medium uppercase sm:flex-1'
-                                                                            )
-                                                                        }
-                                                                        disabled={!size.inStock}
-                                                                    >
-                                                                        <RadioGroup.Label as="p">{size.name}</RadioGroup.Label>
-                                                                    </RadioGroup.Option>
-                                                                ))}
-                                                            </div>
-                                                        </RadioGroup>
-                                                    </div>
-                                                    <button
-                                                        type="submit"
-                                                        className="mt-6 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                                    >
-                                                        Add to bag
-                                                    </button>
-                                                    <p className="absolute top-4 left-4 text-center sm:static sm:mt-8">
-                                                        <a href={product.href} className="font-medium text-indigo-600 hover:text-indigo-500">
-                                                            View full details
-                                                        </a>
-                                                    </p>
-                                                </form>
-                                            </section>
+                                    {/* Reviews */}
+                                    <div className="mt-3">
+                                        <h3 className="sr-only">Reviews</h3>
+                                        <div className="flex items-center">
+                                            <div className="flex items-center">
+                                                {[0, 1, 2, 3, 4].map((rating) =>
+                                                    <AiFillStar key={rating} className={classNames(4 > rating ? 'text-yellow-500' : 'text-gray-300', 'h-5 w-5 flex-shrink-0')} aria-hidden={"true"}/>
+                                                )}
+                                                <span>({count})</span>
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <div className="mt-6">
+                                        <h3 className="sr-only">Description</h3>
+                                        <div className="text-base text-gray-700 space-y-6" dangerouslySetInnerHTML={{ __html: singleProduct?.description }}/>
+                                    </div>
+
+                                    <form className="mt-6" onSubmit={addItemToCart}>
+                                        {/* Colors */}
+                                        {singleProduct?.color?.length>0 &&
+                                            <div>
+                                                <h3 className="text-sm text-gray-600">Color</h3>
+
+                                                <RadioGroup value={selectedColor} required onChange={setSelectedColor} className="mt-2">
+                                                    <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
+                                                    <div className="flex items-center space-x-3">
+                                                        {singleProduct?.color?.map((colorItem, index) => (
+
+                                                            <RadioGroup.Option
+                                                                required
+                                                                key={index}
+                                                                value={colorItem?.color_name}
+                                                                className={({ active, checked }) =>
+                                                                    classNames("ring-black", active && checked ? 'ring ring-offset-1' : '',!active && checked ? 'ring-2' : '','-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none')}>
+                                                                <RadioGroup.Label as="p" className="sr-only">
+                                                                    {colorItem?.color_name}
+                                                                </RadioGroup.Label>
+                                                                <span
+                                                                    aria-hidden="true"
+                                                                    style={{ backgroundColor: colorItem?.color_name,  }}
+                                                                    className={classNames(`bg-${colorItem?.color_name}-500`,'h-8 w-8 border border-black border-opacity-10 rounded-full')}/>
+                                                            </RadioGroup.Option>
+                                                        ))}
+                                                    </div>
+                                                </RadioGroup>
+                                            </div>}
+                                        {/*sizes*/}
+                                        {singleProduct?.size?.length>0 &&
+                                            <div className="mt-10">
+                                                <div className="flex items-center justify-between">
+                                                    <h3 className="text-sm text-gray-900 font-medium">Size</h3>
+                                                </div>
+                                                <RadioGroup value={selectedSize} required onChange={setSelectedSize} className="mt-2">
+                                                    <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
+                                                    <div className="grid grid-cols-5 gap-3 sm:grid-cols-8">
+                                                        {singleProduct?.size?.map((size, index) => (
+                                                            <RadioGroup.Option
+
+                                                                key={index}
+                                                                value={size?.size_name}
+                                                                className={({ active, checked }) =>
+                                                                    classNames(
+                                                                        'cursor-pointer focus:outline-none',
+                                                                        active ? 'ring-2 ring-offset-2 ring-indigo-500' : '',
+                                                                        checked
+                                                                            ? 'bg-indigo-600 border-transparent text-white hover:bg-indigo-700'
+                                                                            : 'bg-white border-gray-200 text-gray-900 hover:bg-gray-50',
+                                                                        'border rounded-md py-3 px-3 flex items-center justify-center text-sm font-medium uppercase sm:flex-1'
+                                                                    )
+                                                                }
+                                                            >
+                                                                <RadioGroup.Label as="p">{size?.size_name}</RadioGroup.Label>
+                                                            </RadioGroup.Option>
+                                                        ))}
+                                                    </div>
+                                                </RadioGroup>
+                                            </div>}
+
+                                        {/*add to bag*/}
+                                        <div className="mt-10 flex sm:flex-col1">
+                                            {customer?
+                                                <button type="submit"  className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
+
+                                                        disabled={''}>
+                                                    Add to bag
+                                                </button>:
+                                                <button type="button" onClick={()=>navigate("/login")}  className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full">
+                                                    Login
+                                                </button>
+                                            }
+                                            <button type="button" className="ml-4 py-3 px-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500">
+                                                <BsHeart className="h-6 w-6 flex-shrink-0" aria-hidden="true" />
+                                                <span className="sr-only">Add to favorites</span>
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
+                                 </div>
+                             </div>
                         </Transition.Child>
                     </div>
                 </Dialog>

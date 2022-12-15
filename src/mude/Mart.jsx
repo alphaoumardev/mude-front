@@ -1,15 +1,16 @@
 import {Fragment, useEffect, useState} from 'react'
-import {  Menu, Transition } from '@headlessui/react'
+import {Dialog, Menu, Transition} from '@headlessui/react'
 import {BsEye, BsFillGridFill} from "react-icons/bs";
 import {HiOutlineChevronDown,} from "react-icons/hi";
 import {FcClearFilters} from "react-icons/fc";
 import MudeMobileFilter from "./MudeMobileFilter.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {getProductByPageAction} from "../redux/Actions/productsActions.js";
+import {getProductByPageAction, getSingleProductAction} from "../redux/Actions/productsActions.js";
 import ProductsFilters from "./ProductsFilters.jsx";
 import { Pagination } from 'antd';
 import {useNavigate} from "react-router-dom";
 import QuickView from "./QuickView.jsx";
+import {getCustomerProfile} from "../redux/Actions/authActions.js";
 
 const sortOptions = [
     { name: 'Most Popular', href: '#', current: true },
@@ -27,15 +28,27 @@ export default function Mart()
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     const [currentPage, setCurrentPage] = useState(1);
     const [open, setOpen] = useState(false);
+    const [single, setSingle] = useState(null);
 
     const dispatch = useDispatch()
     const {articles, isLoading, error, totalItems, totalPages, articles_per_page, next, prevPage, }=
         useSelector(state => state.getProductsByPagegReducer)
+    const {singleProduct, reviews, count} = useSelector(state => state.getSingleProductReducer)
+    const {customer} = useSelector((state) =>state.authReducer)
+
+
+
     useEffect(() =>
     {
         dispatch(getProductByPageAction(currentPage))
+        if(single!==null)
+        {
+            dispatch(getSingleProductAction(single))
+            dispatch(getCustomerProfile())
+        }
     }, [dispatch, currentPage]);
 
+    console.log(singleProduct, single)
     const onChangePage = (page) => {setCurrentPage(page)}
     return (
         <div className="bg-white">
@@ -118,16 +131,14 @@ export default function Mart()
                                                 className="w-full h-full object-center object-cover cursor-pointer"
                                             />
                                         </div>
-                                        <div className="flex items-center justify-between">
-                                            <h3 onClick={()=>navigate(`/mude/single/product/${product?.id}`)} className="mt-2 font-normal text-gray-900 cursor-pointer">{product?.name}</h3>
+                                        <div className="flex items-center justify-between px-3 py-3">
+                                            <h2 onClick={()=>navigate(`/mude/single/product/${product?.id}`)} className=" text-gray-900 cursor-pointer">{product?.name}</h2>
 
-                                            <div className="mt-2 font-medium text-gray-900"><span className="text-red-500 text-sm">¥</span>{product?.price}</div>
-                                            <div className="hidden  sm:block " onClick={()=>setOpen(!open)}>
-                                                <BsEye className="" size={20}/>
+                                            <div className="font-medium text-gray-900"><span className="text-red-500 text-sm">¥</span>{product?.price}</div>
+                                            <div className="hidden  sm:block " onClick={()=>{setSingle(product?.id)}}>
+                                                <BsEye className="" size={20} onClick={()=>setOpen()}/>
                                             </div>
-                                            <QuickView open={open} setOpen={setOpen}/>
-
-
+                                            <QuickView open={open} setOpen={setOpen} singleProduct={singleProduct} count={count} customer={customer}/>
                                         </div>
                                         <ul role="list" className="flex items-center justify-center space-x-3">
                                             {product?.color?.slice(0,4)?.map((color, index) =>
