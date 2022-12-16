@@ -1,8 +1,8 @@
 import { Fragment, useState } from 'react'
-import {Dialog, Disclosure, RadioGroup, Tab, Transition} from '@headlessui/react'
+import {Dialog, Disclosure, Popover, RadioGroup, Tab, Transition} from '@headlessui/react'
 import {AiFillStar, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import { StarIcon } from '@heroicons/react/24/solid'
-import {BsHeart} from "react-icons/bs";
+import {BsEye, BsHeart} from "react-icons/bs";
 import {useNavigate} from "react-router-dom";
 import {Alert} from "antd";
 import {addToCart} from "../redux/Actions/cartAction.js";
@@ -61,46 +61,25 @@ const QuickView = ({open, setOpen, singleProduct, count, customer})=>
     }
     return (
         <>
-            {/*<div onClick={()=>setOpen(true)}>al</div>*/}
-            <Transition.Root show={open} as={Fragment}>
-                <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={setOpen}>
-                    <div className="flex min-h-screen text-center md:block md:px-2 lg:px-4" style={{ fontSize: 0 }}>
-                        <Transition.Child
-                            as={Fragment}
-                            enter="ease-out duration-300"
-                            enterFrom="opacity-50"
-                            enterTo="opacity-100"
-                            // leave="ease-in duration-200"
-                            leaveFrom="opacity-100"
-                            leaveTo="opacity-0"
-                        >
-                            <div className=" fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity md:block" />
-                        </Transition.Child>
+            <Popover className="relative">
+                <Popover.Button>
+                    <BsEye className="" size={20} onClick={()=>setSingle(product?.id)}/>
+                </Popover.Button>
 
-                        {/* This element is to trick the browser into centering the modal contents. */}
-                        <span className="hidden md:inline-block md:align-middle md:h-screen" aria-hidden="true">
-                        &#8203;
-                    </span>
-                        <Transition.Child
-                            as={Fragment}
-                            enter="ease-out duration-300"
-                            enterFrom="opacity-0 translate-y-4 md:translate-y-0 md:scale-95"
-                            enterTo="opacity-100 translate-y-0 md:scale-100"
-                            // leave="ease-in duration-200"
-                            leaveFrom="opacity-100 translate-y-0 md:scale-100"
-                            leaveTo="opacity-0 translate-y-4 md:translate-y-0 md:scale-95"
-                        >
-                             <div className="flex text-base text-left transform transition w-full md:inline-block md:max-w-2xl md:px-4 md:my-8 md:align-middle lg:max-w-4xl">
-                                 <div className="w-full relative flex items-center bg-white px-4 pt-14 pb-8 overflow-hidden shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
-                                     <button
-                                         type="button"
-                                         className="absolute top-4 right-4 text-gray-400 hover:text-gray-500 sm:top-8 sm:right-6 md:top-6 md:right-6 lg:top-8 lg:right-8"
-                                         onClick={() => setOpen(false)}
-                                     >
-                                         <span className="sr-only">Close</span>
-                                         <AiOutlinePlus className="h-6 w-6 rotate-45 hover:text-red-600" title="close" aria-hidden="true" />
-                                     </button>
-                                    <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
+                <Popover.Panel className="absolute z-10">
+                    {/*<div className="flex min-h-screen text-center md:block md:px-2 lg:px-4" style={{ fontSize: 0 }}>*/}
+
+                    <div className="block text-base text-left transform transition w-full md:inline-block md:max-w-2xl md:px-4 md:my-8 md:align-middle lg:max-w-4xl">
+                        <div className="w-full relative flex items-center bg-white px-4 pt-14 pb-8 overflow-hidden shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+                            <button
+                                type="button"
+                                className="absolute top-4 right-4 text-gray-400 hover:text-gray-500 sm:top-8 sm:right-6 md:top-6 md:right-6 lg:top-8 lg:right-8"
+                                onClick={() => setOpen(false)}
+                            >
+                                <span className="sr-only">Close</span>
+                                <AiOutlinePlus className="h-6 w-6 rotate-45 hover:text-red-600" title="close" aria-hidden="true" />
+                            </button>
+                            <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
                                 {/* Image gallery */}
                                 <Tab.Group as="div" className="flex flex-col-reverse">
                                     {/* Image selector */}
@@ -243,12 +222,12 @@ const QuickView = ({open, setOpen, singleProduct, count, customer})=>
                                     </form>
                                 </div>
                             </div>
-                                 </div>
-                             </div>
-                        </Transition.Child>
+                        </div>
                     </div>
-                </Dialog>
-            </Transition.Root>
+                    {/*</div>*/}
+                    {/*<QuickView open={open} setOpen={setOpen} singleProduct={singleProduct} count={count} customer={customer}/>*/}
+                </Popover.Panel>
+            </Popover>
         </>
 
     )

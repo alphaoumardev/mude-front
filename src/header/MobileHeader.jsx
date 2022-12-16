@@ -1,243 +1,22 @@
 import {Fragment} from 'react'
 import {Dialog, Tab, Transition} from '@headlessui/react'
 import {AiOutlinePlus} from "react-icons/ai";
-
-const catenames = {
-    categories: [
+const ca = {
+    featured: [
         {
-            id: 'women',
-            name: 'Women',
-            featured: [
-                {
-                    name: 'New Arrivals',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
-                    imageAlt: 'Tee in black and bone.',
-                },
-                {
-                    name: 'Basic Tees',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
-                    imageAlt: 'olive, and black tees.',
-                },
-            ],
-            sections: [
-                {
-                    id: 'clothing',
-                    name: 'Clothing',
-                    items: [
-                        { name: 'Tops', href: '#' },
-                        { name: 'Dresses', href: '#' },
-                        { name: 'Pants', href: '#' },
-                        { name: 'Denim', href: '#' },
-                        { name: 'Sweaters', href: '#' },
-                        { name: 'T-Shirts', href: '#' },
-                        { name: 'Jackets', href: '#' },
-                        { name: 'Activewear', href: '#' },
-                        { name: 'Browse All', href: '#' },
-                    ],
-                },
-                {
-                    id: 'accessories',
-                    name: 'Accessories',
-                    items: [
-                        { name: 'Watches', href: '#' },
-                        { name: 'Wallets', href: '#' },
-                        { name: 'Bags', href: '#' },
-                        { name: 'Sunglasses', href: '#' },
-                        { name: 'Hats', href: '#' },
-                        { name: 'Belts', href: '#' },
-                    ],
-                },
-                {
-                    id: 'brands',
-                    name: 'Brands',
-                    items: [
-                        { name: 'Full Nelson', href: '#' },
-                        { name: 'My Way', href: '#' },
-                        { name: 'Re-Arranged', href: '#' },
-                        { name: 'Counterfeit', href: '#' },
-                        { name: 'Significant Other', href: '#' },
-                    ],
-                },
-            ],
+            name: 'New Arrivals',
+            href: '#',
+            imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
+            imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
         },
         {
-            id: 'men',
-            name: 'Men',
-            featured: [
-                {
-                    name: 'New Arrivals',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-                    imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
-                },
-                {
-                    name: 'Artwork Tees',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
-                    imageAlt:
-                        'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
-                },
-            ],
-            sections: [
-                {
-                    id: 'clothing',
-                    name: 'Clothing',
-                    items: [
-                        { name: 'Tops', href: '#' },
-                        { name: 'Pants', href: '#' },
-                        { name: 'Sweaters', href: '#' },
-                        { name: 'T-Shirts', href: '#' },
-                        { name: 'Jackets', href: '#' },
-                        { name: 'Activewear', href: '#' },
-                        { name: 'Browse All', href: '#' },
-                    ],
-                },
-                {
-                    id: 'accessories',
-                    name: 'Accessories',
-                    items: [
-                        { name: 'Watches', href: '#' },
-                        { name: 'Wallets', href: '#' },
-                        { name: 'Bags', href: '#' },
-                        { name: 'Sunglasses', href: '#' },
-                        { name: 'Hats', href: '#' },
-                        { name: 'Belts', href: '#' },
-                    ],
-                },
-                {
-                    id: 'brands',
-                    name: 'Brands',
-                    items: [
-                        { name: 'Re-Arranged', href: '#' },
-                        { name: 'Counterfeit', href: '#' },
-                        { name: 'Full Nelson', href: '#' },
-                        { name: 'My Way', href: '#' },
-                    ],
-                },
-            ],
+            name: 'Basic Tees',
+            href: '#',
+            imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
+            imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
         },
-        {
-            id: 'kids',
-            name: 'Kids',
-            featured: [
-                {
-                    name: 'New Arrivals',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-                    imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
-                },
-                {
-                    name: 'Artwork Tees',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
-                    imageAlt:
-                        'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
-                },
-            ],
-            sections: [
-                {
-                    id: 'clothing',
-                    name: 'Clothing',
-                    items: [
-                        { name: 'Tops', href: '#' },
-                        { name: 'Pants', href: '#' },
-                        { name: 'Sweaters', href: '#' },
-                        { name: 'T-Shirts', href: '#' },
-                        { name: 'Jackets', href: '#' },
-                        { name: 'Activewear', href: '#' },
-                        { name: 'Browse All', href: '#' },
-                    ],
-                },
-                {
-                    id: 'accessories',
-                    name: 'Accessories',
-                    items: [
-                        { name: 'Watches', href: '#' },
-                        { name: 'Wallets', href: '#' },
-                        { name: 'Bags', href: '#' },
-                        { name: 'Sunglasses', href: '#' },
-                        { name: 'Hats', href: '#' },
-                        { name: 'Belts', href: '#' },
-                    ],
-                },
-                {
-                    id: 'brands',
-                    name: 'Brands',
-                    items: [
-                        { name: 'Re-Arranged', href: '#' },
-                        { name: 'Counterfeit', href: '#' },
-                        { name: 'Full Nelson', href: '#' },
-                        { name: 'My Way', href: '#' },
-                    ],
-                },
-            ],
-        },
-        {
-            id: 'home',
-            name: 'Home',
-            featured: [
-                {
-                    name: 'New Arrivals',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-                    imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
-                },
-                {
-                    name: 'Artwork Tees',
-                    href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
-                    imageAlt:
-                        'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
-                },
-            ],
-            sections: [
-                {
-                    id: 'clothing',
-                    name: 'Clothing',
-                    items: [
-                        { name: 'Tops', href: '#' },
-                        { name: 'Pants', href: '#' },
-                        { name: 'Sweaters', href: '#' },
-                        { name: 'T-Shirts', href: '#' },
-                        { name: 'Jackets', href: '#' },
-                        { name: 'Activewear', href: '#' },
-                        { name: 'Browse All', href: '#' },
-                    ],
-                },
-                {
-                    id: 'accessories',
-                    name: 'Accessories',
-                    items: [
-                        { name: 'Watches', href: '#' },
-                        { name: 'Wallets', href: '#' },
-                        { name: 'Bags', href: '#' },
-                        { name: 'Sunglasses', href: '#' },
-                        { name: 'Hats', href: '#' },
-                        { name: 'Belts', href: '#' },
-                    ],
-                },
-                {
-                    id: 'brands',
-                    name: 'Brands',
-                    items: [
-                        { name: 'Re-Arranged', href: '#' },
-                        { name: 'Counterfeit', href: '#' },
-                        { name: 'Full Nelson', href: '#' },
-                        { name: 'My Way', href: '#' },
-                    ],
-                },
-            ],
-        },
-
-    ],
-    pages: [
-        { name: 'Company', href: '#' },
-        { name: 'Stores', href: '#' },
-    ],
+    ]
 }
-
 
 const MobileHeader = ({open, setOpen, catenames})=>
 {
@@ -246,7 +25,7 @@ const MobileHeader = ({open, setOpen, catenames})=>
         <div>
             {/* Mobile menu */}
             <Transition.Root show={open} as={Fragment}>
-                <Dialog as="div" className="fixed inset-0 flex z-40 lg:hidden" onClose={setOpen}>
+                <Dialog as="div" className="fixed inset-0 flex z-50 lg:hidden" onClose={setOpen}>
                     <Transition.Child
                         as={Fragment}
                         enter="transition-opacity ease-linear duration-300"
@@ -254,8 +33,8 @@ const MobileHeader = ({open, setOpen, catenames})=>
                         enterTo="opacity-100"
                         leave="transition-opacity ease-linear duration-300"
                         leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                    >
+                        leaveTo="opacity-0">
+
                         <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-25" />
                     </Transition.Child>
 
@@ -266,8 +45,8 @@ const MobileHeader = ({open, setOpen, catenames})=>
                         enterTo="translate-x-0"
                         leave="transition ease-in-out duration-300 transform"
                         leaveFrom="translate-x-0"
-                        leaveTo="-translate-x-full"
-                    >
+                        leaveTo="-translate-x-full">
+
                         <div className="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto">
                             <div className="px-4 pt-5 pb-2 flex">
                                 <button
@@ -282,12 +61,12 @@ const MobileHeader = ({open, setOpen, catenames})=>
 
                             {/* Links */}
                             <Tab.Group as="div" className="mt-2">
-                                <div className="border-b border-gray-200">
-                                    <Tab.List className="-mb-px flex px-4 space-x-8">
+                                <div className="border-b border-gray-200 ">
+                                    <Tab.List className="-mb-px flex px-4 space-x-8 overflow-scroll">
                                         {catenames?.map((category, index) => (
                                             <Tab
                                                 key={index}
-                                                className={({ selected }) =>classNames(selected ? 'text-indigo-600 border-indigo-600' : 'text-gray-900 border-transparent','flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium')}>
+                                                className={({ selected }) =>classNames(selected ? 'text-indigo-600 border-indigo-600' : 'text-gray-900 border-transparent','uppercase flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium')}>
                                                 {category.name}
                                             </Tab>
                                         ))}
@@ -297,8 +76,9 @@ const MobileHeader = ({open, setOpen, catenames})=>
                                     {catenames?.map((category, index) => (
                                         <Tab.Panel key={index} className="pt-10 pb-8 px-4 space-y-10">
                                             <div className="grid grid-cols-2 gap-x-4">
-                                                {category?.subcates?.map((item,index) => (
+                                                {ca?.featured?.map((item,index) => (
                                                     <div key={index} className="group relative text-sm">
+
                                                         <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
                                                             <img src={item.imageSrc} alt={item.imageAlt} className="object-center object-cover" />
                                                         </div>

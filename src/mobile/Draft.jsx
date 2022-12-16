@@ -5,160 +5,206 @@
  * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
+import {Dialog, Popover, Transition} from "@headlessui/react";
+import {BsFillBellFill} from "react-icons/bs";
+const Draft = ()=>
+{
+    return(
+        <div className="">
+            <Popover.Panel as="nav" className="lg:hidden  " aria-label="Global">
+                <div className="border-t border-gray-200 pt-4 pb-3 z-10">
+                    <div className="max-w-3xl mx-auto px-4 flex items-center sm:px-6">
+                        <div className="flex-shrink-0">
+                            <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                        </div>
+                        <div className="ml-3">
+                            <div className="text-base font-medium text-gray-800">{user.name}</div>
+                            <div className="text-sm font-medium text-gray-500">{user.email}</div>
+                        </div>
+                        <button
+                            type="button"
+                            className="ml-auto flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        >
+                            <span className="sr-only">View notifications</span>
+                            <BsFillBellFill className="h-6 w-6" aria-hidden="true" />
+                        </button>
+                    </div>
+                    <div className="mt-3 max-w-3xl mx-auto px-2 space-y-1 sm:px-4">
+                        {userNavigation.map((item) => (
+                            <a
+                                key={item.name}
+                                href={item.href}
+                                className="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+                            >
+                                {item.name}
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            </Popover.Panel>
 
-// import {AiOutlinePlus} from "react-icons/ai";
-// import {StarIcon} from "@heroicons/react/24/solid/index.js";
-// import {RadioGroup} from "@headlessui/react";
-//
-// <div className="flex text-base text-left transform transition w-full md:inline-block md:max-w-2xl md:px-4 md:my-8 md:align-middle lg:max-w-4xl">
-//     <div className="w-full relative flex items-center bg-white px-4 pt-14 pb-8 overflow-hidden shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
-//         <button
-//             type="button"
-//             className="absolute top-4 right-4 text-gray-400 hover:text-gray-500 sm:top-8 sm:right-6 md:top-6 md:right-6 lg:top-8 lg:right-8"
-//             onClick={() => setOpen(false)}
-//         >
-//             <span className="sr-only">Close</span>
-//             <AiOutlinePlus className="h-6 w-6 rotate-45 hover:text-red-600" title="close" aria-hidden="true" />
-//         </button>
-//
-//         <div className="w-full grid grid-cols-1 gap-y-8 gap-x-6 items-start sm:grid-cols-12 lg:gap-x-8">
-//             <div className="aspect-w-2 aspect-h-3 rounded-lg bg-gray-100 overflow-hidden sm:col-span-4 lg:col-span-5">
-//                 <img  src={product?.images?.image}  alt={''} className="object-center object-cover" />
-//             </div>
-//             <div className="sm:col-span-8 lg:col-span-7">
-//                 <h2 className="text-2xl font-extrabold text-gray-900 sm:pr-12">{product.name}</h2>
-//
-//                 <section aria-labelledby="information-heading" className="mt-2">
-//                     <h3 id="information-heading" className="sr-only">
-//                         Product information
-//                     </h3>
-//
-//                     <p className="text-2xl text-gray-900">{product.price}</p>
-//
-//                     {/* Reviews */}
-//                     <div className="mt-4">
-//                         <h4 className="sr-only">Reviews</h4>
-//                         <div className="flex items-center">
-//                             <p className="text-sm text-gray-700">
-//                                 {product.rating}
-//                                 <span className="sr-only"> out of 5 stars</span>
-//                             </p>
-//                             <div className="ml-1 flex items-center">
-//                                 {[0, 1, 2, 3, 4].map((rating) => (
-//                                     <StarIcon
-//                                         key={rating}
-//                                         className={classNames(
-//                                             product.rating > rating ? 'text-yellow-400' : 'text-gray-200',
-//                                             'h-5 w-5 flex-shrink-0'
-//                                         )}
-//                                         aria-hidden="true"
-//                                     />
-//                                 ))}
-//                             </div>
-//                             <div className="hidden ml-4 lg:flex lg:items-center">
-//                                                             <span className="text-gray-300" aria-hidden="true">
-//                                                               &middot;
-//                                                             </span>
-//                                 <a href="#" className="ml-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-//                                     See all {product.reviewCount} reviews
-//                                 </a>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </section>
-//
-//                 <section aria-labelledby="options-heading" className="mt-8">
-//                     <h3 id="options-heading" className="sr-only">
-//                         Product options
-//                     </h3>
-//
-//                     <form>
-//                         {/* Color picker */}
-//                         <div>
-//                             <h4 className="text-sm font-medium text-gray-900">Color</h4>
-//
-//                             <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-2">
-//                                 <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
-//                                 <div className="flex items-center space-x-3">
-//                                     {product?.color?.map((color, index) => (
-//                                         <RadioGroup.Option
-//                                             key={index}
-//                                             value={color}
-//                                             className={({ active, checked }) =>
-//                                                 classNames(
-//                                                     color.selectedColor,
-//                                                     active && checked ? 'ring ring-offset-1' : '',
-//                                                     !active && checked ? 'ring-2' : '',
-//                                                     '-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
-//                                                 )
-//                                             }
-//                                         >
-//                                             <RadioGroup.Label as="p" className="sr-only">
-//                                                 {color.name}
-//                                             </RadioGroup.Label>
-//                                             <span
-//                                                 aria-hidden="true"
-//                                                 className={classNames(
-//                                                     color.bgColor,
-//                                                     'h-8 w-8 border border-black border-opacity-10 rounded-full'
-//                                                 )}
-//                                             />
-//                                         </RadioGroup.Option>
-//                                     ))}
-//                                 </div>
-//                             </RadioGroup>
-//                         </div>
-//                         {/* Sizes */}
-//                         <div className="mt-8">
-//                             <div className="flex items-center justify-between">
-//                                 <h4 className="text-sm font-medium text-gray-900">Size</h4>
-//                                 <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-//                                     Size guide
-//                                 </a>
-//                             </div>
-//
-//                             <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-2">
-//                                 <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
-//                                 <div className="grid grid-cols-7 gap-2">
-//                                     {product?.size?.map((size, index) => (
-//                                         <RadioGroup.Option
-//                                             key={index}
-//                                             value={size}
-//                                             className={({ active, checked }) =>
-//                                                 classNames(
-//                                                     size.inStock
-//                                                         ? 'cursor-pointer focus:outline-none'
-//                                                         : 'opacity-25 cursor-not-allowed',
-//                                                     active ? 'ring-2 ring-offset-2 ring-indigo-500' : '',
-//                                                     checked
-//                                                         ? 'bg-indigo-600 border-transparent text-white hover:bg-indigo-700'
-//                                                         : 'bg-white border-gray-200 text-gray-900 hover:bg-gray-50',
-//                                                     'border rounded-md py-3 px-3 flex items-center justify-center text-sm font-medium uppercase sm:flex-1'
-//                                                 )
-//                                             }
-//                                             disabled={!size.inStock}
-//                                         >
-//                                             <RadioGroup.Label as="p">{size.name}</RadioGroup.Label>
-//                                         </RadioGroup.Option>
-//                                     ))}
-//                                 </div>
-//                             </RadioGroup>
-//                         </div>
-//                         <button
-//                             type="submit"
-//                             className="mt-6 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-//                         >
-//                             Add to bag
-//                         </button>
-//                         <p className="absolute top-4 left-4 text-center sm:static sm:mt-8">
-//                             <a href={product.href} className="font-medium text-indigo-600 hover:text-indigo-500">
-//                                 View full details
-//                             </a>
-//                         </p>
-//                     </form>
-//                 </section>
-//             </div>
-//         </div>
-//     </div>
-// </div>
+            <Transition appear show={open} as={Fragment}>
+                <Dialog as="div" className="relative z-10" onClose={()=>setOpen(!open)}>
+                    <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <div className="fixed inset-0 bg-black bg-opacity-25" />
+                    </Transition.Child>
 
+                    <div className="fixed inset-0 overflow-y-auto">
+                        <div className="flex min-h-full items-center justify-center p-4 text-center">
+                            <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 scale-95"
+                                enterTo="opacity-100 scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 scale-100"
+                                leaveTo="opacity-0 scale-95"
+                            >
+                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+
+                                    <form action="#" method="POST">
+                                        <div className="shadow sm:rounded-md sm:overflow-hidden">
+                                            <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
+                                                <div>
+                                                    <h3 className="text-lg leading-6 font-medium ">Shipping Address</h3>
+                                                    <p className="mt-1 text-sm text-gray-500">Use a permanent address where you can recieve mail.</p>
+                                                </div>
+
+                                                <div className="grid grid-cols-6 gap-6">
+                                                    <div className="col-span-6 sm:col-span-3">
+                                                        <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                                                            First name
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="first-name"
+                                                            id="first-name"
+                                                            autoComplete="given-name"
+                                                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                        />
+                                                    </div>
+
+                                                    <div className="col-span-6 sm:col-span-3">
+                                                        <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
+                                                            Last name
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="last-name"
+                                                            id="last-name"
+                                                            autoComplete="family-name"
+                                                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                        />
+                                                    </div>
+
+                                                    <div className="col-span-6 sm:col-span-4">
+                                                        <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
+                                                            Email address
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="email-address"
+                                                            id="email-address"
+                                                            autoComplete="email"
+                                                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                        />
+                                                    </div>
+
+                                                    <div className="col-span-6 sm:col-span-3">
+                                                        <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                                                            Country
+                                                        </label>
+                                                        <select
+                                                            id="country"
+                                                            name="country"
+                                                            autoComplete="country-name"
+                                                            className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                        >
+                                                            <option>United States</option>
+                                                            <option>Canada</option>
+                                                            <option>Mexico</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div className="col-span-6">
+                                                        <label htmlFor="street-address" className="block text-sm font-medium text-gray-700">
+                                                            Street address
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="street-address"
+                                                            id="street-address"
+                                                            autoComplete="street-address"
+                                                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                        />
+                                                    </div>
+
+                                                    <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                                                        <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+                                                            City
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="city"
+                                                            id="city"
+                                                            autoComplete="address-level2"
+                                                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                        />
+                                                    </div>
+
+                                                    <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                                                        <label htmlFor="region" className="block text-sm font-medium text-gray-700">
+                                                            State / Province
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="region"
+                                                            id="region"
+                                                            autoComplete="address-level1"
+                                                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                        />
+                                                    </div>
+
+                                                    <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                                                        <label htmlFor="postal-code" className="block text-sm font-medium text-gray-700">
+                                                            Zip/Postal code
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="postal-code"
+                                                            id="postal-code"
+                                                            autoComplete="postal-code"
+                                                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                                                <button
+                                                    type="submit"
+                                                    className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                                >
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </Dialog.Panel>
+                            </Transition.Child>
+                        </div>
+                    </div>
+                </Dialog>
+            </Transition>
+
+        </div>
+    )
+}
+export default Draft

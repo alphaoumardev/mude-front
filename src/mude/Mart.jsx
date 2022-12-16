@@ -1,16 +1,18 @@
 import {Fragment, useEffect, useState} from 'react'
-import {Dialog, Menu, Transition} from '@headlessui/react'
-import {BsEye, BsFillGridFill} from "react-icons/bs";
+import {Dialog, Menu, Popover, RadioGroup, Tab, Transition} from '@headlessui/react'
+import {BsEye, BsFillGridFill, BsHeart} from "react-icons/bs";
 import {HiOutlineChevronDown,} from "react-icons/hi";
 import {FcClearFilters} from "react-icons/fc";
 import MudeMobileFilter from "./MudeMobileFilter.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {getProductByPageAction, getSingleProductAction} from "../redux/Actions/productsActions.js";
 import ProductsFilters from "./ProductsFilters.jsx";
-import { Pagination } from 'antd';
+import {Alert, Pagination} from 'antd';
 import {useNavigate} from "react-router-dom";
 import QuickView from "./QuickView.jsx";
 import {getCustomerProfile} from "../redux/Actions/authActions.js";
+import {AiFillStar, AiOutlinePlus} from "react-icons/ai";
+import {addToCart} from "../redux/Actions/cartAction.js";
 
 const sortOptions = [
     { name: 'Most Popular', href: '#', current: true },
@@ -41,21 +43,40 @@ export default function Mart()
     useEffect(() =>
     {
         dispatch(getProductByPageAction(currentPage))
-        if(single!==null)
-        {
-            dispatch(getSingleProductAction(single))
-            dispatch(getCustomerProfile())
-        }
+        // if(single!==null)
+        // {
+        //     dispatch(getSingleProductAction(single))
+        //     // dispatch(getCustomerProfile())
+        // }
     }, [dispatch, currentPage]);
 
-    console.log(singleProduct, single)
+    // console.log(singleProduct, single)
+
+    const addItemToCart = (e)=>
+    {
+        if(singleProduct?.color?.length>0&&selectedColor===null)
+        {
+            return(<Fragment> <Alert message="Select a Color" type="warning" showIcon  /></Fragment>)
+        }
+        else if(singleProduct?.size?.length>0&&selectedSize===null)
+        {
+            return(<Fragment> <Alert message="Select the size" type="warning" showIcon  /></Fragment>)
+        }
+        else
+        {
+            e.preventDefault()
+            dispatch(addToCart(id, selectedColor, selectedSize, customer?.id, 1))
+            navigate('/mude/cart')
+        }
+
+    }
     const onChangePage = (page) => {setCurrentPage(page)}
     return (
         <div className="bg-white">
             <div>
                 <MudeMobileFilter mobileFiltersOpen={mobileFiltersOpen} setMobileFiltersOpen={setMobileFiltersOpen}/>
                 <main className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="relative z-10 flex items-baseline justify-between pt-2 pb-6 border-b border-gray-200">
+                    <div className="relative  flex items-baseline justify-between pt-2 pb-6 border-b border-gray-200">
                         <h1 className="text-2xl font-extrabold  text-gray-900">New Arrivals</h1>
 
                         <div className="flex items-center">
@@ -135,10 +156,8 @@ export default function Mart()
                                             <h2 onClick={()=>navigate(`/mude/single/product/${product?.id}`)} className=" text-gray-900 cursor-pointer">{product?.name}</h2>
 
                                             <div className="font-medium text-gray-900"><span className="text-red-500 text-sm">¥</span>{product?.price}</div>
-                                            <div className="hidden  sm:block " onClick={()=>{setSingle(product?.id)}}>
-                                                <BsEye className="" size={20} onClick={()=>setOpen()}/>
-                                            </div>
-                                            <QuickView open={open} setOpen={setOpen} singleProduct={singleProduct} count={count} customer={customer}/>
+                                            {/*<div className="hidden  sm:block " >*/}
+                                            {/*</div>*/}
                                         </div>
                                         <ul role="list" className="flex items-center justify-center space-x-3">
                                             {product?.color?.slice(0,4)?.map((color, index) =>

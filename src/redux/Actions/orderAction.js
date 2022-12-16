@@ -12,7 +12,7 @@ const config = {
     }
 }
 
-export const addAddress = (customer, country, state, zip, city, street, details, order_note) => async (dispatch) =>
+export const addAddress = (customer,nickname, country, state, zip, city, street, details, order_note) => async (dispatch) =>
 {
     // let user = username.id
     if(localToken)
@@ -20,10 +20,14 @@ export const addAddress = (customer, country, state, zip, city, street, details,
         try
         {
             dispatch({type: O.ADDRESS_ADD_REQUEST})
-            const body = JSON.stringify({customer, country, state, zip, city, street, details, order_note})
+            const body = JSON.stringify({customer,nickname, country, state, zip, city, street, details, order_note})
             await axios.post(`/api/address/`, body, config).then(res =>
             {
-                dispatch({type: O.ADDRESS_SUCCESS, payload: res.data})
+                dispatch(
+                    {
+                        type: O.ADDRESS_SUCCESS,
+                        payload: res.data
+                    })
                 console.log(res.data)
             })
         } catch (error)

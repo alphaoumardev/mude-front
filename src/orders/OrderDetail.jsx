@@ -81,17 +81,14 @@ const OrderDetail = ()=>
 
                                     <div className="mt-6 lg:mt-0 lg:col-span-5">
                                         <dl className="grid grid-cols-2 gap-x-6 text-sm">
-                                            <div>
-                                                <dt className="font-bold text-gray-900">Delivery address</dt>
-                                                <dd className="mt-3 text-gray-500">
-                                                    <span className="block"><span className="text-xs text-black font-bold">{address?.nickname}</span>{address?.customer?.contact}</span>
-                                                    <span className="block">{address?.country +" "+address?.state+" "+address?.city}</span>
-                                                    <span className="block">{address?.street +" "+address?.details+" "+address?.zip}</span>
-                                                    <span className="block  font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer" onClick={()=>setOpen(!open)}>Edit</span>
-
-                                                    <EditAddress open={open} setOpen={setOpen}/>
-                                                </dd>
-                                            </div>
+                                            {/*<div>*/}
+                                            {/*    <dt className="font-bold text-gray-900">Delivery address</dt>*/}
+                                            {/*    <dd className="mt-3 text-gray-500">*/}
+                                            {/*        <span className="block"><span className="text-xs text-black font-bold">{address?.nickname}</span>{address?.customer?.contact}</span>*/}
+                                            {/*        <span className="block">{address?.country +" "+address?.state+" "+address?.city}</span>*/}
+                                            {/*        <span className="block">{address?.street +" "+address?.details+" "+address?.zip}</span>*/}
+                                            {/*    </dd>*/}
+                                            {/*</div>*/}
                                             <div>
                                                 <dt className="font-bold text-gray-900">Shipping updates</dt>
                                                 <dd className="mt-3 text-gray-500 space-y-3">
@@ -141,7 +138,7 @@ const OrderDetail = ()=>
                     </section>
 
                     {/* Billing */}
-                    <Billing orderItem={orderItem}/>
+                    <Billing amount={item?.amount} address={address}/>
                 </div>
                 )}
 
