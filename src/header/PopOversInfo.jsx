@@ -3,10 +3,11 @@ import {Fragment} from "react";
 import MyDropDown from "./MyDropDown.jsx";
 import {useSelector} from "react-redux";
 import Me from "../assets/31.jpeg"
+import {useNavigate} from "react-router-dom";
 
 const PopOversInfo = ()=>
 {
-
+    const navigate = useNavigate()
     const {customer} = useSelector((state) =>state.authReducer)
     return(
         <div>
@@ -15,13 +16,12 @@ const PopOversInfo = ()=>
                     {/* Profile dropdown */}
                     <div className="flex-shrink-0 relative ml-5">
                         <div>
+                            {customer?
                             <Popover.Button className="rounded-full flex focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 <span className="sr-only">Open user menu</span>
-                                {customer?
-                                    <img className="h-8 w-8 rounded-full" alt={''} src={`http://127.0.0.1:8000/${customer?.avatar}`}/>:
-                                    <img className="h-8 w-8 rounded-full" alt={''} src={Me}/>}
-
-                            </Popover.Button>
+                                    <img className="h-8 w-8 rounded-full" alt={''} src={`http://127.0.0.1:8000/${customer?.avatar}`}/>
+                            </Popover.Button>:
+                                <img className="h-8 w-8 rounded-full" alt={''} src={Me} onClick={()=>navigate('/login')}/>}
                         </div>
                         <Transition
                             as={Fragment}

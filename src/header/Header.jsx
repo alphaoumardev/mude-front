@@ -12,6 +12,8 @@ import {getCartItems} from "../redux/Actions/cartAction.js";
 import {getCustomerProfile} from "../redux/Actions/authActions.js";
 import Logo from "../assets/logo.png";
 import {getMyOrderAction} from "../redux/Actions/orderAction.js";
+import HeaderCart from "./HeaderCart.jsx";
+import {Badge} from "antd";
 
 const ca = {
     featured: [
@@ -214,18 +216,18 @@ const Header = ()=>
                             </div>
 
                              {/*Cart*/}
-                            {/*{cartItem?.length>0&&*/}
-                            {/*<div className="ml-2 flow-root">*/}
-                            {/*    <HeaderCart cart_count={cart_count} cartItem={cartItem}/>*/}
-                            {/*</div>}*/}
-                            {/*{orderItemCount&&*/}
-                            {/*<div className="ml-2 flow-root cursor-pointer " onClick={()=>navigate("/mude/order/detail")}>*/}
-                            {/*    <Badge size="small" count={orderItemCount} showZero>*/}
-                            {/*        <div>*/}
-                            {/*            <BsBoxSeam  size={20} />*/}
-                            {/*        </div>*/}
-                            {/*    </Badge>*/}
-                            {/*</div>}*/}
+                            {cartItem?.length>0&&
+                            <div className="ml-2 flow-root">
+                                {/*<HeaderCart cart_count={cart_count} cartItem={cartItem}/>*/}
+                            </div>}
+                            {orderItemCount&&
+                            <div className="ml-2 flow-root cursor-pointer " onClick={()=>navigate("/mude/order/detail")}>
+                                <Badge size="small" count={orderItemCount} showZero={false}>
+                                    <div>
+                                        <BsBoxSeam  size={20} />
+                                    </div>
+                                </Badge>
+                            </div>}
 
                             <div className="ml-2 flow-root">
                                 <PopOversInfo/>

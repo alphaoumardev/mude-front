@@ -1,6 +1,6 @@
 import {BsGithub, } from "react-icons/bs";
 import {AiOutlineMail} from "react-icons/ai";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {login} from "../redux/Actions/authActions.js";
@@ -45,7 +45,7 @@ export default function Login()
         <div className="w-screen h-screen flex justify-center">
             <div className="flex justify-center items-center flex-wrap h-full  text-gray-800">
                 <div className="md:w-8/12 lg:w-5/12 ">
-                    <a href="/src/pages">
+                    <a href="/">
                         <img
                             src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
                             className="w-full"
