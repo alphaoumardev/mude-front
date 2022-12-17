@@ -1,6 +1,6 @@
-import {Fragment} from 'react'
+import {Fragment, useState} from 'react'
 import {Dialog, Tab, Transition} from '@headlessui/react'
-import {AiOutlinePlus} from "react-icons/ai";
+import {AiOutlineMenu, AiOutlinePlus} from "react-icons/ai";
 const ca = {
     featured: [
         {
@@ -20,14 +20,18 @@ const ca = {
 
 const MobileHeader = ({open, setOpen, catenames})=>
 {
+    // const [open, setOpen] = useState(false)
+
     function classNames(...classes) {return classes.filter(Boolean).join(' ')}
+
+    // console.log(open)
+
     return(
         <div>
-            {/* Mobile menu */}
             <Transition.Root show={open} as={Fragment}>
-                <Dialog as="div" className="fixed inset-0 flex z-50 lg:hidden" onClose={setOpen}>
+                <div  className="fixed inset-0 flex z-50 lg:hidden" >
                     <Transition.Child
-                        as={Fragment}
+                        as={"div"}
                         enter="transition-opacity ease-linear duration-300"
                         enterFrom="opacity-0"
                         enterTo="opacity-100"
@@ -35,11 +39,11 @@ const MobileHeader = ({open, setOpen, catenames})=>
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0">
 
-                        <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-25" />
+                        <div className="fixed inset-0 bg-black bg-opacity-25" />
                     </Transition.Child>
 
                     <Transition.Child
-                        as={Fragment}
+                        as={"div"}
                         enter="transition ease-in-out duration-300 transform"
                         enterFrom="-translate-x-full"
                         enterTo="translate-x-0"
@@ -55,7 +59,7 @@ const MobileHeader = ({open, setOpen, catenames})=>
                                     onClick={() => setOpen(false)}
                                 >
                                     <span className="sr-only">Close menu</span>
-                                    <AiOutlinePlus className="h-6 w-6 rotate-45" aria-hidden="true" />
+                                    <AiOutlinePlus className="h-6 w-6 hover:text-red-600 rotate-45 " aria-hidden="true" />
                                 </button>
                             </div>
 
@@ -149,7 +153,7 @@ const MobileHeader = ({open, setOpen, catenames})=>
                             </div>
                         </div>
                     </Transition.Child>
-                </Dialog>
+                </div>
             </Transition.Root>
         </div>
     )

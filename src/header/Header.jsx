@@ -1,9 +1,8 @@
 import {Fragment, useEffect, useState} from 'react'
-import {Popover, Transition} from '@headlessui/react'
-import {AiOutlineMenu} from "react-icons/ai";
+import {Dialog, Popover, Tab, Transition} from '@headlessui/react'
+import {AiOutlineMenu, AiOutlinePlus} from "react-icons/ai";
 import {BsBoxSeam, BsSearch} from "react-icons/bs";
 import PopOversInfo from "./PopOversInfo.jsx";
-import HeaderCart from "./HeaderCart.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {getHeaderCategoriesAction} from "../redux/Actions/headerActions.js";
 import MobileHeader from "./MobileHeader.jsx";
@@ -13,7 +12,6 @@ import {getCartItems} from "../redux/Actions/cartAction.js";
 import {getCustomerProfile} from "../redux/Actions/authActions.js";
 import Logo from "../assets/logo.png";
 import {getMyOrderAction} from "../redux/Actions/orderAction.js";
-import { Badge} from "antd";
 
 const ca = {
     featured: [
@@ -82,19 +80,27 @@ const Header = ()=>
         dispatch(getMyOrderAction())
     }, [dispatch]);
 
-    // console.log(catenames)
+    console.log(open)
     return(
-        <div className="sticky top-0 z-10">
-           <MobileHeader open={open} setOpen={setOpen} catenames={catenames}/>
+
+
+        <div className="sticky top-0 z-50">
 
             <nav aria-label="Top" className="relative z-20 bg-white bg-opacity-90 backdrop-filter backdrop-blur-xl">
+
                 <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="h-20 flex items-center justify-between ">
-                        <button type="button" className="bg-white p-2 rounded-md text-gray-400 lg:hidden" onClick={() => setOpen(true)}>
+
+                    <div className="h-20 flex items-center justify-between " >
+
+
+                        <button type="button" className="bg-white p-1 rounded-md bg-red-400 lg:hidden" onClick={() => setOpen(true)} >
                             <span className="sr-only">Open menu on Mobile</span>
-                            <AiOutlineMenu className="h-6 w-6" aria-hidden="true" />
+                            <AiOutlineMenu className="h-6 w-6 text-black" aria-hidden="true" />
                         </button>
-                        {/* Logo */}
+
+                        <MobileHeader open={open} setOpen={setOpen} catenames={catenames}/>
+
+                        {/*Logo*/}
                         <div className="ml-20 flex justify-center items-center md:ml-0">
                             <a href={`/`}>
                                 <span className="sr-only">Mudee</span>
@@ -198,7 +204,7 @@ const Header = ()=>
                             </Popover.Group>
                         </div>
 
-                        <div className="ml-auto flex items-center">
+                        <div className="flex items-center">
                             {/* Search */}
                             <div className="flex lg:ml-2 ">
                                 <span onClick={()=>navigate("/mude/guowuchang")} className="p-2 text-gray-400 hover:text-gray-500">
@@ -220,6 +226,7 @@ const Header = ()=>
                             {/*        </div>*/}
                             {/*    </Badge>*/}
                             {/*</div>}*/}
+
                             <div className="ml-2 flow-root">
                                 <PopOversInfo/>
                             </div>
@@ -228,7 +235,10 @@ const Header = ()=>
                     </div>
                 </div>
             </nav>
+
+
         </div>
+
     )
 }
 export default Header
