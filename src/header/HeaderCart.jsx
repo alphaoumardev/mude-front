@@ -13,7 +13,7 @@ const HeaderCart = ({cart_count, cartItem})=>
                 <Popover.Button className="group -m-2 p-2 sm:m-2 flex items-center">
                     {/*<Space size="middle">*/}
                     <div>
-                        <Badge size="small" count={cart_count}>
+                        <Badge size="small" count={cart_count} showZero={false}>
                             <div>
                                 <AiOutlineShopping  size={22} />
                             </div>

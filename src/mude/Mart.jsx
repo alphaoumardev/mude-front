@@ -1,17 +1,14 @@
 import {Fragment, useEffect, useState} from 'react'
-import {Dialog, Menu, Popover, RadioGroup, Tab, Transition} from '@headlessui/react'
-import {BsEye, BsFillGridFill, BsHeart} from "react-icons/bs";
+import {Menu, Transition} from '@headlessui/react'
+import {BsFillGridFill} from "react-icons/bs";
 import {HiOutlineChevronDown,} from "react-icons/hi";
 import {FcClearFilters} from "react-icons/fc";
 import MudeMobileFilter from "./MudeMobileFilter.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {getProductByPageAction, getSingleProductAction} from "../redux/Actions/productsActions.js";
+import {getProductByPageAction} from "../redux/Actions/productsActions.js";
 import ProductsFilters from "./ProductsFilters.jsx";
 import {Alert, Pagination} from 'antd';
 import {useNavigate} from "react-router-dom";
-import QuickView from "./QuickView.jsx";
-import {getCustomerProfile} from "../redux/Actions/authActions.js";
-import {AiFillStar, AiOutlinePlus} from "react-icons/ai";
 import {addToCart} from "../redux/Actions/cartAction.js";
 
 const sortOptions = [
@@ -33,8 +30,8 @@ export default function Mart()
     const [single, setSingle] = useState(null);
 
     const dispatch = useDispatch()
-    const {articles, isLoading, error, totalItems, totalPages, articles_per_page, next, prevPage, }=
-        useSelector(state => state.getProductsByPagegReducer)
+    const {articles,  totalItems,  }=useSelector(state => state.getProductsByPagegReducer) //isLoading, error,totalPages, articles_per_page, next, prevPage,
+
     const {singleProduct, reviews, count} = useSelector(state => state.getSingleProductReducer)
     const {customer} = useSelector((state) =>state.authReducer)
 
@@ -43,33 +40,8 @@ export default function Mart()
     useEffect(() =>
     {
         dispatch(getProductByPageAction(currentPage))
-        // if(single!==null)
-        // {
-        //     dispatch(getSingleProductAction(single))
-        //     // dispatch(getCustomerProfile())
-        // }
     }, [dispatch, currentPage]);
 
-    // console.log(singleProduct, single)
-
-    const addItemToCart = (e)=>
-    {
-        if(singleProduct?.color?.length>0&&selectedColor===null)
-        {
-            return(<Fragment> <Alert message="Select a Color" type="warning" showIcon  /></Fragment>)
-        }
-        else if(singleProduct?.size?.length>0&&selectedSize===null)
-        {
-            return(<Fragment> <Alert message="Select the size" type="warning" showIcon  /></Fragment>)
-        }
-        else
-        {
-            e.preventDefault()
-            dispatch(addToCart(id, selectedColor, selectedSize, customer?.id, 1))
-            navigate('/mude/cart')
-        }
-
-    }
     const onChangePage = (page) => {setCurrentPage(page)}
     return (
         <div className="bg-white">

@@ -1,6 +1,6 @@
 import {Fragment, useEffect, useState} from 'react'
-import {Dialog, Popover, Tab, Transition} from '@headlessui/react'
-import {AiOutlineMenu, AiOutlinePlus} from "react-icons/ai";
+import {Popover, Transition} from '@headlessui/react'
+import {AiOutlineMenu} from "react-icons/ai";
 import {BsBoxSeam, BsSearch} from "react-icons/bs";
 import PopOversInfo from "./PopOversInfo.jsx";
 import {useDispatch, useSelector} from "react-redux";
@@ -82,7 +82,7 @@ const Header = ()=>
         dispatch(getMyOrderAction())
     }, [dispatch]);
 
-    console.log(open)
+    // console.log(open)
     return(
 
 
@@ -95,7 +95,7 @@ const Header = ()=>
                     <div className="h-20 flex items-center justify-between " >
 
 
-                        <button type="button" className="bg-white p-1 rounded-md bg-red-400 lg:hidden" onClick={() => setOpen(true)} >
+                        <button type="button" className="bg-white p-1 rounded-md  lg:hidden" onClick={() => setOpen(true)} >
                             <span className="sr-only">Open menu on Mobile</span>
                             <AiOutlineMenu className="h-6 w-6 text-black" aria-hidden="true" />
                         </button>
@@ -208,7 +208,7 @@ const Header = ()=>
 
                         <div className="flex items-center">
                             {/* Search */}
-                            <div className="flex lg:ml-2 ">
+                            <div className="flex lg:ml-2 cursor-pointer">
                                 <span onClick={()=>navigate("/mude/guowuchang")} className="p-2 text-gray-400 hover:text-gray-500">
                                     <span className="sr-only">Search</span>
                                     <BsSearch className="w-4 h-4 text-black" aria-hidden="true" />
@@ -217,10 +217,10 @@ const Header = ()=>
 
                              {/*Cart*/}
                             {cartItem?.length>0&&
-                            <div className="ml-2 flow-root">
-                                {/*<HeaderCart cart_count={cart_count} cartItem={cartItem}/>*/}
+                            <div className="ml-2 flow-root cursor-pointer">
+                                <HeaderCart cart_count={cart_count} cartItem={cartItem}/>
                             </div>}
-                            {orderItemCount&&
+                            {orderItemCount>0&&
                             <div className="ml-2 flow-root cursor-pointer " onClick={()=>navigate("/mude/order/detail")}>
                                 <Badge size="small" count={orderItemCount} showZero={false}>
                                     <div>
