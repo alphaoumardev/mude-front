@@ -4,7 +4,8 @@ import {
 import axios from "axios";
 const localToken = localStorage.getItem('token')
 
-export const postActionPayloadError = (type, error) => ({
+export const postActionPayloadError = (type, error) => (
+    {
     type: type,
     payload: error.response && error.response.data.detail ? error.response.data.detail : error.message,
 });
@@ -22,7 +23,7 @@ export const getHeaderCategoriesAction = ()=> async dispatch =>
 {
     try
     {
-        await axios.get('/api/catenames/', freeAccess).then((res)=>
+        await axios.get('/api/mptt-categories/').then((res)=>
         {
             dispatch(
                 {

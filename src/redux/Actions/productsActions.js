@@ -1,47 +1,68 @@
 import * as P from '../Types'
 import axios from "axios";
 
-const freeAccess ={ headers: {'Content-Type': 'application/json'}}
-
-const config = {
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.getItem('token')}`,
-        'Accept': 'application/json'
-    }
-}
-export const getProductByPageAction = (page) => async (dispatch) =>
+export const getProductByPageAction = (categoryId, page) => async (dispatch) =>
 {
-    try
-    {
-        dispatch({type:P.GET_BY_PAGES_REQUEST})
-        await axios.get(`/api/products-by-page/?page=${page}`, ).then((res)=>
-        {
-            dispatch({
-                type: P.GET_BY_PAGES_SUCCESS,
-                payload: res.data
-            })
-            // console.log(res.data)
-        })
 
-    }
-    catch (error)
-    {
-        dispatch(
+        if(categoryId)
+        {
+            try
             {
-                type: P.GET_BY_PAGES_FAIL,
-                payload: error.response && error.response.data.detail ?
-                    error.response.data.detail : error.message,
+                await axios.get(`/api/filter-products-by-category/?category=${categoryId}`).then((res) =>
+                {
+                    dispatch({
+                        type: P.S_GET_ARTICLES_BY_PAGE,
+                        payload: res.data
+                    })
+                    console.log(res.data)
+                })
             }
-        )
-    }
+            catch (error)
+            {
+                dispatch(
+                    {
+                        type: P.F_GET_ARTICLES_BY_PAGE,
+                        payload: error.response && error.response.data.detail ?
+                            error.response.data.detail : error.message,
+                    }
+                )
+            }
+        }
+        else
+        {
+            try
+            {
+                await axios.get(`/api/products-by-page/?page=${page}`).then((res)=>
+                {
+                    dispatch({
+                        type: P.S_GET_ARTICLES_BY_PAGE,
+                        payload: res.data
+                    })
+                    // console.log(res.data)
+                })
+            }
+            catch (error)
+            {
+                dispatch(
+                    {
+                        type: P.F_GET_ARTICLES_BY_PAGE,
+                        payload: error.response && error.response.data.detail ?
+                            error.response.data.detail : error.message,
+                    }
+                )
+            }
+        }
+
+
+
+
 }
 
 export const getProductFiltersAction = () => async (dispatch) =>
 {
     try
     {
-        await axios.get(`/api/products-filters/`, ).then((res)=>
+        await axios.get(`/api/products_variant-filters/`, ).then((res)=>
         {
             dispatch(
                 {
@@ -75,6 +96,7 @@ export const getSingleProductAction = (id) => async (dispatch) =>
                     type:P.GET_ONE_PRODUCT_SUCCESS,
                     payload: res.data
                 })
+            // console.log(res.data)
         })
     }catch (error)
     {

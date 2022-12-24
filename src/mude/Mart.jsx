@@ -5,11 +5,15 @@ import {HiOutlineChevronDown,} from "react-icons/hi";
 import {FcClearFilters} from "react-icons/fc";
 import MudeMobileFilter from "./MudeMobileFilter.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {getProductByPageAction} from "../redux/Actions/productsActions.js";
+import {getProductByPageAction, getProductFiltersAction} from "../redux/Actions/productsActions.js";
 import ProductsFilters from "./ProductsFilters.jsx";
-import {Alert, Pagination} from 'antd';
+import {Pagination} from 'antd';
 import {useNavigate} from "react-router-dom";
-import {addToCart} from "../redux/Actions/cartAction.js";
+import {getCustomerProfile} from "../redux/Actions/authActions.js";
+import {getHeaderCategoriesAction} from "../redux/Actions/headerActions.js";
+import {getWishlistItems} from "../redux/Actions/wishlistAction.js";
+import {getCartItems} from "../redux/Actions/cartAction.js";
+import {getMyOrderAction} from "../redux/Actions/orderAction.js";
 
 const sortOptions = [
     { name: 'Most Popular', href: '#', current: true },
@@ -23,6 +27,7 @@ function classNames(...classes) {return classes.filter(Boolean).join(' ')}
 
 export default function Mart()
 {
+
     const navigate = useNavigate()
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     const [currentPage, setCurrentPage] = useState(1);
@@ -35,13 +40,15 @@ export default function Mart()
     const {singleProduct, reviews, count} = useSelector(state => state.getSingleProductReducer)
     const {customer} = useSelector((state) =>state.authReducer)
 
-
-
     useEffect(() =>
     {
-        dispatch(getProductByPageAction(currentPage))
+        if(currentPage)
+        {
+            dispatch(getProductByPageAction(null,  currentPage))
+        }
     }, [dispatch, currentPage]);
 
+    // console.log(articles)
     const onChangePage = (page) => {setCurrentPage(page)}
     return (
         <div className="bg-white">
@@ -108,9 +115,11 @@ export default function Mart()
                         <h2 id="products-heading" className="sr-only">
                             Products
                         </h2>
-                        <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-8 ">
+                        <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-8 gap-y-8 ">
                             {/* Filters */}
-                            <ProductsFilters/>
+                            <div >
+                                <ProductsFilters/>
+                            </div>
 
                             {/* Product grid */}
                             <div className="grid grid-cols-2 gap-x-6 sm:grid-cols-4 lg:col-span-4 lg:gap-x-8 lg:gap-y-10">
@@ -118,7 +127,8 @@ export default function Mart()
                                     <div key={index}  className="group text-sm ">
                                         <div onClick={()=>navigate(`/mude/single/product/${product?.id}`)}  className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden group-hover:opacity-75">
                                             <img
-
+                                                // src={`http://127.0.0.1:8000/${product?.images[0]?.image}`}
+                                                //TODO: REVIEW THE THE REASON
                                                 src={product?.images[0]?.image}
                                                 alt={product?.name}
                                                 className="w-full h-full object-center object-cover cursor-pointer"

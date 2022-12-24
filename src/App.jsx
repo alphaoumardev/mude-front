@@ -32,18 +32,18 @@ function App() {
 
             <Routes>
                 {/*<Route path="/"*/}
-                <Route exact index path="/login" element={<Login/>}/>
-                <Route exact path="/register" element={<Register/>}/>
+                <Route index path="/login" element={<Login/>}/>
+                <Route path="/register" element={<Register/>}/>
 
-                <Route exact path="/mude/quick" element={<QuickView/>}/>
+                <Route path="/mude/quick" element={<QuickView/>}/>
 
-                <Route exact path="/" element={<Mude/>}/>
-                <Route exact path="/mude/guowuchang" element={<Mart/>}/>
-                <Route exact path="/mude/single/product/:id" element={<SingleProduct/>}/>
-                <Route exact path="/mude/cart" element={<MudeCart/>}/>
-                <Route exact path="/mude/checkout" element={<CheckOut/>}/>
-                <Route exact path="/mude/order/detail" element={<OrderDetail/>}/>
-                <Route exact path="/mude/order/history" element={<OrderHistory/>}/>
+                <Route path="/" element={<Mude/>}/>
+                <Route path="/mude/guowuchang" element={<Mart/>}/>
+                <Route path="/mude/single/product/:id" element={<SingleProduct/>}/>
+                <Route path="/mude/cart" element={<MudeCart/>}/>
+                <Route path="/mude/checkout" element={<CheckOut/>}/>
+                <Route path="/mude/order/detail" element={<OrderDetail/>}/>
+                <Route path="/mude/order/history" element={<OrderHistory/>}/>
 
                 <Route path="*" element={<NotFound/>} />
             </Routes>

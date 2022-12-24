@@ -64,7 +64,7 @@ const SingleProduct = ()=>
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const {customer} = useSelector((state) =>state.authReducer)
-    const {singleProduct, reviews, count} = useSelector(state => state.getSingleProductReducer)
+    const {singleProduct} = useSelector(state => state.getSingleProductReducer)
 
     const [selectedColor, setSelectedColor] = useState(null)
     const [selectedSize, setSelectedSize] = useState(null)
@@ -98,7 +98,7 @@ const SingleProduct = ()=>
         dispatch(getCustomerProfile())
         // console.log(customer)
     }, [dispatch]);
-    // console.log(selectedSize, selectedColor)
+    // console.log(singleProduct)
 
 
     return(
@@ -117,7 +117,12 @@ const SingleProduct = ()=>
                                             <>
                                                 <span className="sr-only">None</span>
                                                     <span className="absolute inset-0 rounded-md overflow-hidden">
-                                                    <img src={`http://127.0.0.1:8000/${itemImage?.image}`} alt={""} className="w-full h-full object-center object-cover" />
+
+                                                    <img
+                                                        // src={itemImage?.image}
+                                                        src={`http://127.0.0.1:8000/${itemImage?.image}`}
+                                                        alt={""} className="w-full h-full object-center object-cover"
+                                                    />
                                                 </span>
                                                 <span className={classNames(selected ? 'ring-indigo-500' : 'ring-transparent','absolute inset-0 rounded-md ring-2 ring-offset-2 pointer-events-none')} aria-hidden="true"/>
                                             </>
@@ -131,6 +136,7 @@ const SingleProduct = ()=>
                             {singleProduct?.images?.map((itemImage, index) => (
                                 <Tab.Panel key={index}>
                                     <img
+                                        // src={itemImage?.image}
                                         src={`http://127.0.0.1:8000/${itemImage?.image}`}
                                         alt={''}
                                         className="w-full h-full object-center object-cover sm:rounded-lg"
@@ -157,7 +163,7 @@ const SingleProduct = ()=>
                                     {[0, 1, 2, 3, 4].map((rating) =>
                                         <AiFillStar key={rating} className={classNames(4 > rating ? 'text-yellow-500' : 'text-gray-300', 'h-5 w-5 flex-shrink-0')} aria-hidden={"true"}/>
                                     )}
-                                    <span>({count})</span>
+                                    {singleProduct?.reviews?.length>0&&<span>({singleProduct?.reviews?.length})</span>}
                                 </div>
                             </div>
                         </div>
@@ -283,7 +289,7 @@ const SingleProduct = ()=>
 
                 <section aria-labelledby="related-heading" className="mt-0 border-t border-gray-200 py-16 px-4 sm:px-0">
                     <RelatedPurchases/>
-                    <Reviews id={id} customer={customer} singleProduct={singleProduct} reviews={reviews} count={count}/>
+                    <Reviews id={id} customer={customer} singleProduct={singleProduct} />
                     <ByCategory/>
                     <Policies/>
                 </section>

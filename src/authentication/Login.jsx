@@ -26,6 +26,7 @@ export default function Login()
         }
         if(token)
         {
+            window.location.reload()
             navigate("/")
         }
     }
@@ -37,6 +38,7 @@ export default function Login()
         }
         if(token)
         {
+            window.location.reload()
             navigate("/")
         }
     }, [dispatch, my_profile]);

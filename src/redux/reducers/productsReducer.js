@@ -14,12 +14,12 @@ export const getProductsByPagegReducer = (state = initialState, action)=>
 {
     switch (action.type)
     {
-        case P.GET_BY_PAGES_REQUEST:
+        case P.S_GET_ARTICLES:
             return{
-                isLoading: true,
+                articles: action.payload,
             }
 
-        case P.GET_BY_PAGES_SUCCESS:
+        case P.S_GET_ARTICLES_BY_PAGE:
             return{
                 isLoading: false,
                 articles: action.payload.results,
@@ -31,7 +31,7 @@ export const getProductsByPagegReducer = (state = initialState, action)=>
                 prevPage: action.payload.previous,
 
             }
-        case P.GET_BY_PAGES_FAIL:
+        case P.F_GET_ARTICLES_BY_PAGE:
             return{
                 ...state,
                 isLoading: false,
@@ -96,9 +96,9 @@ export const getSingleProductReducer = (state = {singleProduct: [], reviews:[], 
         case P.GET_ONE_PRODUCT_SUCCESS:
         case P.GET_REVIEW_SUCCESS:
             return{
-                singleProduct: action.payload.pro,
-                reviews: action.payload.rev,
-                count: action.payload.count,
+                singleProduct: action.payload,
+                // reviews: action.payload.rev,
+                // count: action.payload.count,
             }
         case P.GET_ONE_PRODUCT_FAIL:
         case P.GET_REVIEW_FAIL:

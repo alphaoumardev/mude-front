@@ -1,4 +1,4 @@
-import {Fragment, useEffect, useState} from 'react'
+import React, {Fragment, useEffect, useState} from 'react'
 import {Popover, Transition} from '@headlessui/react'
 import {AiOutlineMenu} from "react-icons/ai";
 import {BsBoxSeam, BsSearch} from "react-icons/bs";
@@ -6,7 +6,7 @@ import PopOversInfo from "./PopOversInfo.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {getHeaderCategoriesAction} from "../redux/Actions/headerActions.js";
 import MobileHeader from "./MobileHeader.jsx";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {getWishlistItems} from "../redux/Actions/wishlistAction.js";
 import {getCartItems} from "../redux/Actions/cartAction.js";
 import {getCustomerProfile} from "../redux/Actions/authActions.js";
@@ -14,6 +14,8 @@ import Logo from "../assets/logo.png";
 import {getMyOrderAction} from "../redux/Actions/orderAction.js";
 import HeaderCart from "./HeaderCart.jsx";
 import {Badge} from "antd";
+import Mart from "../mude/Mart";
+import {getProductByPageAction} from "../redux/Actions/productsActions.js";
 
 const ca = {
     featured: [
@@ -59,6 +61,8 @@ const Header = ()=>
     const navigate = useNavigate()
     const [open, setOpen] = useState(false)
     function classNames(...classes) {return classes.filter(Boolean).join(' ')}
+    const [currentPage, setCurrentPage] = useState(1);
+
 
     const dispatch = useDispatch()
     const {catenames} = useSelector(state => state.getHeaderCatergoriesReducer)
@@ -71,29 +75,32 @@ const Header = ()=>
     const cartItem = Array.from(cart_item)
     let orderItemCount = orderItem.length
 
-
+    const [categoryId, setCategoryId] = useState(null);
     useEffect(() =>
     {
-        dispatch(getCustomerProfile())
+        if(categoryId)
+        {
+            dispatch(getProductByPageAction( categoryId, currentPage))
+        }
 
+        dispatch(getCustomerProfile())
         dispatch(getHeaderCategoriesAction())
         dispatch(getWishlistItems())
         dispatch(getCartItems())
         dispatch(getMyOrderAction())
-    }, [dispatch]);
+    }, [dispatch, categoryId]);
 
-    // console.log(open)
+    // console.log(catenames)
     return(
 
-
+    <div>
         <div className="sticky top-0 z-50">
 
             <nav aria-label="Top" className="relative z-20 bg-white bg-opacity-90 backdrop-filter backdrop-blur-xl">
 
-                <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-full ">
 
-                    <div className="h-20 flex items-center justify-between " >
-
+                    <div className="h-20 bg-gray-100 flex justify-between sm:-ml-80 sm:mr-20" >
 
                         <button type="button" className="bg-white p-1 rounded-md  lg:hidden" onClick={() => setOpen(true)} >
                             <span className="sr-only">Open menu on Mobile</span>
@@ -102,33 +109,36 @@ const Header = ()=>
 
                         <MobileHeader open={open} setOpen={setOpen} catenames={catenames}/>
 
+
                         {/*Logo*/}
-                        <div className="ml-20 flex justify-center items-center md:ml-0">
+                        <div className="sm:flex justify-start items-center ">
                             <a href={`/`}>
                                 <span className="sr-only">Mudee</span>
                                 <img
-                                    className="h-10 w-auto"
+                                    className="h-10 w-auto "
                                     src={Logo}
                                     alt="Mude"
                                 />
                             </a>
                         </div>
-                        <div className="flex justify-center items-center lg:ml-64">
+                        <div className="flex  justify-center items-center ">
                             {/*Mude To shop*/}
-                            <div className="hidden uppercase lg:ml-8 lg:block  ml-4 flex lg:ml-0">
-                                <a href={`/mude/guowuchang`}>Mude</a>
-                            </div>
+                            {/*<div className="hidden uppercase lg:ml-8 lg:block  ml-4 flex lg:ml-0">*/}
+                            {/*    <a href={`/mude/guowuchang`}>Mude</a>*/}
+                            {/*</div>*/}
 
                             {/* Flyout menus */}
-                            <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
+                            <Popover.Group className="hidden  sm:inline-block sm:self-stretch">
                                 <div className="h-full flex space-x-8">
                                     {catenames?.map((category, index) => (
                                         <Popover key={index} className="flex">
                                             {({ open }) => (
                                                 <>
                                                     <div className="relative flex">
-                                                        <Popover.Button  className={classNames(open ? 'border-indigo-600 text-indigo-600': 'border-transparent text-gray-700 hover:text-gray-800', 'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-medium border-b-2 -mb-px pt-px uppercase')}>
-                                                            {category.name}
+                                                        <Popover.Button
+                                                            onClick={()=>setCategoryId(category?.id)}
+                                                            className={classNames(open ? 'border-indigo-600 text-indigo-600': 'border-transparent text-gray-700 hover:text-gray-800', 'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-medium border-b-2 -mb-px pt-px uppercase')}>
+                                                            {category?.name}
                                                         </Popover.Button>
                                                     </div>
 
@@ -173,22 +183,25 @@ const Header = ()=>
                                                                             ))}
                                                                         </div>
                                                                         <div className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm">
-                                                                            {category?.subcates?.map((section,index) => (
+                                                                            {category?.subcates?.map((section,index) =>
                                                                                 <div key={index}>
-                                                                                    <p id={`${section.name}-heading`} className="font-medium text-gray-900">
-                                                                                        {section.name}
+                                                                                    <p onClick={()=>setCategoryId(section?.id)}
+                                                                                        id={`${section.name}-heading`} className="font-medium text-gray-900">
+                                                                                        {section?.name}
                                                                                     </p>
-                                                                                    <ul aria-labelledby={`${section.name}-heading`}  className="mt-6 space-y-6 sm:mt-4 sm:space-y-4" role="list">
+                                                                                    <ul aria-labelledby={`${section?.name}-heading`}  className="mt-6 space-y-6 sm:mt-4 sm:space-y-4" role="list">
+
                                                                                         {section?.subcates?.map((item, index) =>
                                                                                             <li key={index} className="flex">
-                                                                                                <a href={item.href} className="hover:text-gray-800">
-                                                                                                    {item.name}
-                                                                                                </a>
+                                                                                                <Link to={'/mude/guowuchang'} onClick={()=>{setCategoryId(item?.id); }}
+                                                                                                    className="hover:text-gray-800 cursor-pointer">
+                                                                                                    {item?.name}
+                                                                                                </Link>
                                                                                             </li>
                                                                                         )}
                                                                                     </ul>
                                                                                 </div>
-                                                                            ))}
+                                                                            )}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -206,7 +219,7 @@ const Header = ()=>
                             </Popover.Group>
                         </div>
 
-                        <div className="flex items-center">
+                        <div className="flex justify-end items-center">
                             {/* Search */}
                             <div className="flex lg:ml-2 cursor-pointer">
                                 <span onClick={()=>navigate("/mude/guowuchang")} className="p-2 text-gray-400 hover:text-gray-500">
@@ -237,9 +250,9 @@ const Header = ()=>
                     </div>
                 </div>
             </nav>
-
-
         </div>
+        {/*<Mart/>*/}
+    </div>
 
     )
 }
