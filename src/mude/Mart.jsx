@@ -1,11 +1,15 @@
 import {Fragment, useEffect, useState} from 'react'
 import {Menu, Transition} from '@headlessui/react'
-import {BsFillGridFill} from "react-icons/bs";
+import {BsFillGridFill, BsSearch} from "react-icons/bs";
 import {HiOutlineChevronDown,} from "react-icons/hi";
 import {FcClearFilters} from "react-icons/fc";
 import MudeMobileFilter from "./MudeMobileFilter.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {getProductByPageAction, getProductFiltersAction} from "../redux/Actions/productsActions.js";
+import {
+    getProductByPageAction,
+    getProductBySearchAction,
+    getProductFiltersAction
+} from "../redux/Actions/productsActions.js";
 import ProductsFilters from "./ProductsFilters.jsx";
 import {Pagination} from 'antd';
 import {useNavigate} from "react-router-dom";
@@ -22,6 +26,7 @@ const sortOptions = [
     { name: 'Price: Low to High', href: '#', current: false },
     { name: 'Price: High to Low', href: '#', current: false },
 ]
+const breadcrumbs = [{ id: 1, name: 'Men', href: '#' }]
 
 function classNames(...classes) {return classes.filter(Boolean).join(' ')}
 
@@ -39,6 +44,7 @@ export default function Mart()
 
     const {singleProduct, reviews, count} = useSelector(state => state.getSingleProductReducer)
     const {customer} = useSelector((state) =>state.authReducer)
+    const [search, setSearch] = useState(null);
 
     useEffect(() =>
     {
@@ -46,14 +52,71 @@ export default function Mart()
         {
             dispatch(getProductByPageAction(null,  currentPage))
         }
-    }, [dispatch, currentPage]);
+        if(search)
+        {
+            dispatch(getProductBySearchAction(search))
+        }
+    }, [dispatch, currentPage, search ]);
+    const searchedData = (value)=>
+    {
+        setSearch(value)
+    }
 
-    // console.log(articles)
     const onChangePage = (page) => {setCurrentPage(page)}
     return (
         <div className="bg-white">
             <div>
                 <MudeMobileFilter mobileFiltersOpen={mobileFiltersOpen} setMobileFiltersOpen={setMobileFiltersOpen}/>
+                <div className="border-b border-gray-200 ">
+                    <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <ol role="list" className="flex items-center space-x-4 py-4">
+                            {breadcrumbs.map((breadcrumb) => (
+                                <li key={breadcrumb.id}>
+                                    <div className="flex items-center">
+                                        <a href={breadcrumb.href} className="mr-4 text-sm font-medium text-gray-900">
+                                            {breadcrumb.name}
+                                        </a>
+                                        <svg
+                                            viewBox="0 0 6 20"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            aria-hidden="true"
+                                            className="h-5 w-auto text-gray-300"
+                                        >
+                                            <path d="M4.878 4.34H3.551L.27 16.532h1.327l3.281-12.19z" fill="currentColor" />
+                                        </svg>
+                                    </div>
+                                </li>
+                            ))}
+                            <li className="text-sm">
+                                <a href="#" aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
+                                    New Arrivals
+                                </a>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+
+                <div className=" bg-gray-800 px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
+                    <div className="lg:w-7/12 block lg:ml-96 rounded-full">
+                        <label htmlFor="search" className="sr-only">
+                            Search
+                        </label>
+                        <div className="relative  ">
+                            <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
+                                <BsSearch className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                            </div>
+                            <input
+                                id="search"
+                                name="search"
+                                onChange={(e)=>searchedData(e.target.value)}
+                                className="block w-full  border border-gray-300 rounded-full py-3 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                placeholder="Search"
+                                type="search"
+                            />
+                        </div>
+                    </div>
+                </div>
+
                 <main className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="relative  flex items-baseline justify-between pt-2 pb-6 border-b border-gray-200">
                         <h1 className="text-2xl font-extrabold  text-gray-900">New Arrivals</h1>

@@ -20,6 +20,7 @@ export const getProductsByPagegReducer = (state = initialState, action)=>
             }
 
         case P.S_GET_ARTICLES_BY_PAGE:
+        case P.S_SEARCH_PRODUCT:
             return{
                 isLoading: false,
                 articles: action.payload.results,
@@ -32,6 +33,7 @@ export const getProductsByPagegReducer = (state = initialState, action)=>
 
             }
         case P.F_GET_ARTICLES_BY_PAGE:
+        case P.F_SEARCH_PRODUCT:
             return{
                 ...state,
                 isLoading: false,
@@ -110,6 +112,31 @@ export const getSingleProductReducer = (state = {singleProduct: [], reviews:[], 
             return state
     }
 }
+
+export const getSearchedData = (state = {articles: [], }, action)=>
+{
+    switch (action.type)
+    {
+        case P.GET_IMAGES_REQUEST:
+            return{
+                isLoading: true,
+            }
+
+        case P.GET_IMAGES_SUCCESS:
+            return{
+                images: action.payload,
+            }
+        case P.GET_IMAGES_FAIL:
+            return{
+                ...state,
+                isLoading: false,
+                images: {},
+            }
+        default:
+            return state
+    }
+}
+
 
 export const getAllProductsReducer = (state = {products: [],  isLoading:false,}, action)=>
 {

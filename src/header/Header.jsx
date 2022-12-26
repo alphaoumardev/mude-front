@@ -14,7 +14,6 @@ import Logo from "../assets/logo.png";
 import {getMyOrderAction} from "../redux/Actions/orderAction.js";
 import HeaderCart from "./HeaderCart.jsx";
 import {Badge} from "antd";
-import Mart from "../mude/Mart";
 import {getProductByPageAction} from "../redux/Actions/productsActions.js";
 
 const ca = {
@@ -61,7 +60,6 @@ const Header = ()=>
     const navigate = useNavigate()
     const [open, setOpen] = useState(false)
     function classNames(...classes) {return classes.filter(Boolean).join(' ')}
-    const [currentPage, setCurrentPage] = useState(1);
 
 
     const dispatch = useDispatch()
@@ -76,11 +74,20 @@ const Header = ()=>
     let orderItemCount = orderItem.length
 
     const [categoryId, setCategoryId] = useState(null);
+
+    const [color] = useState([]);
+    const [size] = useState([]);
+    const [tag] = useState([]);
+    const [brand] = useState([]);
+    const [occasion] = useState([]);
+    const [material] = useState([]);
+    const [length] = useState([]);
+
     useEffect(() =>
     {
         if(categoryId)
         {
-            dispatch(getProductByPageAction( categoryId, currentPage))
+            dispatch(getProductByPageAction(categoryId, 1, color, size, tag, brand, occasion, material, length))
         }
 
         dispatch(getCustomerProfile())
@@ -93,14 +100,14 @@ const Header = ()=>
     // console.log(catenames)
     return(
 
-    <div>
+    <div className="sticky top-0 z-50">
         <div className="sticky top-0 z-50">
 
             <nav aria-label="Top" className="relative z-20 bg-white bg-opacity-90 backdrop-filter backdrop-blur-xl">
 
-                <div className="max-w-full ">
+                <div className=" max-w-full">
 
-                    <div className="h-20 bg-gray-100 flex justify-between sm:-ml-80 sm:mr-20" >
+                    <div className="h-20 bg-gray-100 flex items-center justify-between sm:-ml-80" >
 
                         <button type="button" className="bg-white p-1 rounded-md  lg:hidden" onClick={() => setOpen(true)} >
                             <span className="sr-only">Open menu on Mobile</span>
@@ -136,7 +143,7 @@ const Header = ()=>
                                                 <>
                                                     <div className="relative flex">
                                                         <Popover.Button
-                                                            onClick={()=>setCategoryId(category?.id)}
+                                                            // onClick={()=>setCategoryId(category?.id)}
                                                             className={classNames(open ? 'border-indigo-600 text-indigo-600': 'border-transparent text-gray-700 hover:text-gray-800', 'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-medium border-b-2 -mb-px pt-px uppercase')}>
                                                             {category?.name}
                                                         </Popover.Button>
@@ -185,18 +192,18 @@ const Header = ()=>
                                                                         <div className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm">
                                                                             {category?.subcates?.map((section,index) =>
                                                                                 <div key={index}>
-                                                                                    <p onClick={()=>setCategoryId(section?.id)}
-                                                                                        id={`${section.name}-heading`} className="font-medium text-gray-900">
-                                                                                        {section?.name}
-                                                                                    </p>
+                                                                                    <Link to={'/mude/guowuchang'} onClick={()=>setCategoryId(section?.id)}
+                                                                                        id={`${section.name}-heading`} className="capitalize hover:text-red-700 font-bold">
+                                                                                            {section?.name}
+                                                                                    </Link>
                                                                                     <ul aria-labelledby={`${section?.name}-heading`}  className="mt-6 space-y-6 sm:mt-4 sm:space-y-4" role="list">
 
                                                                                         {section?.subcates?.map((item, index) =>
                                                                                             <li key={index} className="flex">
-                                                                                                <Link to={'/mude/guowuchang'} onClick={()=>{setCategoryId(item?.id); }}
+                                                                                                <div onClick={()=>{setCategoryId(item?.id); }}
                                                                                                     className="hover:text-gray-800 cursor-pointer">
                                                                                                     {item?.name}
-                                                                                                </Link>
+                                                                                                </div>
                                                                                             </li>
                                                                                         )}
                                                                                     </ul>
@@ -218,11 +225,10 @@ const Header = ()=>
                                 </div>
                             </Popover.Group>
                         </div>
-
-                        <div className="flex justify-end items-center">
+                        <div className="flex justify-end items-center sm:mr-24">
                             {/* Search */}
-                            <div className="flex lg:ml-2 cursor-pointer">
-                                <span onClick={()=>navigate("/mude/guowuchang")} className="p-2 text-gray-400 hover:text-gray-500">
+                            <div className="flex cursor-pointer">
+                                <span onClick={()=>navigate("/mude/guowuchang")} className="text-black hover:text-gray-500">
                                     <span className="sr-only">Search</span>
                                     <BsSearch className="w-4 h-4 text-black" aria-hidden="true" />
                                 </span>
@@ -230,11 +236,11 @@ const Header = ()=>
 
                              {/*Cart*/}
                             {cartItem?.length>0&&
-                            <div className="ml-2 flow-root cursor-pointer">
+                            <div className="ml-2 hidden sm:block flow-root cursor-pointer">
                                 <HeaderCart cart_count={cart_count} cartItem={cartItem}/>
                             </div>}
                             {orderItemCount>0&&
-                            <div className="ml-2 flow-root cursor-pointer " onClick={()=>navigate("/mude/order/detail")}>
+                            <div className="ml-1 hidden sm:block flow-root cursor-pointer " onClick={()=>navigate("/mude/order/detail")}>
                                 <Badge size="small" count={orderItemCount} showZero={false}>
                                     <div>
                                         <BsBoxSeam  size={20} />
@@ -242,7 +248,7 @@ const Header = ()=>
                                 </Badge>
                             </div>}
 
-                            <div className="ml-2 flow-root">
+                            <div className="ml-2 mr-3 flow-root">
                                 <PopOversInfo/>
                             </div>
 

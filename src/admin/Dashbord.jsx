@@ -10,7 +10,6 @@ import {
 } from "react-icons/ai";
 import {SiBitcoincash} from "react-icons/si"
 import {CheckCircleIcon} from "@heroicons/react/20/solid/index.js";
-
 const navigation = [
     { name: 'Home', href: '#', icon: AiOutlineAccountBook, current: true },
     { name: 'History', href: '#', icon: AiOutlineBell, current: false },
@@ -47,11 +46,10 @@ const statusStyles = {
     failed: 'bg-gray-100 text-gray-800',
 }
 
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
+function classNames(...classes) {return classes.filter(Boolean).join(' ')}
 
-export default function Dashbord() {
+export default function Dashbord()
+{
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
     return (

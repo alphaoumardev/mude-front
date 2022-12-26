@@ -11,23 +11,29 @@ const ProductsFilters = ()=>
     const dispatch = useDispatch()
     const {catenames} = useSelector(state => state.getHeaderCatergoriesReducer)
     const {colors, sizes, tags, lengths, materials, brands, occasions} = useSelector(state => state.getProductsFiltersReducer)
-    const [currentPage, setCurrentPage] = useState(1);
     const [categoryId, setCategoryId] = useState(null);
 
+    const [color, setColor] = useState([]);
+    const [size, setSize] = useState([]);
+    const [tag, setTag] = useState([]);
+    const [brand, setBrand] = useState([]);
+    const [occasion, setOccasion] = useState([]);
+    const [material, setMaterial] = useState([]);
+    const [length, setLength] = useState([]);
 
     useEffect(() =>
     {
         if(categoryId)
         {
-            dispatch(getProductByPageAction(categoryId, currentPage))
+            dispatch(getProductByPageAction(categoryId, 1, color, size, tag, brand, occasion, material, length))
         }
 
         dispatch(getHeaderCategoriesAction())
         dispatch(getProductFiltersAction())
 
-    }, [dispatch, categoryId, currentPage]);
+    }, [dispatch, categoryId, color, size, tag, brand, occasion, material, length]);
 
-   // console.log("ss "+parent, second, third)
+    // console.log(size)
     return(
          <form className="hidden lg:block ">
             <h3 className="sr-only">Categories</h3>
@@ -66,13 +72,12 @@ const ProductsFilters = ()=>
                                                  type="checkbox"
                                                  defaultChecked={option?.checked}
                                                  style={{ backgroundColor: option?.color_name}}
-
+                                                 onChange={() => setColor( previous =>[...previous, option?.id])}
                                                  className={`h-5 w-5  rounded-full text-indigo-600 focus:ring-indigo-500`}
                                              />
                                              <label
                                                  htmlFor={`filter-${option.id}-${optionIdx}`}
-                                                 className="ml-3 text-sm text-gray-600"
-                                             >
+                                                 className="ml-3 text-sm text-gray-600">
                                                  {option.color_name}
                                              </label>
                                          </div>
@@ -107,6 +112,7 @@ const ProductsFilters = ()=>
                                                  type="checkbox"
                                                  defaultChecked={option?.checked}
                                                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                                                 onChange={() => setSize(previous =>[...previous, option?.id])}
                                              />
                                              <label
                                                  htmlFor={`filter-${option.id}-${optionIdx}`}
@@ -145,6 +151,8 @@ const ProductsFilters = ()=>
                                                  defaultValue={option?.tag_name}
                                                  type="checkbox"
                                                  defaultChecked={option?.checked}
+                                                 onChange={() => setTag(previous =>[...previous, option?.id])}
+
                                                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
                                              />
                                              <label
@@ -184,6 +192,8 @@ const ProductsFilters = ()=>
                                                  defaultValue={option?.brand_name}
                                                  type="checkbox"
                                                  defaultChecked={option?.checked}
+                                                 onChange={() => setBrand(previous =>[...previous, option?.id])}
+
                                                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
                                              />
                                              <label
@@ -223,6 +233,8 @@ const ProductsFilters = ()=>
                                                  defaultValue={option?.occasion_name}
                                                  type="checkbox"
                                                  defaultChecked={option?.checked}
+                                                 onChange={() => setOccasion(previous =>[...previous, option?.id])}
+
                                                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
                                              />
                                              <label
@@ -262,6 +274,8 @@ const ProductsFilters = ()=>
                                                  defaultValue={option?.material_name}
                                                  type="checkbox"
                                                  defaultChecked={option?.checked}
+                                                 onChange={() => setMaterial(previous =>[...previous, option?.id])}
+
                                                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
                                              />
                                              <label
@@ -301,6 +315,7 @@ const ProductsFilters = ()=>
                                                  defaultValue={option?.length_name}
                                                  type="checkbox"
                                                  defaultChecked={option?.checked}
+                                                 onChange={() => setLength(previous =>[...previous, option?.id])}
                                                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
                                              />
                                              <label
