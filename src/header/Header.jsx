@@ -14,7 +14,6 @@ import Logo from "../assets/logo.png";
 import {getMyOrderAction} from "../redux/Actions/orderAction.js";
 import HeaderCart from "./HeaderCart.jsx";
 import {Badge} from "antd";
-import {getProductByPageAction} from "../redux/Actions/productsActions.js";
 
 const ca = {
     featured: [
@@ -36,12 +35,10 @@ const ca = {
 const Header = ()=>
 {
     let date = new Date();
-    // const dispatch = useDispatch()
     let month = (date.getMonth()+1);
     let day = date.getDate()
     let hour = date.getHours()
     let minutes = date.getMinutes()
-    //
     let token_ = localStorage.getItem('token')
     let storage_profile = JSON.parse(localStorage.getItem('profile'));
     let expiration_date = storage_profile?.expiry?.slice(0,17).replaceAll("-","").replaceAll(":",'').replace('T','')
@@ -49,66 +46,40 @@ const Header = ()=>
     day = day < 10 ? '0'+day : day;
     hour = hour < 10 ? '0'+hour : hour;
     minutes = minutes < 10 ? '0'+minutes : minutes;
-
     let current_date = date.getFullYear()+""+month+""+ day+""+hour+""+minutes
 
     if((parseInt(current_date)>=parseInt(expiration_date)) || (token_===null))
     {
         localStorage.clear()
-        // navigate('/login')
     }
     const navigate = useNavigate()
     const [open, setOpen] = useState(false)
     function classNames(...classes) {return classes.filter(Boolean).join(' ')}
 
-
     const dispatch = useDispatch()
     const {catenames} = useSelector(state => state.getHeaderCatergoriesReducer)
 
-    const {customer} = useSelector((state) =>state.authReducer)
     const {orderItem} = useSelector(state => state.getMyorderReducer)
-    const {cart_item, order_total, cart_count} = useSelector((state) =>state.cartReducer)
-    const {wishlist_count} = useSelector(state => state.wishlistReducer)
+    const {cart_item, cart_count} = useSelector((state) =>state.cartReducer)
 
     const cartItem = Array.from(cart_item)
     let orderItemCount = orderItem.length
 
-    const [categoryId, setCategoryId] = useState(null);
-
-    const [color] = useState([]);
-    const [size] = useState([]);
-    const [tag] = useState([]);
-    const [brand] = useState([]);
-    const [occasion] = useState([]);
-    const [material] = useState([]);
-    const [length] = useState([]);
-
     useEffect(() =>
     {
-        if(categoryId)
-        {
-            dispatch(getProductByPageAction(categoryId, 1, color, size, tag, brand, occasion, material, length))
-        }
-
         dispatch(getCustomerProfile())
         dispatch(getHeaderCategoriesAction())
         dispatch(getWishlistItems())
         dispatch(getCartItems())
         dispatch(getMyOrderAction())
-    }, [dispatch, categoryId]);
+    }, [dispatch]);
 
-    // console.log(catenames)
     return(
-
     <div className="sticky top-0 z-50">
         <div className="sticky top-0 z-50">
-
             <nav aria-label="Top" className="relative z-20 bg-white bg-opacity-90 backdrop-filter backdrop-blur-xl">
-
                 <div className=" max-w-full">
-
                     <div className="h-20 bg-gray-100 flex items-center justify-between sm:-ml-80" >
-
                         <button type="button" className="bg-white p-1 rounded-md  lg:hidden" onClick={() => setOpen(true)} >
                             <span className="sr-only">Open menu on Mobile</span>
                             <AiOutlineMenu className="h-6 w-6 text-black" aria-hidden="true" />
@@ -130,9 +101,9 @@ const Header = ()=>
                         </div>
                         <div className="flex  justify-center items-center ">
                             {/*Mude To shop*/}
-                            {/*<div className="hidden uppercase lg:ml-8 lg:block  ml-4 flex lg:ml-0">*/}
-                            {/*    <a href={`/mude/guowuchang`}>Mude</a>*/}
-                            {/*</div>*/}
+                            <div className="hidden uppercase lg:ml-8 lg:block  m-5  flex lg:ml-0">
+                                <a href={`/mude/guowuchang`}>Mude</a>
+                            </div>
 
                             {/* Flyout menus */}
                             <Popover.Group className="hidden  sm:inline-block sm:self-stretch">
@@ -192,7 +163,7 @@ const Header = ()=>
                                                                         <div className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm">
                                                                             {category?.subcates?.map((section,index) =>
                                                                                 <div key={index}>
-                                                                                    <Link to={'/mude/guowuchang'} onClick={()=>setCategoryId(section?.id)}
+                                                                                    <Link to={`/mude/guowuchang/${section?.id}`}
                                                                                         id={`${section.name}-heading`} className="capitalize hover:text-red-700 font-bold">
                                                                                             {section?.name}
                                                                                     </Link>
@@ -200,10 +171,10 @@ const Header = ()=>
 
                                                                                         {section?.subcates?.map((item, index) =>
                                                                                             <li key={index} className="flex">
-                                                                                                <div onClick={()=>{setCategoryId(item?.id); }}
+                                                                                                <Link to={`/mude/guowuchang/${item?.id}`}
                                                                                                     className="hover:text-gray-800 cursor-pointer">
                                                                                                     {item?.name}
-                                                                                                </div>
+                                                                                                </Link>
                                                                                             </li>
                                                                                         )}
                                                                                     </ul>

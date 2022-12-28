@@ -6,6 +6,7 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
     './pages/**/*.{html,js}',
     './components/**/*.{html,js}',
+    './node_modules/tw-elements/dist/js/**/*.js'
   ],
   theme: {
     // fontFamily: {
@@ -58,6 +59,7 @@ module.exports = {
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
     require('tailwindcss/colors'),
+    require('tw-elements/dist/plugin')
   ],
 }
 

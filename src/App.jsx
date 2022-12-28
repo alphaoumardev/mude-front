@@ -39,6 +39,8 @@ function App() {
 
                 <Route path="/" element={<Mude/>}/>
                 <Route path="/mude/guowuchang" element={<Mart/>}/>
+                    <Route path="/mude/guowuchang/:category" element={<Mart/>}/>
+
                 <Route path="/mude/single/product/:id" element={<SingleProduct/>}/>
                 <Route path="/mude/cart" element={<MudeCart/>}/>
                 <Route path="/mude/checkout" element={<CheckOut/>}/>

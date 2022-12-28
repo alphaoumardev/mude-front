@@ -8,16 +8,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     getProductByPageAction,
     getProductBySearchAction,
-    getProductFiltersAction
 } from "../redux/Actions/productsActions.js";
 import ProductsFilters from "./ProductsFilters.jsx";
 import {Pagination} from 'antd';
-import {useNavigate} from "react-router-dom";
-import {getCustomerProfile} from "../redux/Actions/authActions.js";
-import {getHeaderCategoriesAction} from "../redux/Actions/headerActions.js";
-import {getWishlistItems} from "../redux/Actions/wishlistAction.js";
-import {getCartItems} from "../redux/Actions/cartAction.js";
-import {getMyOrderAction} from "../redux/Actions/orderAction.js";
+import {useNavigate, useParams} from "react-router-dom";
 
 const sortOptions = [
     { name: 'Most Popular', href: '#', current: true },
@@ -32,31 +26,28 @@ function classNames(...classes) {return classes.filter(Boolean).join(' ')}
 
 export default function Mart()
 {
-
     const navigate = useNavigate()
+    let {category} = useParams()
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     const [currentPage, setCurrentPage] = useState(1);
-    const [open, setOpen] = useState(false);
-    const [single, setSingle] = useState(null);
 
     const dispatch = useDispatch()
     const {articles,  totalItems,  }=useSelector(state => state.getProductsByPagegReducer) //isLoading, error,totalPages, articles_per_page, next, prevPage,
 
-    const {singleProduct, reviews, count} = useSelector(state => state.getSingleProductReducer)
-    const {customer} = useSelector((state) =>state.authReducer)
     const [search, setSearch] = useState(null);
+    const [color, size, tag, brand, occasion, material, length] = useState([])
 
     useEffect(() =>
     {
-        if(currentPage)
+        if(category)
         {
-            dispatch(getProductByPageAction(null,  currentPage))
+            dispatch(getProductByPageAction(category, currentPage, color, size, tag, brand, occasion, material, length))
         }
         if(search)
         {
             dispatch(getProductBySearchAction(search))
         }
-    }, [dispatch, currentPage, search ]);
+    }, [dispatch, currentPage, search, category]);
     const searchedData = (value)=>
     {
         setSearch(value)

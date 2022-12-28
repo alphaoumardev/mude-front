@@ -112,7 +112,23 @@ export const getSingleProductReducer = (state = {singleProduct: [], reviews:[], 
             return state
     }
 }
-
+export const getTrendingProductsReducer = (state = {trending: [], }, action)=>
+{
+    switch (action.type)
+    {
+        case P.S_TRENDING_PRODUCT:
+            return{
+                trending: action.payload,
+            }
+        case P.F_TRENDING_PRODUCT:
+            return{
+                ...state,
+                trending: [],
+            }
+        default:
+            return state
+    }
+}
 export const getSearchedData = (state = {articles: [], }, action)=>
 {
     switch (action.type)

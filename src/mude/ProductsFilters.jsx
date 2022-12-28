@@ -4,14 +4,15 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {getProductByPageAction, getProductFiltersAction} from "../redux/Actions/productsActions.js";
 import {getHeaderCategoriesAction} from "../redux/Actions/headerActions.js";
-
+import {Link, useParams} from "react-router-dom";
 
 const ProductsFilters = ()=>
 {
     const dispatch = useDispatch()
+    let {category} = useParams()
+
     const {catenames} = useSelector(state => state.getHeaderCatergoriesReducer)
     const {colors, sizes, tags, lengths, materials, brands, occasions} = useSelector(state => state.getProductsFiltersReducer)
-    const [categoryId, setCategoryId] = useState(null);
 
     const [color, setColor] = useState([]);
     const [size, setSize] = useState([]);
@@ -23,24 +24,24 @@ const ProductsFilters = ()=>
 
     useEffect(() =>
     {
-        if(categoryId)
+        if(category)
         {
-            dispatch(getProductByPageAction(categoryId, 1, color, size, tag, brand, occasion, material, length))
+            dispatch(getProductByPageAction(category, 1, color, size, tag, brand, occasion, material, length))
         }
 
         dispatch(getHeaderCategoriesAction())
         dispatch(getProductFiltersAction())
 
-    }, [dispatch, categoryId, color, size, tag, brand, occasion, material, length]);
+    }, [dispatch, category, color, size, tag, brand, occasion, material, length]);
 
     // console.log(size)
     return(
          <form className="hidden lg:block ">
             <h3 className="sr-only">Categories</h3>
             <ul role="list" className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
-                {catenames?.slice(0,7)?.map((category) =>
+                {catenames?.map((category) =>
                     <li key={category.name}>
-                        <div onClick={()=>setCategoryId(category?.id)}  className="capitalize cursor-pointer hover:text-red-800">{category.name}</div>
+                        <Link to={`/mude/guowuchang/${category?.id}`} className="capitalize cursor-pointer hover:text-red-800">{category.name}</Link>
                     </li>
                 )}
             </ul>

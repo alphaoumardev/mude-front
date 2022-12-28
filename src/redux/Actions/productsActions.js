@@ -165,6 +165,33 @@ export const getProductBySearchAction = (search) => async (dispatch) =>
         )
     }
 }
+
+export const getTrendingProductAction = () => async (dispatch) =>
+{
+    try
+    {
+        await axios.get('/api/trending-products/').then((res)=>
+        {
+            dispatch(
+                {
+                    type:P.S_TRENDING_PRODUCT,
+                    payload: res.data
+                })
+            // console.log(res.data)
+        })
+    }
+    catch (error)
+    {
+        dispatch(
+            {
+                type: P.F_TRENDING_PRODUCT,
+                payload: error.response && error.response.data.detail ?
+                    error.response.data.detail : error.message,
+            }
+        )
+    }
+}
+
 export const getAllProductAction = (genre, type, less_price, greater_price, query=null, color=null, size=null, ) => async (dispatch) =>
 {
     try

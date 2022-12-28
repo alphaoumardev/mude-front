@@ -16,7 +16,7 @@ import {
     getSlidersReducer,
     getTagsReducer,
     getProductsFiltersReducer,
-    getSingleProductReducer
+    getSingleProductReducer, getTrendingProductsReducer
 } from "./reducers/productsReducer.js";
 import {
     create_addressReducer,
@@ -35,6 +35,7 @@ export const store = configureStore({
         getProductsFiltersReducer:getProductsFiltersReducer,
         getSingleProductReducer:getSingleProductReducer,
         postReviewReducer:postReviewReducer,
+        getTrendingProductsReducer:getTrendingProductsReducer,
 
         cartReducer ,
         wishlistReducer,
