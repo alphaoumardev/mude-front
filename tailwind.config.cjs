@@ -14,9 +14,9 @@ module.exports = {
     //   body: ['Open Sans', 'sans-serif'],
     // },
     extend: {
-      // colors: {
-      //   cyan: colors.cyan,
-      // },
+      colors: {
+        cyan: colors.cyan,
+      },
       // fontSize: {
       //   14: '14px',
       // },
