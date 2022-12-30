@@ -4,10 +4,10 @@ const Cta = ()=>
     return(
         <div>
             {/* CTA section */}
-            <section aria-labelledby="sale-heading" className="flex justify-center items-center ">
+            <section aria-labelledby="sale-heading" className="sm:flex sm:justify-center sm:items-center ">
                 <div className="pt-5 overflow-hidden sm:pt-10 sm:w-11/12">
                     <div className="bg-gray-800">
-                        <div className="max-w-full sm:w-11/12 mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="max-w-full  mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="relative pt-52 pb-20 sm:pb-24">
                                 <div className="w-full">
                                     <h2 id="sale-heading" className="text-4xl font-extrabold tracking-tight text-white md:text-5xl">
