@@ -14,6 +14,7 @@ import OrderHistory from "./orders/OrderHistory.jsx";
 import Dashbord from "./admin/Dashbord";
 import NotFound from "./components/NotFound.jsx";
 import QuickView from "./mude/QuickView.jsx";
+import MyProfile from "./profile/MyProfile.jsx";
 
 function App() {
 
@@ -46,6 +47,8 @@ function App() {
                 <Route path="/mude/checkout" element={<CheckOut/>}/>
                 <Route path="/mude/order/detail" element={<OrderDetail/>}/>
                 <Route path="/mude/order/history" element={<OrderHistory/>}/>
+
+                <Route path="/mude/myprofile" element={<MyProfile/>} />
 
                 <Route path="*" element={<NotFound/>} />
             </Routes>
