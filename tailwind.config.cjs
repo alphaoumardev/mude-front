@@ -16,6 +16,8 @@ module.exports = {
     extend: {
       colors: {
         cyan: colors.cyan,
+        'warm-gray': colors.warmGray,
+        teal: colors.teal,
       },
       // fontSize: {
       //   14: '14px',

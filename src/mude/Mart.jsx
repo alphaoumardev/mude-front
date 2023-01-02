@@ -55,8 +55,8 @@ export default function Mart()
 
     const onChangePage = (page) => {setCurrentPage(page)}
     return (
-        <div className="bg-white">
-            <div>
+        <div className="bg-white flex justify-center items-center">
+            <div className="sm:w-11/12">
                 <MudeMobileFilter mobileFiltersOpen={mobileFiltersOpen} setMobileFiltersOpen={setMobileFiltersOpen}/>
                 <div className="border-b border-gray-200 ">
                     <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -87,7 +87,7 @@ export default function Mart()
                     </nav>
                 </div>
 
-                <div className=" bg-gray-800 px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
+                <div className=" bg-gray-800 rounded-2xl px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
                     <div className="lg:w-7/12 block lg:ml-96 rounded-full">
                         <label htmlFor="search" className="sr-only">
                             Search
@@ -214,7 +214,6 @@ export default function Mart()
                     </section>
 
                 </main>
-
             </div>
         </div>
     )

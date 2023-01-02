@@ -1,10 +1,9 @@
-import {Popover} from '@headlessui/react'
 import { Country, State, City }  from 'country-state-city';
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {addAddress} from "../redux/Actions/orderAction.js";
 
-const EditAddress =({address})=>
+const MyAddress =({address})=>
 {
     const dispatch = useDispatch();
 
@@ -43,13 +42,9 @@ const EditAddress =({address})=>
     }
     // console.log(address)
     return (
-        <div className="flex items-center items-center">
-            <Popover className="relative items-center justify-center">
-                <Popover.Button className="text-blue-600"><h3>Update</h3></Popover.Button>
-
-                <Popover.Panel focus={true} unmount={true} className="absolute z-10">
-                    <form onSubmit={onSubmit} method="POST">
-                        <div className="w-80 shadow sm:rounded-md sm:overflow-hidden">
+        <div className="sm:flex sm:justify-center sm:items-center">
+            <form onSubmit={onSubmit} method="POST" className="sm:w-7/12" >
+                <div className="  shadow sm:rounded-md ">
                             <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                                 <div>
                                     <h3 className="text-lg leading-6 font-medium ">Shipping Address</h3>
@@ -190,12 +185,8 @@ const EditAddress =({address})=>
                                 </button>
                             </div>
                         </div>
-                    </form>
-
-                    {/*<img src="/solutions.jpg" alt="" />*/}
-                </Popover.Panel>
-            </Popover>
+            </form>
         </div>
     )
 }
-export default EditAddress
+export default MyAddress

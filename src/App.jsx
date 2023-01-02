@@ -15,6 +15,10 @@ import Dashbord from "./admin/Dashbord";
 import NotFound from "./components/NotFound.jsx";
 import QuickView from "./mude/QuickView.jsx";
 import MyProfile from "./profile/MyProfile.jsx";
+import Contact from "./components/Contact.jsx";
+import MyPurchases from "./profile/MyPurchases.jsx";
+import MyCart from "./profile/MyCart.jsx";
+import MyShippingAddress from "./profile/MyShippingAddress.jsx";
 
 function App() {
 
@@ -24,7 +28,6 @@ function App() {
             <Routes>
                 <Route path="/admin/" element={<Dashbord/>}/>
             </Routes>
-
         </div>
         <div>
             {window.location.pathname==="/login" ||
@@ -35,6 +38,7 @@ function App() {
                 {/*<Route path="/"*/}
                 <Route index path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
+                <Route path="/mude/contact" element={<Contact/>}/>
 
                 <Route path="/mude/quick" element={<QuickView/>}/>
 
@@ -48,7 +52,11 @@ function App() {
                 <Route path="/mude/order/detail" element={<OrderDetail/>}/>
                 <Route path="/mude/order/history" element={<OrderHistory/>}/>
 
+                {/*My*/}
                 <Route path="/mude/myprofile" element={<MyProfile/>} />
+                <Route path="/mude/mypurchases" element={<MyPurchases/>} />
+                <Route path="/mude/mycart" element={<MyCart/>} />
+                <Route path="/mude/myshippingaddress" element={<MyShippingAddress/>} />
 
                 <Route path="*" element={<NotFound/>} />
             </Routes>

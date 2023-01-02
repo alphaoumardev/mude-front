@@ -25,7 +25,7 @@ const OrderDetail = ()=>
     // console.log(orderItem)
     return(
         <div>
-            <main className="max-w-2xl mx-auto pt-8 pb-24 sm:pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
+            <main className="max-w-7xl mx-auto pt-8 pb-24 sm:pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
                 {orderItem?.map((item, index) =>
                 <div key={index} className="">
                     <div className="px-4 mt-5 space-y-2 sm:px-0 sm:flex sm:items-baseline sm:justify-between sm:space-y-0">

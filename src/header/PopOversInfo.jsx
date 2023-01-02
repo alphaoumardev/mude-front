@@ -1,4 +1,4 @@
-import {Menu, Popover, Transition} from "@headlessui/react";
+import {Popover, Transition} from "@headlessui/react";
 import {Fragment} from "react";
 import MyDropDown from "./MyDropDown.jsx";
 import {useSelector} from "react-redux";
@@ -35,6 +35,7 @@ const PopOversInfo = ()=>
                             <div className="origin-top-right absolute z-40 right-0 mt-2  w-60 rounded-md  bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none">
                                 <MyDropDown/>
                             </div>
+
                         </Transition>
                     </div>
                 </div>

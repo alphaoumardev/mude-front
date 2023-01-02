@@ -1,4 +1,4 @@
-import {BsPerson} from "react-icons/bs";
+import {BsPerson,BsBoxSeam} from "react-icons/bs";
 import {AiOutlineSetting} from "react-icons/ai";
 import {IoMdLogOut} from "react-icons/io";
 import {BiCommand} from "react-icons/bi";
@@ -7,6 +7,8 @@ import {MdPersonAddAlt} from "react-icons/md";
 import {FiHelpCircle} from "react-icons/fi";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../redux/Actions/authActions.js";
+import {ShoppingBagOutline} from "heroicons-react";
+import {FaRegAddressBook} from "react-icons/fa";
 
 const MyDropDown = ()=>
 {
@@ -35,10 +37,20 @@ const MyDropDown = ()=>
                     <AiOutlineSetting size={17}/>
                     <span className="mx-1">Settings</span>
                 </a>
-                <a href=""
+                <a href="/mude/mypurchases"
                    className="flex items-center p-3 text-sm text-gray-600 capitalize cursor-pointer cursor-pointer transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
-                    <IoMdLogOut size={17}/>
-                    <span className="mx-1">Details</span>
+                    <BsBoxSeam size={17}/>
+                    <span className="mx-1">Purchases</span>
+                </a>
+                <a href="/mude/mycart"
+                   className="flex items-center p-3 text-sm text-gray-600 capitalize cursor-pointer cursor-pointer transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                    <ShoppingBagOutline size={17}/>
+                    <span className="mx-1">Cart</span>
+                </a>
+                <a href="/mude/myshippingaddress"
+                   className="flex items-center p-3 text-sm text-gray-600 capitalize cursor-pointer cursor-pointer transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                    <FaRegAddressBook size={17}/>
+                    <span className="mx-1">Shipping Address</span>
                 </a>
                 <hr className="border-gray-200 dark:border-gray-700 "/>
                 <a href="#"
