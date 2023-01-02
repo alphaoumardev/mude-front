@@ -1,11 +1,13 @@
+import women_a from "../assets/women_a.jpg"
+import women_acc from "../assets/women_acc.jpg"
+import women_c from "../assets/women_c.jpg"
+import women_s from "../assets/women_s.jpg"
 
-/*
- * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
- * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
- * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
- * Vestibulum commodo. Ut rhoncus gravida arcu.
- */
+import men_a from "../assets/men_a.jpg"
+import men_acc from "../assets/men_acc.jpg"
+import men_c from "../assets/men_c.jpg"
+import men_s from "../assets/men_s.jpg"
+import {Link} from "react-router-dom";
 
 const Hero = ()=>
 {
@@ -34,13 +36,13 @@ const Hero = ()=>
                                     <div className="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 mt-1 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8">
                                         <div className="flex items-center space-x-5 lg:space-x-5">
                                             <div className="flex-shrink-0 grid grid-cols-1 gap-y-3 lg:gap-y-8">
-                                                <div className="w-44 h-64 rounded-lg ">
+                                                <Link to={`/mude/guowuchang/${2}`} className="w-44 h-64 rounded-lg ">
                                                     <img
-                                                        src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-01.jpg"
+                                                        src={women_c}
                                                         alt=""
                                                         className="w-full h-full object-center object-cover"
                                                     />
-                                                </div>
+                                                </Link>
                                                 <div className="w-44 h-64 rounded-lg ">
                                                     <img
                                                         src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-01.jpg"
