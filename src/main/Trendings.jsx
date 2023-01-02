@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {getTrendingProductAction} from "../redux/Actions/productsActions.js";
 
-const Favorites = () =>
+const Trendings = () =>
 {
     const dispatch = useDispatch()
     const {trending} = useSelector(state => state.getTrendingProductsReducer)
@@ -13,9 +13,7 @@ const Favorites = () =>
     }, [dispatch]);
 
     return(
-        <div>
-            {/*grid inline*/}
-            <section aria-labelledby="trending-heading " className="flex justify-center items-center">
+            <div aria-labelledby="trending-heading " className="flex justify-center items-center ">
                 <div className="max-w-full sm:w-11/12  py-24 px-4 sm:px-6 sm:py-32 lg:pt-5 lg:px-8">
                     <div className="md:flex md:items-center md:justify-between">
                         <h2 id="favorites-heading" className="text-2xl font-extrabold tracking-tight text-gray-900">
@@ -52,9 +50,7 @@ const Favorites = () =>
                         </a>
                     </div>
                 </div>
-            </section>
-
-        </div>
+            </div>
     )
 }
-export default Favorites
+export default Trendings

@@ -6,6 +6,7 @@ import {FcClearFilters} from "react-icons/fc";
 import MudeMobileFilter from "./MudeMobileFilter.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {
+    getAllProductsByPage,
     getProductByPageAction,
     getProductBySearchAction,
 } from "../redux/Actions/productsActions.js";
@@ -43,6 +44,10 @@ export default function Mart()
         {
             dispatch(getProductByPageAction(category, currentPage, color, size, tag, brand, occasion, material, length))
         }
+        else
+        {
+            dispatch(getAllProductsByPage(currentPage))
+        }
         if(search)
         {
             dispatch(getProductBySearchAction(search))
@@ -55,7 +60,7 @@ export default function Mart()
 
     const onChangePage = (page) => {setCurrentPage(page)}
     return (
-        <div className="bg-white flex justify-center items-center">
+        <div className="bg-white sm:flex sm:justify-center sm:items-center">
             <div className="sm:w-11/12">
                 <MudeMobileFilter mobileFiltersOpen={mobileFiltersOpen} setMobileFiltersOpen={setMobileFiltersOpen}/>
                 <div className="border-b border-gray-200 ">
@@ -67,14 +72,7 @@ export default function Mart()
                                         <a href={breadcrumb.href} className="mr-4 text-sm font-medium text-gray-900">
                                             {breadcrumb.name}
                                         </a>
-                                        <svg
-                                            viewBox="0 0 6 20"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            aria-hidden="true"
-                                            className="h-5 w-auto text-gray-300"
-                                        >
-                                            <path d="M4.878 4.34H3.551L.27 16.532h1.327l3.281-12.19z" fill="currentColor" />
-                                        </svg>
+                                        /
                                     </div>
                                 </li>
                             ))}
@@ -87,7 +85,7 @@ export default function Mart()
                     </nav>
                 </div>
 
-                <div className=" bg-gray-800 rounded-2xl px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
+                <div className=" bg-gray-800 rounded-full px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
                     <div className="lg:w-7/12 block lg:ml-96 rounded-full">
                         <label htmlFor="search" className="sr-only">
                             Search
@@ -176,10 +174,10 @@ export default function Mart()
                             </div>
 
                             {/* Product grid */}
-                            <div className="grid grid-cols-2 gap-x-6 sm:grid-cols-4 lg:col-span-4 lg:gap-x-8 lg:gap-y-10">
+                            <div className="grid grid-cols-2 gap-x-6 sm:grid-cols-4 lg:col-span-4 lg:gap-x-5 lg:gap-y-5">
                                 {articles?.map((product, index) =>
                                     <div key={index}  className="group text-sm ">
-                                        <div onClick={()=>navigate(`/mude/single/product/${product?.id}`)}  className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden group-hover:opacity-75">
+                                        <div onClick={()=>navigate(`/mude/single/product/${product?.id}`)}  className="w-full aspect-w-1 aspect-h-1 overflow-hidden group-hover:opacity-75">
                                             <img
                                                 // src={`http://127.0.0.1:8000/${product?.images[0]?.image}`}
                                                 //TODO: REVIEW THE THE REASON

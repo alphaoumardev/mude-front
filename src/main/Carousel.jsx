@@ -5,7 +5,7 @@ import Slider3 from '../assets/slider3.jpg'
 const Carousel = ()=>
 {
     return(
-        <div className="flex justify-center items-center lg:hidden">
+        <div className="flex justify-center items-center sm:hidden">
             <div id="carouselExampleControls" className="carousel slide relative " data-bs-ride="carousel">
                 <div className="carousel-inner relative w-full overflow-hidden">
                     <div className="carousel-item active relative float-left w-full">

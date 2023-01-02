@@ -1,30 +1,42 @@
+import women_1 from '../assets/women_1.jpg'
+import men_1 from '../assets/men_1.jpg'
+import new_arr from '../assets/new_arr.jpg'
+import acce from '../assets/acce.jpg'
+import activewear from '../assets/activewear.jpg'
+import home_3 from '../assets/home_3.jpg'
+import {Link} from "react-router-dom";
+
 const categories = [
     {
         name: 'New Arrivals',
         href: '#',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-01-category-01.jpg',
+        imageSrc: new_arr,
     },
     {
-        name: 'Productivity',
-        href: '#',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-01-category-02.jpg',
-    },
-    {
-        name: 'Workspace',
-        href: '#',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-01-category-04.jpg',
-    },
-    {
-        name: 'Accessories',
-        href: '#',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-01-category-05.jpg',
+        name: 'Women',
+        href: '/mude/guowuchang/1',
+        imageSrc: women_1,
     },
     {
         name: 'Men',
-        href: '#',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-01-category-05.jpg',
+        href: '/mude/guowuchang/6',
+        imageSrc: men_1,
     },
-    { name: 'Sale', href: '#', imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-01-category-03.jpg' },
+    {
+        name: 'Accessories',
+        href: '/mude/guowuchang/5',
+        imageSrc: acce,
+    },
+    {
+        name: 'Activewear',
+        href: '/mude/guowuchang/20',
+        imageSrc:activewear ,
+    },
+    {
+        name: 'Home',
+        href: '/mude/guowuchang/14',
+        imageSrc: home_3
+    },
 ]
 
 const ShopByCategory = ()=>
@@ -32,12 +44,12 @@ const ShopByCategory = ()=>
     return(
         <div>
             {/*Subcategories*/}
-            <section aria-labelledby="category-heading" className="pt-5 sm:pt-5 sm:w-11/12 xl:mx-auto xl:px-8">
+            <section aria-labelledby="category-heading" className="sm:w-11/12 pt-5 sm:pt-5 xl:mx-auto xl:px-8 sm:mt-96">
                 <div className="px-4 sm:px-6 sm:flex sm:items-center sm:justify-between lg:px-8 xl:px-0">
                     <h2 id="category-heading" className="text-2xl font-extrabold tracking-tight text-gray-900">
                         Shop by Category
                     </h2>
-                    <a href="#" className="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
+                    <a href="/mude/guowuchang" className="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
                         Browse all categories<span aria-hidden="true"> &rarr;</span>
                     </a>
                 </div>
@@ -46,10 +58,10 @@ const ShopByCategory = ()=>
                     <div className="-my-2">
                         <div className="box-content py-2 relative h-80 overflow-x-auto xl:overflow-visible">
                             <div className="absolute min-w-screen-xl px-4 flex space-x-8 sm:px-6 lg:px-8 xl:relative xl:px-0 xl:space-x-0 xl:grid xl:grid-cols-6 xl:gap-x-8">
-                                {categories.map((category) => (
-                                    <a
-                                        key={category.name}
-                                        href={category.href}
+                                {categories.map((category, index) =>
+                                    <Link
+                                        key={index}
+                                        to={category.href}
                                         className="relative w-56 h-80 rounded-lg p-6 flex flex-col overflow-hidden hover:opacity-75 xl:w-auto"
                                     >
                                           <span aria-hidden="true" className="absolute inset-0">
@@ -60,8 +72,8 @@ const ShopByCategory = ()=>
                                             className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"
                                         />
                                         <span className="relative mt-auto text-center text-xl font-bold text-white">{category.name}</span>
-                                    </a>
-                                ))}
+                                    </Link>
+                                )}
                             </div>
                         </div>
                     </div>

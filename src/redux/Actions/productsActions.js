@@ -58,30 +58,30 @@ export const getProductByPageAction = (categoryId, page,  color, size, tag, bran
             )
         }
     }
-    // else
-    // {
-    //     // try
-    //     // {
-    //     //     await axios.get(`/api/filter-products-by-category/?page=${page}`).then((res)=>
-    //     //     {
-    //     //         dispatch({
-    //     //             type: P.S_GET_ARTICLES_BY_PAGE,
-    //     //             payload: res.data
-    //     //         })
-    //     //         // console.log(res.data)
-    //     //     })
-    //     // }
-    //     // catch (error)
-    //     // {
-    //     //     dispatch(
-    //     //         {
-    //     //             type: P.F_GET_ARTICLES_BY_PAGE,
-    //     //             payload: error.response && error.response.data.detail ?
-    //     //                 error.response.data.detail : error.message,
-    //     //         }
-    //     //     )
-    //     // }
-    // }
+}
+export const getAllProductsByPage = (page) => async (dispatch) =>
+{
+    try
+    {
+        await axios.get(`/api/products-by-page/?page=${page}`).then((res)=>
+        {
+            dispatch({
+                type: P.S_GET_ARTICLES_BY_PAGE,
+                payload: res.data
+            })
+            // console.log(res.data)
+        })
+    }
+    catch (error)
+    {
+        dispatch(
+            {
+                type: P.F_GET_ARTICLES_BY_PAGE,
+                payload: error.response && error.response.data.detail ?
+                    error.response.data.detail : error.message,
+            }
+        )
+    }
 }
 
 export const getProductFiltersAction = () => async (dispatch) =>
