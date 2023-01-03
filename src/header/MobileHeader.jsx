@@ -1,37 +1,41 @@
 import {Fragment} from 'react'
-import {Tab, Transition} from '@headlessui/react'
+import {Tab, Transition, Dialog} from '@headlessui/react'
 import {AiOutlinePlus} from "react-icons/ai";
+import men_1 from "../assets/men_1.jpg"
+import women_1 from "../assets/women_1.jpg"
+import {useSelector} from "react-redux";
 const ca = {
     featured: [
         {
-            name: 'New Arrivals',
-            href: '#',
-            imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
-            imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
+            name: 'Women',
+            href: '/mude/guowuchang/1',
+            imageSrc: women_1,
+            imageAlt: '',
         },
         {
-            name: 'Basic Tees',
-            href: '#',
-            imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
-            imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
+            name: 'Men',
+            href: '/mude/guowuchang/6',
+            imageSrc: men_1,
+            imageAlt: '',
         },
     ]
 }
 
-const MobileHeader = ({open, setOpen, catenames})=>
+const MobileHeader = ({open, setOpen})=>
 {
     // const [open, setOpen] = useState(false)
 
     function classNames(...classes) {return classes.filter(Boolean).join(' ')}
+    const {catenames} = useSelector(state => state.getHeaderCatergoriesReducer)
 
     // console.log(open)
 
     return(
         <div>
             <Transition.Root show={open} as={Fragment}>
-                <div  className="fixed inset-0 flex z-50 lg:hidden" >
+                <Dialog  className="fixed inset-0 flex z-50 lg:hidden"  onClose={setOpen}>
                     <Transition.Child
-                        as={"div"}
+                        as={Fragment}
                         enter="transition-opacity ease-linear duration-300"
                         enterFrom="opacity-0"
                         enterTo="opacity-100"
@@ -39,11 +43,11 @@ const MobileHeader = ({open, setOpen, catenames})=>
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0">
 
-                        <div className="fixed inset-0 bg-black bg-opacity-25" />
+                        <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-25" />
                     </Transition.Child>
 
                     <Transition.Child
-                        as={"div"}
+                        as={Fragment}
                         enter="transition ease-in-out duration-300 transform"
                         enterFrom="-translate-x-full"
                         enterTo="translate-x-0"
@@ -66,18 +70,18 @@ const MobileHeader = ({open, setOpen, catenames})=>
                             {/* Links */}
                             <Tab.Group as="div" className="mt-2">
                                 <div className="border-b border-gray-200 ">
-                                    <Tab.List className="-mb-px flex px-4 space-x-8 overflow-scroll">
-                                        {catenames?.map((category, index) => (
+                                    <Tab.List className="-mb-px flex px-4 space-x-5 overflow-y-scroll">
+                                        {catenames?.map((category, index) =>
                                             <Tab
                                                 key={index}
                                                 className={({ selected }) =>classNames(selected ? 'text-indigo-600 border-indigo-600' : 'text-gray-900 border-transparent','uppercase flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium')}>
                                                 {category.name}
                                             </Tab>
-                                        ))}
+                                        )}
                                     </Tab.List>
                                 </div>
                                 <Tab.Panels as={Fragment}>
-                                    {catenames?.map((category, index) => (
+                                    {catenames?.map((category, index) =>
                                         <Tab.Panel key={index} className="pt-10 pb-8 px-4 space-y-10">
                                             <div className="grid grid-cols-2 gap-x-4">
                                                 {ca?.featured?.map((item,index) => (
@@ -96,28 +100,27 @@ const MobileHeader = ({open, setOpen, catenames})=>
                                                     </div>
                                                 ))}
                                             </div>
-                                            {category?.subcates?.map((section,index) => (
+                                            {category?.subcates?.map((section,index) =>
                                                 <div key={index}>
-                                                    <p id={`${category.id}-${section.id}-heading-mobile`} className="font-medium text-gray-900">
+                                                    <a href={`/mude/guowuchang/${section?.id}`}  className="capitalize font-bold text-md text-gray-900">
                                                         {section.name}
-                                                    </p>
+                                                    </a>
                                                     <ul
                                                         role="list"
                                                         aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
-                                                        className="mt-6 flex flex-col space-y-6"
-                                                    >
-                                                        {section?.items?.map((item, index) => (
+                                                        className="mt-6 flex flex-col space-y-6">
+                                                        {section?.subcates?.map((item, index) =>
                                                             <li key={index} className="flow-root">
-                                                                <a href={item.href} className="-m-2 p-2 block text-gray-500">
+                                                                <a href={`/mude/guowuchang/${item?.id}`} className="capitalize -m-2 p-2 block text-gray-500">
                                                                     {item.name}
                                                                 </a>
                                                             </li>
-                                                        ))}
+                                                        )}
                                                     </ul>
                                                 </div>
-                                            ))}
+                                            )}
                                         </Tab.Panel>
-                                    ))}
+                                    )}
                                 </Tab.Panels>
                             </Tab.Group>
 
@@ -153,7 +156,7 @@ const MobileHeader = ({open, setOpen, catenames})=>
                             </div>
                         </div>
                     </Transition.Child>
-                </div>
+                </Dialog>
             </Transition.Root>
         </div>
     )

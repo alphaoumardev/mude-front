@@ -109,12 +109,12 @@ export const Footer =()=>
                                         type="text"
                                         autoComplete="email"
                                         required
-                                        className="appearance-none min-w-0 w-full bg-white border border-white rounded-md shadow-sm py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:border-white focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-white"
+                                        className="appearance-none min-w-0 w-full bg-white border border-white rounded-full shadow-sm py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:border-white focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-white"
                                     />
                                     <div className="ml-4 flex-shrink-0">
                                         <button
                                             type="submit"
-                                            className="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-indigo-500"
+                                            className="w-full bg-indigo-600 border border-transparent rounded-full shadow-sm py-2 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-indigo-500"
                                         >
                                             Sign up
                                         </button>
@@ -127,7 +127,7 @@ export const Footer =()=>
             </div>
             <div className="max-w-7xl lg:ml-56 py-6 md:flex  md:items-center md:justify-between">
                 <div className="text-center md:text-left">
-                    <p className="text-sm text-gray-500">&copy; 2022 Mude Inc. All Rights Reserved</p>
+                    <p className="text-sm text-gray-500">&copy; 2023 Mude Inc. All Rights Reserved</p>
                 </div>
                 <div className="mt-4 flex items-center justify-center md:mt-0">
                     <div className="flex space-x-8">

@@ -4,6 +4,7 @@ import {AiFillStar} from "react-icons/ai";
 import {AiOutlinePlus} from "react-icons/ai";
 import ReviewTextArea from "./ReviewTextArea";
 import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 const faqs = [
     {
@@ -50,12 +51,13 @@ const license = {
 function classNames(...classes) {return classes.filter(Boolean).join(' ')}
 
 
-const Reviews = ({id, customer, singleProduct})=>
+const Reviews = ({id, singleProduct})=>
 {
     const navigate = useNavigate()
-    return(
+    const {customer} = useSelector((state) =>state.authReducer)
 
-        <div className="w-full max-w-2xl mx-auto mt-0 lg:max-w-none lg:mt-0 lg:col-span-4">
+    return(
+        <div className="w-full sm:ml-24 mt-12 mx-auto  lg:max-w-none  lg:col-span-4">
             <Tab.Group as="div">
                 <div className="border-b border-gray-200">
                     <Tab.List className="-mb-px flex space-x-8">

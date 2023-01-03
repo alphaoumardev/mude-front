@@ -14,20 +14,22 @@ import Logo from "../assets/logo.png";
 import {getMyOrderAction} from "../redux/Actions/orderAction.js";
 import HeaderCart from "./HeaderCart.jsx";
 import {Badge} from "antd";
+import women_1 from "../assets/women_1.jpg";
+import men_1 from "../assets/men_1.jpg";
 
 const ca = {
     featured: [
         {
-            name: 'New Arrivals',
-            href: '#',
-            imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
-            imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
+            name: 'Women',
+            href: '/mude/guowuchang/1',
+            imageSrc: women_1,
+            imageAlt: '',
         },
         {
-            name: 'Basic Tees',
-            href: '#',
-            imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
-            imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
+            name: 'Men',
+            href: '/mude/guowuchang/6',
+            imageSrc: men_1,
+            imageAlt: '',
         },
     ]
 }
@@ -82,11 +84,10 @@ const Header = ()=>
                     <div className="h-20 bg-gray-100 flex items-center justify-between sm:-ml-80" >
                         <button type="button" className="bg-white p-1 rounded-md  lg:hidden" onClick={() => setOpen(true)} >
                             <span className="sr-only">Open menu on Mobile</span>
-                            <AiOutlineMenu className="h-6 w-6 text-black" aria-hidden="true" />
+                            <AiOutlineMenu className="ml-3 h-6 w-6 text-black" aria-hidden="true" />
                         </button>
 
-                        <MobileHeader open={open} setOpen={setOpen} catenames={catenames}/>
-
+                        <MobileHeader open={open} setOpen={setOpen} />
 
                         {/*Logo*/}
                         <div className="sm:flex justify-start items-center ">
@@ -147,7 +148,7 @@ const Header = ()=>
                                                                                         <img
                                                                                             src={item.imageSrc}
                                                                                             alt={item.imageAlt}
-                                                                                            className="object-center object-cover"
+                                                                                            className="object-center object-contain"
                                                                                         />
                                                                                     </div>
                                                                                     <a href={item.href} className="mt-6 block font-medium text-gray-900">
@@ -219,7 +220,7 @@ const Header = ()=>
                                 </Badge>
                             </div>}
 
-                            <div className="ml-2 mr-3 flow-root">
+                            <div className="ml-2 mr-5 flow-root">
                                 <PopOversInfo/>
                             </div>
 

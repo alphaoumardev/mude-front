@@ -1,10 +1,3 @@
-/*
- * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
- * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
- * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
- * Vestibulum commodo. Ut rhoncus gravida arcu.
- */
 
 const policies = [
     {
@@ -37,11 +30,10 @@ const Policies = ()=>
     return(
         <div>
             {/* Policies section */}
-            <section aria-labelledby="policy-heading" className="mt-16 lg:mt-24">
-                <h2 id="policy-heading" className="sr-only">
-                    Our policies
-                </h2>
-                <div className="grid grid-cols-1 gap-y-12  sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 lg:gap-x-8">
+            {/*<section aria-labelledby="policy-heading" className="pt-5 sm:pt-5 xl:max-w-7xl xl:mx-auto xl:px-8">*/}
+
+                <div className="box-content py-2 relative h-64 overflow-scroll xl:overflow-visible">
+                    <div className="absolute px-4 flex  space-x-5 grid grid-cols-1 grid-rows-1 gap-x-3 xl:px-0 xl:space-x-0 xl:grid sm:grid-cols-4 xl:gap-x-5  ">
                     {policies.map((policy) =>
                         <div key={policy.name} className="text-center">
                             <div className="flex justify-center items-center">
@@ -52,7 +44,8 @@ const Policies = ()=>
                         </div>
                     )}
                 </div>
-            </section>
+                </div>
+            {/*</section>*/}
         </div>
     )
 }

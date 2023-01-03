@@ -4,7 +4,6 @@ import Cta from "../main/Cta.jsx";
 import Futured from "../main/Futured.jsx";
 import MainCategory from "../main/MainCategory.jsx";
 import ShopByCategory from "../main/ShopByCategory.jsx";
-import Trendings from "../main/Trendings.jsx";
 
 const Mude = ()=>
 {
@@ -16,7 +15,8 @@ const Mude = ()=>
             <MainCategory/>
             <ShopByCategory/>
             <Futured/>
-            <Trendings/>
+            {/*//TODO: Look up*/}
+            {/*<Trendings/>*/}
             <Cta/>
         </div>
 

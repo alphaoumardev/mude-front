@@ -13,8 +13,8 @@ const Trendings = () =>
     }, [dispatch]);
 
     return(
-            <div aria-labelledby="trending-heading " className="flex justify-center items-center ">
-                <div className="max-w-full sm:w-11/12  py-24 px-4 sm:px-6 sm:py-32 lg:pt-5 lg:px-8">
+            <div aria-labelledby="trending-heading " className="sm:flex sm:justify-center sm:items-center ">
+                <div className=" sm:w-11/12  py-24 px-4 sm:px-6 sm:py-32 lg:pt-5 lg:px-8">
                     <div className="md:flex md:items-center md:justify-between">
                         <h2 id="favorites-heading" className="text-2xl font-extrabold tracking-tight text-gray-900">
                             Trending Products
@@ -26,19 +26,17 @@ const Trendings = () =>
 
                     <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-6 md:gap-y-0 lg:gap-x-8">
                         {trending?.map((product, index) =>
-                            <div key={index} className="">
-                                <div className="w-full h-full rounded-md overflow-hidden group-hover:opacity-75 lg:h-72 xl:h-80">
+                            <div  key={index} className="">
+                                <div  className="w-full h-full rounded-md overflow-hidden group-hover:opacity-75 lg:h-72 xl:h-80">
                                     <img
                                         src={`http://127.0.0.1:8000/${product?.images[0].image}`}
                                         alt={""}
-                                        className="w-full h-full object-center object-cover"
+                                        className="w-full h-full object-center object-contain"
                                     />
                                 </div>
                                 <h3 className="mt-4 text-sm text-gray-700">
-                                    <a href={''}>
-                                        <span className="absolute inset-0" />
-                                        {product?.name}
-                                    </a>
+                                    <span className="absolute inset-0" />
+                                    {product?.name}
                                 </h3>
                                 <p className="mt-1 text-sm font-medium text-gray-900">{product?.price}</p>
                             </div>

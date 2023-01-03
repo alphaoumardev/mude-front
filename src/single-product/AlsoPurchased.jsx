@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2023. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 const categories = [
     {
         name: 'New Arrivals',
@@ -22,7 +30,7 @@ const categories = [
     { name: 'Sale', href: '#', imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-01-category-03.jpg' },
 ]
 
-const ByCategory = ()=>
+const AlsoPurchased = ()=>
 {
     return(
         <div>
@@ -31,7 +39,12 @@ const ByCategory = ()=>
                     <h2 id="category-heading" className="text-2xl font-extrabold tracking-tight text-gray-900">
                         Shop by Category
                     </h2>
-                    <a href="#" className="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
+                    <a href="src/components#" className="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
+                        Browse all categories<span aria-hidden="true"> &rarr;</span>
+                    </a>
+                </div>
+                <div className="mt-6 px-4 sm:hidden">
+                    <a href="src/components#" className="block text-sm font-semibold text-indigo-600 hover:text-indigo-500">
                         Browse all categories<span aria-hidden="true"> &rarr;</span>
                     </a>
                 </div>
@@ -60,14 +73,8 @@ const ByCategory = ()=>
                         </div>
                     </div>
                 </div>
-
-                <div className="mt-6 px-4 sm:hidden">
-                    <a href="#" className="block text-sm font-semibold text-indigo-600 hover:text-indigo-500">
-                        Browse all categories<span aria-hidden="true"> &rarr;</span>
-                    </a>
-                </div>
             </section>
         </div>
     )
 }
-export default ByCategory
+export default AlsoPurchased
