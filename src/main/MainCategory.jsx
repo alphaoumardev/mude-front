@@ -91,7 +91,17 @@ const MainCategory = ()=>
                                 className="object-center object-cover group-hover:opacity-75"
                             />
                             <div aria-hidden="true" className="bg-gradient-to-b from-transparent to-black opacity-50" />
-
+                            <div className="p-6 flex items-end">
+                                <div>
+                                    <h3 className="font-semibold text-white">
+                                        <span className="absolute inset-0" />
+                                        On Sale
+                                    </h3>
+                                    <p aria-hidden="true" className="mt-1 text-sm text-white">
+                                        Check now
+                                    </p>
+                                </div>
+                            </div>
                         </Link>
                         <Link to={'/mude/guowuchang'} className="group aspect-w-2 aspect-h-1 rounded-lg overflow-hidden sm:relative sm:aspect-none sm:h-1/2 sm:-mt-64">
                             <img
