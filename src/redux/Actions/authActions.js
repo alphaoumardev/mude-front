@@ -11,7 +11,7 @@ import {
     LOGOUT_SUCCESS,
     LOGOUT_FAIL,
     UPDATE_PROFILE_SUCCESS,
-    UPDATE_PROFILE_FAIL,
+    UPDATE_PROFILE_FAIL, S_CONTACT_US, F_CONTACT_US,
     CART_CLEAR_ITEMS, ORDER_MY_FAIL, USER_PROFILE, WISHLIST_CLEAR_ITEMS
 } from '../Types'
 import axios from "axios";
@@ -153,31 +153,39 @@ export const updateUserProfile = (first_name, last_name, email, password)=> asyn
 }
 
 
-// export const load_user = () => async dispatch =>
-// {
-//     if(localStorage.getItem('access'))
-//     {
-//         const config = {
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 'Authorization': `JWT ${localStorage.getItem('access')}`,
-//                 'Accept': 'application/json'
-//             }
-//         }
-//         try
-//         {
-//             const res = await axios.get('/api/auth/users/me/', config)
-//             dispatch({type: LOAD_PROFILE_SUCCESS, payload: res.data,})
-//         }
-//         catch (error)
-//         {
-//             dispatch({type: LOAD_PROFILE_FAIL, payload: error})
-//         }
-//     }else
-//     {
-//         dispatch({type: LOAD_PROFILE_SUCCESS,})
-//     }
-// }
+export const postContactUs = (customer, subject, content) => async dispatch =>
+{
+    if(localStorage.getItem('token'))
+    {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`,
+                'Accept': 'application/json'
+            }
+        }
+        try
+        {
+            const body = JSON.stringify({customer, subject, content} )
+            await axios.post('/api/contact-us/', body,config).then(res=>
+            {
+                dispatch(
+                    {
+                        type: S_CONTACT_US,
+                        payload: res.data,
+                    })
+                console.log(res.data)
+            })
+        }
+        catch (error)
+        {
+            dispatch({type: F_CONTACT_US, payload: error})
+        }
+    }else
+    {
+        dispatch({type: F_CONTACT_US, payload:[]})
+    }
+}
 
 // export const checkIfAuthenticated = () => async dispatch =>
 // {

@@ -54,8 +54,7 @@ export default function Dashbord()
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
     return (
-        <>
-            <div>
+        <div>
                 <Nav/>
                 <div className="min-h-full">
                     <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -542,6 +541,5 @@ export default function Dashbord()
                     </div>
                 </div>
             </div>
-        </>
     )
 }

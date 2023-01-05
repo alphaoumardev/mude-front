@@ -9,6 +9,8 @@ export  const REGISTER_FAIL = "REGISTER_FAIL"
 
 export  const S_HEADER_CATEGORY = "S_HEADER_CATEGORY"
 export  const F_HEADER_CATEGORY = "F_HEADER_CATEGORY"
+export  const S_CONTACT_US = "S_CONTACT_US"
+export  const F_CONTACT_US = "F_CONTACT_US"
 
 
 export  const S_PRODUCT_FILTERS = "S_PRODUCT_FILTERS"

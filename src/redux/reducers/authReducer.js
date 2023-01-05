@@ -5,7 +5,7 @@ import {
     REGISTER_SUCCESS,
     LOGOUT_SUCCESS,
     USER_PROFILE,
-    LOGOUT_FAIL, UPDATE_PROFILE_SUCCESS,
+    LOGOUT_FAIL, UPDATE_PROFILE_SUCCESS, S_CONTACT_US,
 } from '../Types'
 
 
@@ -66,3 +66,20 @@ export const authReducer = (state= {error:null, customer: profileStorage, token:
     }
 }
 
+export const contactUsReducer = (state={messages:[]}, action) => {
+    switch (action.type)
+    {
+        case S_CONTACT_US:
+            return {
+                ...state,
+                messages: action.payload,
+            }
+        case F_CONTACT_US:
+            return {
+                ...state,
+                messages: [],
+            }
+        default:
+            return state
+    }
+}

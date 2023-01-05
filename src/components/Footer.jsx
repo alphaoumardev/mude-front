@@ -14,7 +14,7 @@ const footerNavigation = {
         { name: 'Privacy', href: '#' },
     ],
     account: [
-        { name: 'Manage Account', href: '#' },
+        { name: 'Manage Account', href: '/mude/' },
         { name: 'Returns & Exchanges', href: '#' },
         { name: 'Redeem a Gift Card', href: '#' },
     ],

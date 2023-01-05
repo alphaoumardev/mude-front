@@ -1,6 +1,9 @@
 import { PhoneIcon } from '@heroicons/react/24/outline'
 import {AiFillGithub, AiFillMail} from "react-icons/ai";
 import {BsTwitter, BsFacebook} from "react-icons/bs";
+import {useDispatch, useSelector} from "react-redux";
+import {useState} from "react";
+import {postContactUs} from "../redux/Actions/authActions.js";
 
 const offices = [
     { id: 1, city: 'Los Angeles', address: ['4556 Brendan Ferry', 'Los Angeles, CA 90210'] },
@@ -11,6 +14,16 @@ const offices = [
 
 const Contact = ()=>
 {
+    const dispatch = useDispatch()
+    const {customer} = useSelector(state=>state.authReducer)
+    // console.log(customer)
+    const [subject, setSubject] = useState("");
+    const [content, setContent] = useState("");
+    const onContact =(e)=>
+    {
+        e.preventDefault();
+        dispatch(postContactUs(customer?.id, subject, content))
+    }
     return (
         <div className="bg-white">
 
@@ -19,7 +32,7 @@ const Contact = ()=>
                 <section className="relative bg-white" aria-labelledby="contact-heading">
                     <div className="absolute w-full h-1/2 bg-warm-gray-50" aria-hidden="true" />
                     {/* Decorative dot pattern */}
-                    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="hidden sm: block relative sm:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <svg
                             className="absolute z-0 top-0 right-0 transform -translate-y-16 translate-x-1/2 sm:translate-x-1/4 md:-translate-y-24 lg:-translate-y-72"
                             width={404}
@@ -114,13 +127,14 @@ const Contact = ()=>
                                 {/* Contact form */}
                                 <div className="py-10 px-6 sm:px-10 lg:col-span-2 xl:p-12">
                                     <h3 className="text-lg font-medium text-warm-gray-900">Send us a message</h3>
-                                    <form action="#" method="POST" className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+                                    <form onSubmit={onContact} method="POST" className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
                                         <div className="sm:col-span-2">
                                             <label htmlFor="subject" className="block text-sm font-medium text-warm-gray-900">
                                                 Subject
                                             </label>
                                             <div className="mt-1">
                                                 <input
+                                                    onChange={(e) => setSubject(e.target.value)}
                                                     required
                                                     type="text"
                                                     name="subject"
@@ -140,6 +154,7 @@ const Contact = ()=>
                                             </div>
                                             <div className="mt-1">
                                             <textarea
+                                                onChange={(e) => setContent(e.target.value)}
                                                 id="message"
                                                 name="message"
                                                 required
@@ -182,8 +197,8 @@ const Contact = ()=>
                                     <p className="mt-2 text-base text-warm-gray-500">
                                         {office.address.map((line) => (
                                             <span key={line} className="block">
-                        {line}
-                      </span>
+                                                {line}
+                                            </span>
                                         ))}
                                     </p>
                                 </div>
