@@ -104,19 +104,19 @@ const Contact = ()=>
                                     </dl>
                                     <ul role="list" className="mt-8 flex space-x-12">
                                         <li>
-                                            <a className="text-teal-200 hover:text-teal-100" href="#">
+                                            <a className="text-teal-200 hover:text-teal-100" href="https://www.facebook.com">
                                                 <span className="sr-only">Facebook</span>
                                                 <BsFacebook className="w-7 h-7"/>
                                             </a>
                                         </li>
                                         <li>
-                                            <a className="text-teal-200 hover:text-teal-100" href="#">
+                                            <a className="text-teal-200 hover:text-teal-100" href="https://www.github.com/alphaoumardev">
                                                 <span className="sr-only">GitHub</span>
                                                 <AiFillGithub className="w-7 h-7"/>
                                             </a>
                                         </li>
                                         <li>
-                                            <a className="text-teal-200 hover:text-teal-100" href="#">
+                                            <a className="text-teal-200 hover:text-teal-100" href="https://www.twitter.com/">
                                                 <span className="sr-only">Twitter</span>
                                                 <BsTwitter className="w-7 h-7"/>
                                             </a>
