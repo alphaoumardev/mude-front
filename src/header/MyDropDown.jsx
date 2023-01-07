@@ -1,5 +1,5 @@
 import {BsPerson,BsBoxSeam} from "react-icons/bs";
-import {AiOutlineSetting} from "react-icons/ai";
+import {AiOutlineHeart, AiOutlineSetting} from "react-icons/ai";
 import {IoMdLogOut} from "react-icons/io";
 import {BiCommand} from "react-icons/bi";
 import {RiTeamLine} from "react-icons/ri";
@@ -51,6 +51,11 @@ const MyDropDown = ()=>
                    className="flex items-center p-3 text-sm text-gray-600 capitalize cursor-pointer cursor-pointer transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
                     <FaRegAddressBook size={17}/>
                     <span className="mx-1">Shipping Address</span>
+                </a>
+                <a href="/mude/wishlist"
+                   className="flex items-center p-3 text-sm text-gray-600 capitalize cursor-pointer cursor-pointer transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                    <AiOutlineHeart size={17}/>
+                    <span className="mx-1">Wishlist</span>
                 </a>
                 <hr className="border-gray-200 dark:border-gray-700 "/>
                 <a href="#"

@@ -9,21 +9,18 @@ const config = {
         'Accept': 'application/json'
     }
 }
-export const addToWishlist = (id, username) => async (dispatch) =>
+export const addToWishlist = (product, customer) => async (dispatch) =>
 {
     if(localToken)
     {
-        const product = id
-        const user = username.id
-        dispatch({type: A.WISHLIST_ADD_REQUEST})
-        const body = JSON.stringify({product, user})
+        const body = JSON.stringify({product, customer})
 
         await axios.post('/api/wishlist/', body, config).then((res) => {
             dispatch({
                 type: A.WISHLIST_ADD_ITEM,
                 payload: res.data
             })
-            localStorage.setItem('wish', JSON.stringify(res.data.product))
+            // localStorage.setItem('wish', JSON.stringify(res.data.product))
         })
     }
 }
@@ -36,10 +33,9 @@ export const getWishlistItems = () => async (dispatch) =>
         {
         dispatch({
             type: A.WISHLIST_GET_ITEMS,
-            payload: res.data.result,
-            wishlist_count: res.data.wishlist_count,
+            payload: res.data
         })
-        localStorage.setItem('wishlistItem', JSON.stringify(res.data))
+        // localStorage.setItem('wishlistItem', JSON.stringify(res.data))
     })
     }
 }
@@ -51,11 +47,8 @@ export const removeItemFromWishlist = (id) => async (dispatch) =>
             type: A.WISHLIST_REMOVE_ITEM,
             payload: res,
         })
-        // console.log(res)
-        // localStorage.removeItem('wishlistItem',)
         dispatch(getWishlistItems())
     })
-    // console.log(id)
 }
 
 export const updateWishlistItem = (id, product) => async (dispatch) =>

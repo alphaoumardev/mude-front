@@ -19,6 +19,7 @@ import Contact from "./components/Contact.jsx";
 import MyPurchases from "./profile/MyPurchases.jsx";
 import MyCart from "./profile/MyCart.jsx";
 import MyShippingAddress from "./profile/MyShippingAddress.jsx";
+import MyWishlist from "./profile/MyWishlist.jsx";
 
 function App() {
 
@@ -57,6 +58,7 @@ function App() {
                 <Route path="/mude/mypurchases" element={<MyPurchases/>} />
                 <Route path="/mude/mycart" element={<MyCart/>} />
                 <Route path="/mude/myshippingaddress" element={<MyShippingAddress/>} />
+                <Route path="/mude/wishlist" element={<MyWishlist/>} />
 
                 <Route path="*" element={<NotFound/>} />
             </Routes>

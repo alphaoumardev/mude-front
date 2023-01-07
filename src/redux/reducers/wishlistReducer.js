@@ -1,7 +1,6 @@
 import * as W from '../Types'
 
-export const wishlistReducer = (state =
-                                    {wishlistItem:[], wishlist_count:0,}, action)=>
+export const wishlistReducer = (state ={wishlistItem:[]}, action)=>
 {
     switch (action.type)
     {
@@ -15,20 +14,17 @@ export const wishlistReducer = (state =
             return{
                 ...state,
                 wishlistItem: action.payload,
-                wishlist_count: action.wishlist_count
             }
         case W.WISHLIST_REMOVE_ITEM:
             return{
                 ...state,
                 wishlistItem: action.payload,
                     // state.cartItem.filter(index => index.product !== action.payload),
-                wishlist_count: action.wishlist_count,
             }
         case W.WISHLIST_CLEAR_ITEMS:
             return{
                 ...state,
                 wishlistItem: [],
-                wishlist_count: 0
             }
         default:
             return state

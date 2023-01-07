@@ -1,6 +1,6 @@
 import {Fragment, useEffect, useState} from 'react'
 import {Menu, Transition} from '@headlessui/react'
-import {BsFillGridFill, BsSearch} from "react-icons/bs";
+import {BsBookmarkHeartFill, BsFillGridFill, BsSearch} from "react-icons/bs";
 import {HiOutlineChevronDown,} from "react-icons/hi";
 import {FcClearFilters} from "react-icons/fc";
 import MudeMobileFilter from "./MudeMobileFilter.jsx";
@@ -13,6 +13,9 @@ import {
 import ProductsFilters from "./ProductsFilters.jsx";
 import {Pagination} from 'antd';
 import {useNavigate, useParams} from "react-router-dom";
+import {HeartOutline} from "heroicons-react";
+import {AiFillHeart} from "react-icons/ai";
+import {addToWishlist, getWishlistItems} from "../redux/Actions/wishlistAction.js";
 
 const sortOptions = [
     { name: 'Most Popular', href: '#', current: true },
@@ -29,14 +32,17 @@ export default function Mart()
 {
     const navigate = useNavigate()
     let {category} = useParams()
+    const {customer} = useSelector(state=> state.authReducer)
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     const [currentPage, setCurrentPage] = useState(1);
 
     const dispatch = useDispatch()
     const {articles,  totalItems,  }=useSelector(state => state.getProductsByPagegReducer) //isLoading, error,totalPages, articles_per_page, next, prevPage,
+    const {wishlistItem} = useSelector(state => state.wishlistReducer)
 
     const [search, setSearch] = useState(null);
     const [color, size, tag, brand, occasion, material, length] = useState([])
+
 
     useEffect(() =>
     {
@@ -51,6 +57,10 @@ export default function Mart()
         if(search)
         {
             dispatch(getProductBySearchAction(search))
+        }
+        if(customer)
+        {
+            dispatch(getWishlistItems())
         }
     }, [dispatch, currentPage, search, category]);
     const searchedData = (value)=>
@@ -190,11 +200,15 @@ export default function Mart()
                                             <h2 onClick={()=>navigate(`/mude/single/product/${product?.id}`)} className=" text-gray-900 cursor-pointer">{product?.name}</h2>
 
                                             <div className="font-medium text-gray-900"><span className="text-red-500 text-sm">¥</span>{product?.price}</div>
-                                            {/*<div className="hidden  sm:block " >*/}
-                                            {/*</div>*/}
+                                            <div className=" " >
+                                                {wishlistItem?.product?.id?.includes()}
+
+                                                <HeartOutline size={17} onClick={()=>dispatch(addToWishlist(product?.id, customer?.id))}/>
+                                                <AiFillHeart size={17} color={"red"}/>
+                                            </div>
                                         </div>
                                         <ul role="list" className="flex items-center justify-center space-x-3">
-                                            {product?.color?.slice(0,4)?.map((color, index) =>
+                                            {product?.color?.slice(0,3)?.map((color, index) =>
                                                 <li key={index} style={{ backgroundColor: color.color_name }} className="w-5 h-5 rounded-full border border-black border-opacity-10">
                                                     <span className="sr-only">{color.color_name}</span>
                                                 </li>
