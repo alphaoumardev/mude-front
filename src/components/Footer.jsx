@@ -1,10 +1,10 @@
 const footerNavigation = {
-    shop: [
-        { name: 'Bags', href: '#' },
-        { name: 'Tees', href: '#' },
-        { name: 'Objects', href: '#' },
-        { name: 'Home Goods', href: '#' },
-        { name: 'Accessories', href: '#' },
+    mude: [
+        { name: 'Women', href: '#' },
+        { name: 'Men', href: '#' },
+        { name: 'Kids', href: '#' },
+        { name: 'Home', href: '#' },
+        { name: 'Activewear', href: '#' },
     ],
     company: [
         { name: 'Who we are', href: '#' },
@@ -14,13 +14,13 @@ const footerNavigation = {
         { name: 'Privacy', href: '#' },
     ],
     account: [
-        { name: 'Manage Account', href: '/mude/' },
+        { name: 'Manage Account', href: '/mude/myprofile' },
         { name: 'Returns & Exchanges', href: '#' },
         { name: 'Redeem a Gift Card', href: '#' },
     ],
     connect: [
-        { name: 'Contact Us', href: '#' },
-        { name: 'Twitter', href: '#' },
+        { name: 'Contact Us', href: '/mude/contact' },
+        { name: 'Twitter', href: 'https://www.twitter.com' },
         { name: 'Instagram', href: '#' },
         { name: 'Pinterest', href: '#' },
     ],
@@ -46,9 +46,9 @@ export const Footer =()=>
                             <div className="grid grid-cols-2 gap-8 xl:col-span-2">
                                 <div className="space-y-12 md:space-y-0 md:grid md:grid-cols-2 md:gap-8">
                                     <div>
-                                        <h3 className="text-sm font-medium text-white">Shop</h3>
+                                        <h3 className="text-sm font-medium text-white">Mude</h3>
                                         <ul role="list" className="mt-6 space-y-6">
-                                            {footerNavigation.shop.map((item) => (
+                                            {footerNavigation.mude.map((item) => (
                                                 <li key={item.name} className="text-sm">
                                                     <a href={item.href} className="text-gray-300 hover:text-white">
                                                         {item.name}

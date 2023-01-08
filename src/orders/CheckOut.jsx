@@ -38,10 +38,10 @@ export default function CheckOut()
                 </div>
 
                 <div className="hidden sm:flex sm:items-center sm:space-x-8">
-                    <a href="#" className="text-sm font-medium text-gray-700">
+                    <a href="/mude/contact" className="text-sm font-medium text-gray-700">
                         Contact support
                     </a>
-                    <a href="#" className="p-2 -m-2 text-gray-400 hover:text-gray-500">
+                    <a href="/mude/contact" className="p-2 -m-2 text-gray-400 hover:text-gray-500">
                         <span className="sr-only">Account</span>
                         <BsPerson className="w-6 h-6" aria-hidden="true" />
                     </a>

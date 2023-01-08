@@ -201,10 +201,10 @@ export default function Mart()
 
                                             <div className="font-medium text-gray-900"><span className="text-red-500 text-sm">¥</span>{product?.price}</div>
                                             <div className=" " >
-                                                {wishlistItem?.product?.id?.includes()}
-
+                                                {/*{wishlistItem?.product?.id?.find(index => index?.id===product?.id)?*/}
+                                                {/*<AiFillHeart size={17} color={"red"}/>:*/}
                                                 <HeartOutline size={17} onClick={()=>dispatch(addToWishlist(product?.id, customer?.id))}/>
-                                                <AiFillHeart size={17} color={"red"}/>
+                                                {/*}*/}
                                             </div>
                                         </div>
                                         <ul role="list" className="flex items-center justify-center space-x-3">
