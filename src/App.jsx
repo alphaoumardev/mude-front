@@ -27,13 +27,12 @@ function App() {
     <div className="App">
         <div>
             <Routes>
-                <Route path="/admin/" element={<Dashbord/>}/>
+                <Route path="/mude/admin" element={<Dashbord/>}/>
             </Routes>
         </div>
         <div>
             {window.location.pathname==="/login" ||
-            window.location.pathname==="/register" ||
-            window.location.pathname==="/admin"? "": <Header/>}
+            window.location.pathname==="/register"?"" : <Header/>}
 
             <Routes>
                 {/*<Route path="/"*/}
@@ -63,8 +62,7 @@ function App() {
                 <Route path="*" element={<NotFound/>} />
             </Routes>
             {window.location.pathname==="/login" ||
-            window.location.pathname==="/register" ||
-            window.location.pathname==="/admin"? "": <Footer/>}
+            window.location.pathname==="/register" ? "": <Footer/>}
         </div>
 
     </div>
