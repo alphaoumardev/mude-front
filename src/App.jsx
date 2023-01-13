@@ -26,9 +26,9 @@ function App() {
   return (
     <div className="App">
         <div>
-            <Routes>
-                <Route path="/mude/admin" element={<Dashbord/>}/>
-            </Routes>
+            {/*<Routes>*/}
+            {/*    <Route path="/mude/admin" element={<Dashbord/>}/>*/}
+            {/*</Routes>*/}
         </div>
         <div>
             {window.location.pathname==="/login" ||
