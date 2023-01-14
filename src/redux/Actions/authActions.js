@@ -15,8 +15,6 @@ import {
     CART_CLEAR_ITEMS, ORDER_MY_FAIL, USER_PROFILE, WISHLIST_CLEAR_ITEMS
 } from '../Types'
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
-import {useState} from "react";
 
 const localToken = localStorage.getItem('token')
 
@@ -134,47 +132,28 @@ export const getCustomerProfile = ()=> async dispatch =>
     }
 }
 
-export const updateUserProfile = (first_name, last_name, email, password)=> async dispatch =>
-{
-
-    const body = JSON.stringify({first_name, last_name, email, password})
-    try
-    {
-        await axios.put('/api/auth/users/me/', body, config).then((res)=>
-        {
-            dispatch({type:UPDATE_PROFILE_SUCCESS, payload: res.data,})
-            console.log(res.data)
-        })
-    }
-    catch (error)
-    {
-        dispatch(postActionPayloadError(UPDATE_PROFILE_FAIL, error))
-    }
-}
-
-
 export const postContactUs = (customer, subject, content) => async dispatch =>
 {
-    if(localStorage.getItem('token'))
+    if(localToken)
     {
         const config = {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Token ${localStorage.getItem('token')}`,
+                'Authorization': `Token ${localToken}`,
                 'Accept': 'application/json'
             }
         }
         try
         {
             const body = JSON.stringify({customer, subject, content} )
-            await axios.post('/api/contact-us/', body,config).then(res=>
+            await axios.post('/api/contact-us/', body, config).then(res=>
             {
                 dispatch(
                     {
                         type: S_CONTACT_US,
                         payload: res.data,
                     })
-                console.log(res.data)
+                // console.log(res.data)
             })
         }
         catch (error)
@@ -186,6 +165,53 @@ export const postContactUs = (customer, subject, content) => async dispatch =>
         dispatch({type: F_CONTACT_US, payload:[]})
     }
 }
+
+
+    export const updateProfile = (customer, nickname, contact, gender, avatar)=> async dispatch =>
+{
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${localToken}`,
+            'Accept': 'application/json'
+        }
+    }
+    const body = JSON.stringify({customer, nickname, contact, gender, avatar})
+    try
+    {
+        await axios.patch('/api/customer-profile/', body, config).then((res)=>
+        {
+            dispatch(
+                {
+                    type: UPDATE_PROFILE_SUCCESS,
+                    payload: res.data,
+                })
+            console.log(res.data)
+        })
+    }
+    catch (error)
+    {
+        dispatch(postActionPayloadError(UPDATE_PROFILE_FAIL, error))
+    }
+}
+
+// export const updateUserProfile = (first_name, last_name, email, password)=> async dispatch =>
+// {
+//
+//     const body = JSON.stringify({first_name, last_name, email, password})
+//     try
+//     {
+//         await axios.patch('/api/auth/users/me/', body, config).then((res)=>
+//         {
+//             dispatch({type:UPDATE_PROFILE_SUCCESS, payload: res.data,})
+//             console.log(res.data)
+//         })
+//     }
+//     catch (error)
+//     {
+//         dispatch(postActionPayloadError(UPDATE_PROFILE_FAIL, error))
+//     }
+// }
 
 // export const checkIfAuthenticated = () => async dispatch =>
 // {
@@ -230,7 +256,7 @@ export const postContactUs = (customer, subject, content) => async dispatch =>
 //         dispatch({type: AUTHENTICATED_FAIL,})
 //     }
 // }
-//
+
 // export const refreshToken = (refresh)=> async dispatch =>
 // {
 //     const config ={ headers: {'Content-Type': 'application/json'}}
@@ -338,30 +364,4 @@ export const postContactUs = (customer, subject, content) => async dispatch =>
 //
 // // The user profile info
 //
-// export const updateProfile = (user, contact, gender, avatar)=> async dispatch =>
-// {
-//     const config = {
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': `JWT ${localStorage.getItem('access')}`,
-//             'Accept': 'application/json'
-//         }
-//     }
-//     const body = JSON.stringify({user, contact, gender, avatar})
-//     try
-//     {
-//         await axios.put('/api/profile/', body, config).then((res)=>
-//         {
-//             dispatch(
-//                 {
-//                     type: USER_PROFILE,
-//                     payload: res.data,
-//                 })
-//             console.log(res.data)
-//         })
-//     }
-//     catch (error)
-//     {
-//         dispatch(postActionPayloadError(ACTIVATION_FAIL, error))
-//     }
-// }
+

@@ -1,12 +1,29 @@
-import {useSelector} from "react-redux";
-
+import {useDispatch, useSelector} from "react-redux";
+import {updateProfile} from "../redux/Actions/authActions.js";
+import {useState} from "react"
+const genders = [
+    { id: 1, title: 'Male' },
+    { id: 2, title: 'Female' },
+    { id: 3, title: 'Secret' },
+]
 const MyAccount = ()=>
 {
+    const dispatch = useDispatch()
     const {customer} = useSelector(state => state.authReducer)
     // console.log(customer)
+    const [nickname, setNickname] = useState(customer?.nickname);
+    const [avatar, setAvatar] = useState(customer?.avatar);
+    const [contact, setContact] = useState(customer?.contact);
+    const [gender, setGender] = useState(customer?.gender);
+    const onUpdateInfo = (info) =>
+    {
+        info.preventDefault()
+        dispatch(updateProfile(customer?.id, nickname, contact, gender,avatar))
+    }
+    // console.log(gender)
     return(
         <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
-            <form action="#" method="POST">
+            <form onSubmit={onUpdateInfo} method="POST">
                 <div className="shadow sm:rounded-md sm:overflow-hidden">
                     <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                         <div>
@@ -21,6 +38,7 @@ const MyAccount = ()=>
                                     Name
                                 </label>
                                 <input
+                                    onChange={(e)=>setNickname(e.target.value)}
                                     type="text"
                                     name="first-name"
                                     id="first-name"
@@ -35,6 +53,7 @@ const MyAccount = ()=>
                                     Username
                                 </label>
                                 <input
+                                    disabled
                                     defaultValue={customer?.user?.username}
                                     type="text"
                                     name="last-name"
@@ -42,6 +61,65 @@ const MyAccount = ()=>
                                     autoComplete="family-name"
                                     className="mt-1 block w-full capitalize border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-6 gap-6">
+                            <div className="col-span-6 sm:col-span-3">
+                                <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                                    Phone Number
+                                </label>
+                                <input
+                                    onChange={(e)=>setContact(e.target.value)}
+                                    type="text"
+                                    name="first-name"
+                                    id="first-name"
+                                    defaultValue={customer?.contact}
+                                    autoComplete="given-name"
+                                    className="mt-1 block w-full capitalize border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                />
+                            </div>
+
+                            <div className="col-span-6 sm:col-span-3">
+                                <label className="text-base font-medium text-gray-900">Notifications</label>
+                                <p className="text-sm leading-5 text-gray-500">How do you prefer to receive notifications?</p>
+
+                                <div className="flex items-center">
+                                    <input
+                                        id={1}
+                                        type="radio"
+                                        name="male"
+                                        checked={gender==="male"}
+                                        onChange={()=>setGender("male")}
+                                        className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                                    />
+                                    <label htmlFor={"female"} className="ml-3 block text-sm font-medium text-gray-700">
+                                        Male
+                                    </label>
+                                    <input
+                                        id={2}
+                                        type="radio"
+                                        name="female"
+                                        checked={gender==="female"}
+                                        onChange={()=>setGender("female")}
+                                        className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                                    />
+                                    <label htmlFor={"female"} className="ml-3 block text-sm font-medium text-gray-700">
+                                        Female
+                                    </label>
+                                    <input
+                                        id={3}
+                                        type="radio"
+                                        name="other"
+                                        checked={gender==="other"}
+                                        onChange={()=>setGender("other")}
+                                        className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                                    />
+                                    <label htmlFor={"other"} className="ml-3 block text-sm font-medium text-gray-700">
+                                        Other
+                                    </label>
+                                </div>
+
+
                             </div>
                         </div>
                         <div className="grid grid-cols-3 gap-6">
@@ -80,7 +158,9 @@ const MyAccount = ()=>
                                                 className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                                             >
                                                 <span>Upload a file</span>
-                                                <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                                                <input
+                                                    onChange={(e)=>setAvatar(e.target.files[0])}
+                                                    id="file-upload" name="file-upload" type="file" className="sr-only" />
                                             </label>
                                             <p className="pl-1">or drag and drop</p>
                                         </div>
@@ -100,8 +180,7 @@ const MyAccount = ()=>
                 </div>
             </form>
 
-            <form action="#" method="POST">
-                <div className="shadow sm:rounded-md sm:overflow-hidden">
+            <div className="shadow sm:rounded-md sm:overflow-hidden">
                     <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                         <div>
                             <h3 className="text-lg leading-6 font-medium text-gray-900"><a href={"/mude/myshippingaddress"}>Update Your Shipping Address</a></h3>
@@ -110,7 +189,6 @@ const MyAccount = ()=>
 
                     </div>
                 </div>
-            </form>
 
             <form action="#" method="POST">
                 <div className="shadow sm:rounded-md sm:overflow-hidden">
@@ -129,7 +207,7 @@ const MyAccount = ()=>
                                         <input
                                             id="comments"
                                             name="comments"
-                                            type="checkbox"
+                                            type="radio"
                                             className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                                         />
                                     </div>
