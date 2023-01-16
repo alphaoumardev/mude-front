@@ -10,7 +10,7 @@ const MyAccount = ()=>
 {
     const dispatch = useDispatch()
     const {customer} = useSelector(state => state.authReducer)
-    // console.log(customer)
+    console.log(customer?.user?.id)
     const [nickname, setNickname] = useState(customer?.nickname);
     const [avatar, setAvatar] = useState(customer?.avatar);
     const [contact, setContact] = useState(customer?.contact);
@@ -18,7 +18,7 @@ const MyAccount = ()=>
     const onUpdateInfo = (info) =>
     {
         info.preventDefault()
-        dispatch(updateProfile(customer?.id, nickname, contact, gender,avatar))
+        dispatch(updateProfile(customer?.user?.id, nickname, contact, gender,avatar))
     }
     // console.log(gender)
     return(
