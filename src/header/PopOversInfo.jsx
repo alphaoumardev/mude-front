@@ -21,7 +21,10 @@ const PopOversInfo = ()=>
                                 <span className="sr-only">Open user menu</span>
                                     <img className="h-8 w-8 rounded-full" alt={''} src={`http://127.0.0.1:8000/${customer?.avatar}`}/>
                             </Popover.Button>:
-                                <img className="h-8 w-8 rounded-full hover:cursor-pointer" alt={''} src={Me} onClick={()=>navigate('/login')}/>}
+                                <a href={"/login"}>
+                                    <img className="h-8 w-8 rounded-full hover:cursor-pointer" alt={''} src={Me} />
+                                </a>}
+
                         </div>
                         <Transition
                             as={Fragment}

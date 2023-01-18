@@ -11,7 +11,6 @@ import MudeCart from "./ShoppingCart/MudeCart.jsx";
 import CheckOut from "./orders/CheckOut.jsx";
 import OrderDetail from "./orders/OrderDetail.jsx";
 import OrderHistory from "./orders/OrderHistory.jsx";
-import Dashbord from "./admin/Dashbord";
 import NotFound from "./components/NotFound.jsx";
 import QuickView from "./mude/QuickView.jsx";
 import MyProfile from "./profile/MyProfile.jsx";
@@ -20,15 +19,16 @@ import MyPurchases from "./profile/MyPurchases.jsx";
 import MyCart from "./profile/MyCart.jsx";
 import MyShippingAddress from "./profile/MyShippingAddress.jsx";
 import MyWishlist from "./profile/MyWishlist.jsx";
+import Dashbord from "./admin/Dashbord.jsx";
 
-function App() {
-
+function App()
+{
   return (
     <div className="App">
         <div>
-            {/*<Routes>*/}
-            {/*    <Route path="/mude/admin" element={<Dashbord/>}/>*/}
-            {/*</Routes>*/}
+            <Routes>
+                <Route path="/mude/guanliyuan" element={<Dashbord/>}/>
+            </Routes>
         </div>
         <div>
             {window.location.pathname==="/login" ||
@@ -51,6 +51,8 @@ function App() {
                 <Route path="/mude/checkout" element={<CheckOut/>}/>
                 <Route path="/mude/order/detail" element={<OrderDetail/>}/>
                 <Route path="/mude/order/history" element={<OrderHistory/>}/>
+
+                {/*<Route path="/mude/guanliyuan" element={<Dashbord/>}/>*/}
 
                 {/*My*/}
                 <Route path="/mude/myprofile" element={<MyProfile/>} />

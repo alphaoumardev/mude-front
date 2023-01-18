@@ -1,9 +1,10 @@
 import {BsGithub, } from "react-icons/bs";
 import {AiOutlineMail} from "react-icons/ai";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {login} from "../redux/Actions/authActions.js";
+import unlock from '../assets/unlock.png'
 
 export default function Login()
 {
@@ -49,7 +50,8 @@ export default function Login()
                 <div className="md:w-8/12 lg:w-5/12 ">
                     <a href="/">
                         <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                            src={unlock}
+                            // src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
                             className="w-full"
                             alt="Phone image"
                         />
