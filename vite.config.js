@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   // root: "/src",
   server: {
+    // hmr:{overlay:false,},
     port: 3000,
     proxy: {
       "/api": {
