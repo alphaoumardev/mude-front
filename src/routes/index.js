@@ -33,11 +33,11 @@ const routes = [
     component: Orders,
   },
   {
-    path: "/all-products",
+    path: "/products",
     component: ProductsAll,
   },
   {
-    path: "/add-product",
+    path: "/product/add",
     component: AddProduct,
   },
   {
@@ -53,7 +53,7 @@ const routes = [
     component: Chats,
   },
   {
-    path: "/manage-profile",
+    path: "/profile",
     component: Profile,
   },
   {

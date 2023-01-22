@@ -21,11 +21,11 @@ const routes = [
     name: "Products",
     routes: [
       {
-        path: "/app/all-products",
+        path: "/app/products",
         name: "All Products",
       },
       {
-        path: "/app/add-product",
+        path: "/app/product/add",
         name: "Add Product",
       },
     ],
@@ -41,7 +41,7 @@ const routes = [
     name: "Chats",
   },
   {
-    path: "/app/manage-profile",
+    path: "/app/profile",
     icon: "UserIcon",
     name: "Profile",
   },

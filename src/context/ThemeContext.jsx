@@ -36,7 +36,7 @@ function useStorageTheme(key) {
 }
 
 // create context
-export const ThemeContext = createContext(null)
+export const ThemeContext = createContext()
 
 // create context provider
 export const ThemeProvider = ({ children }) => {

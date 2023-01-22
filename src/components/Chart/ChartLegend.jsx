@@ -12,5 +12,4 @@ function ChartLegend({ legends }) {
     </div>
   )
 }
-
 export default ChartLegend

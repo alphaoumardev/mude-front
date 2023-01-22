@@ -4,14 +4,16 @@ import { Route, useLocation, Routes,  } from 'react-router-dom'
 import Sidebar from '../components/Sidebar/index.jsx'
 import { SidebarContext } from '../context/SidebarContext.jsx'
 import Dashboard from "../pages/Dashboard.jsx";
+import Main from "./Main.jsx";
 
-// const Page404 = lazy(() => import('../pages/404.jsx'))
 
-function Layout() {
+function Layout()
+{
   const { isSidebarOpen, closeSidebar } = useContext(SidebarContext)
   let location = useLocation()
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     closeSidebar()
   }, [location])
 
@@ -19,9 +21,9 @@ function Layout() {
     <div className={`flex h-screen bg-gray-50 dark:bg-gray-900 ${isSidebarOpen && 'overflow-hidden'}`}>
       <Sidebar />
       <div className="flex flex-col flex-1 w-full">
-          {/*<Main>*/}
+          <Main>
               <Dashboard/>
-          {/*</Main>*/}
+          </Main>
       </div>
     </div>
   )

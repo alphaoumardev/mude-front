@@ -13,6 +13,9 @@ import Layout from "./containers/Layout.jsx";
 import CreateAccount from "./pages/CreateAccount.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Header from "./components/Header.jsx";
+import Orders from "./pages/Orders.jsx";
+import ProductsAll from "./pages/ProductsAll.jsx";
+import AddProduct from "./pages/AddProduct.jsx";
 
 // const Layout = lazy(() => import("./containers/Layout"));
 // const Login = lazy(() => import("./pages/Login"));
@@ -30,17 +33,19 @@ function App()
             <Routes>
                 {/*<Switch>*/}
                 <Route  path="/forgot-password" element={<ForgotPassword/>} />
-
-                    {/* Place new routes over this */}
-                    <Route path="/app" element={<Layout/>} />
-                    {/*<Route path="/app/dashboard" element={<Dashboard/>} />*/}
-                    {/* If you have an index page, you can remothis Redirect */}
-                    {/*<Redirect exact from="/" to="/login" />*/}
-                {/*</Switch>*/}
-                {/*<Route path="/"*/}
                 <Route index path="/login" element={<Login/>}/>
                 <Route path="/register" element={<CreateAccount/>}/>
 
+                <Route path="/app" element={<Layout/>}/>
+                <Route path="/app/dashboard" element={<Layout/>}/>
+                <Route path="/app/orders" element={<Orders/>}/>
+                <Route path="/app/products" element={<ProductsAll/>}/>
+                <Route path="/app/product/add" element={<AddProduct/>}/>
+                <Route path="/app/customer" element={<Layout/>}/>
+                <Route path="/app/chat" element={<Layout/>}/>
+                <Route path="/app/profile" element={<Layout/>}/>
+                <Route path="/app/settings" element={<Layout/>}/>
+                <Route path="/app/" element={<Layout/>}/>
             </Routes>
         </div>
 
