@@ -9,7 +9,7 @@ import {
   Select,
 } from "@windmill/react-ui";
 import {HomeOutline} from "heroicons-react";
-import {AiFillFileAdd, AiFillLayout} from "react-icons/ai";
+import {AiFillFileAdd, AiFillFileImage, AiFillLayout, AiOutlineFile} from "react-icons/ai";
 import Sidebar from "../components/Sidebar/index.jsx";
 import Main from "../containers/Main.jsx";
 import {SidebarContext} from "../context/SidebarContext.jsx";
@@ -58,11 +58,24 @@ const AddProduct = () =>
               <form className="w-full mt-8 grid gap-4 grid-col md:grid-cols-3 ">
                 <Card className="row-span-2 md:col-span-2">
                   <CardBody>
-                    <FormTitle>Product Image</FormTitle>
-                    <input
-                        type="file"
-                        className="mb-4 text-gray-800 dark:text-gray-300"
-                    />
+
+                    <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                      <label htmlFor="cover-photo" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"> Cover photo </label>
+                      <div className="mt-1 sm:mt-0 sm:col-span-2">
+                        <div className="max-w-lg flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                          <div className="space-y-1 text-center flex items-center justify-center">
+                            <AiOutlineFile className="flex justify-center items-center" size={35}/>
+                            <div className="flex text-sm text-gray-600">
+                              <label htmlFor="file-upload"  className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                <span>Upload the product cover image </span>
+                                <input id="file-upload" name="file-upload" type="file" className="sr-only"/>
+                              </label>
+                            </div>
+                            <p className="text-xs text-gray-500"> PNG, JPG, GIF up to 10MB</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
                     <div className="grid grid-cols-6 gap-6">
                       <div className="col-span-6 sm:col-span-3">
@@ -82,6 +95,86 @@ const AddProduct = () =>
                       </div>
 
                       <div className="col-span-6 sm:col-span-3">
+                        <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
+                          Product Sku
+                        </label>
+                        <input
+                            // defaultValue={customer?.user?.username}
+                            type="number"
+                            name="sku"
+                            id="sku"
+                            minLength={12}
+                            autoComplete="family-name"
+                            className="mt-1 block w-full capitalize border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-6 gap-6">
+                      <div className="col-span-6 sm:col-span-3">
+                        <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                          Product Name
+                        </label>
+                        <input
+                            // onChange={(e)=>setNickname(e.target.value)}
+                            type="text"
+                            name="first-name"
+                            id="first-name"
+                            // defaultValue={1}
+                            // min={1}
+                            autoComplete="given-name"
+                            className="mt-1 block w-full capitalize border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        />
+                      </div>
+
+                      <div className="col-span-6 sm:col-span-3">
+                        <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
+                          Product Sku
+                        </label>
+                        <input
+                            // defaultValue={customer?.user?.username}
+                            type="number"
+                            name="sku"
+                            id="sku"
+                            minLength={12}
+                            autoComplete="family-name"
+                            className="mt-1 block w-full capitalize border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-6 gap-6">
+                      <div className="col-span-6 sm:col-span-2">
+                        <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                          Product Name
+                        </label>
+                        <input
+                            // onChange={(e)=>setNickname(e.target.value)}
+                            type="text"
+                            name="first-name"
+                            id="first-name"
+                            // defaultValue={1}
+                            // min={1}
+                            autoComplete="given-name"
+                            className="mt-1 block w-full capitalize border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        />
+                      </div>
+
+                      <div className="col-span-6 sm:col-span-2">
+                        <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
+                          Product Sku
+                        </label>
+                        <input
+                            // defaultValue={customer?.user?.username}
+                            type="number"
+                            name="sku"
+                            id="sku"
+                            minLength={12}
+                            autoComplete="family-name"
+                            className="mt-1 block w-full capitalize border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        />
+                      </div>
+                      <div className="col-span-6 sm:col-span-2">
                         <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
                           Product Sku
                         </label>
