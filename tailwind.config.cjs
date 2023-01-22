@@ -9,10 +9,10 @@ module.exports = {
     './node_modules/tw-elements/dist/js/**/*.js'
   ],
   theme: {
-    // fontFamily: {
-    //   display: ['Open Sans', 'sans-serif'],
-    //   body: ['Open Sans', 'sans-serif'],
-    // },
+    fontFamily: {
+      display: ['Open Sans', 'sans-serif'],
+      body: ['Open Sans', 'sans-serif'],
+    },
     extend: {
       colors: {
         cyan: colors.cyan,
