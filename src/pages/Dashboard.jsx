@@ -2,21 +2,19 @@ import React from "react";
 
 import InfoCard from "../components/Cards/InfoCard.jsx";
 import ChartCard from "../components/Chart/ChartCard.jsx";
-import { Doughnut, Line } from "react-chartjs-2";
-import ChartLegend from "../components/Chart/ChartLegend.jsx";
+import {Bar, Line} from "react-chartjs-2";
 import PageTitle from "../components/Typography/PageTitle.jsx";
 import RoundIcon from "../components/RoundIcon.jsx";
 
 import {
-  doughnutOptions,
   lineOptions,
-  doughnutLegends,
-  lineLegends,
+   realTimeUsersBarOptions,
 } from "../utils/demo/chartsData";
 import OrdersTable from "../components/OrdersTable.jsx";
 import {IoMdPeople} from "react-icons/io";
 import {MdMoney} from "react-icons/md";
 import {ChatAltOutline, ShoppingBag} from "heroicons-react";
+import CTA from "../components/CTA.jsx";
 
 function Dashboard() {
   return (
@@ -24,7 +22,7 @@ function Dashboard() {
       <PageTitle>Dashboard</PageTitle>
 
       {/* <CTA /> */}
-
+        <CTA/>
       {/* <!-- Cards --> */}
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
         <InfoCard title="Total customers" value="765">
@@ -66,13 +64,12 @@ function Dashboard() {
 
       <div className="grid gap-6 mb-8 md:grid-cols-2">
         <ChartCard title="User Analytics">
-          {/*<Line {...lineOptions} />*/}
-          {/*<ChartLegend legends={lineLegends} />*/}
+          <Line {...lineOptions} />
         </ChartCard>
 
         <ChartCard title="Revenue">
-          {/*<Doughnut {...doughnutOptions} />*/}
-          {/*<ChartLegend legends={doughnutLegends} />*/}
+          <Bar {...realTimeUsersBarOptions} />
+
         </ChartCard>
       </div>
 

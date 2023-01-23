@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
-function AccessibleNavigationAnnouncer() {
+function AccessibleNavigationAnnouncer()
+{
   const [message, setMessage] = useState('')
   const location = useLocation()
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     // ignore the /
-    if (location.pathname.slice(1)) {
+    if (location.pathname.slice(1))
+    {
       // make sure navigation has occurred and screen reader is ready
       setTimeout(() => setMessage(`Navigated to ${location.pathname.slice(1)} page.`), 500)
-    } else {
+    }
+    else
+    {
       setMessage('')
     }
   }, [location])

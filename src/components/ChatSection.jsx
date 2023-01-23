@@ -1,7 +1,8 @@
 import React from "react";
 import { Card, CardBody, Label, Badge } from "@windmill/react-ui";
 
-const ChatSection = ({ messages }) => {
+const ChatSection = ({ messages }) =>
+{
   return (
     <div className="mt-3 mb-8 mr-4">
       <Card className="shadow-md relative h-screen">
@@ -19,9 +20,7 @@ const ChatSection = ({ messages }) => {
                     : ""
                 }`}
               >
-                <Badge
-                  type={message.flag === "from_client" ? "neutral" : "success"}
-                >
+                <Badge type={message.flag === "from_client" ? "neutral" : "success"}>
                   <p className="text-sm m-3">{message.text}</p>
                 </Badge>
               </div>

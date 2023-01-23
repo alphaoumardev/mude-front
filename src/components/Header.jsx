@@ -13,18 +13,21 @@ import {AiOutlineMenu, AiOutlineSetting} from "react-icons/ai";
 import {BsPerson, BsSearch} from "react-icons/bs";
 import {BellOutline, LogoutOutline, MoonOutline, SunOutline} from "heroicons-react";
 
-function Header() {
+function Header()
+{
   const { mode, toggleMode } = useContext(WindmillContext);
   const { toggleSidebar } = useContext(SidebarContext);
 
   const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
-  function handleNotificationsClick() {
+  function handleNotificationsClick()
+  {
     setIsNotificationsMenuOpen(!isNotificationsMenuOpen);
   }
 
-  function handleProfileClick() {
+  function handleProfileClick()
+  {
     setIsProfileMenuOpen(!isProfileMenuOpen);
   }
 

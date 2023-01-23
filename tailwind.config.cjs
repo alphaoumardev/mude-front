@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-const colors = require('tailwindcss/colors')
-const defaultTheme = require("tailwindcss/defaultTheme");
+// const colors = require('tailwindcss/colors')
+// const defaultTheme = require("tailwindcss/defaultTheme");
 const windmill = require("@windmill/react-ui/config");
 
 // module.exports = {
@@ -29,6 +29,7 @@ module.exports = windmill({
     //   },
     // },
   },
+
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
