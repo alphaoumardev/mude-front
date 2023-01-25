@@ -10,6 +10,7 @@ import ProductsAll from "./pages/ProductsAll.jsx";
 import AddProduct from "./pages/AddProduct.jsx";
 import Customers from "./pages/Customers.jsx";
 import Chats from "./pages/Chats.jsx";
+import MyAccount from "./pages/MyAccount.jsx";
 
 function App()
 {
@@ -31,7 +32,7 @@ function App()
                 <Route path="/app/product/add" element={<AddProduct/>}/>
                 <Route path="/app/customers" element={<Customers/>}/>
                 <Route path="/app/chats" element={<Chats/>}/>
-                <Route path="/app/profile" element={<Layout/>}/>
+                <Route path="/app/profile" element={<MyAccount/>}/>
                 <Route path="/app/settings" element={<Layout/>}/>
                 <Route path="/app/" element={<Layout/>}/>
             </Routes>
