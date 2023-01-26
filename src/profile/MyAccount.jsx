@@ -1,11 +1,11 @@
 import {useDispatch, useSelector} from "react-redux";
 import {updateProfile} from "../redux/Actions/authActions.js";
 import {useState} from "react"
-const genders = [
-    { id: 1, title: 'Male' },
-    { id: 2, title: 'Female' },
-    { id: 3, title: 'Secret' },
-]
+// const genders = [
+//     { id: 1, title: 'Male' },
+//     { id: 2, title: 'Female' },
+//     { id: 3, title: 'Secret' },
+// ]
 const MyAccount = ()=>
 {
     const dispatch = useDispatch()

@@ -1,7 +1,6 @@
 import { Fragment, useState } from 'react'
-import {Dialog, Disclosure, Popover, RadioGroup, Tab, Transition} from '@headlessui/react'
-import {AiFillStar, AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
-import { StarIcon } from '@heroicons/react/24/solid'
+import {Popover, RadioGroup, Tab} from '@headlessui/react'
+import {AiFillStar, AiOutlinePlus} from "react-icons/ai";
 import {BsEye, BsHeart} from "react-icons/bs";
 import {useNavigate} from "react-router-dom";
 import {Alert} from "antd";

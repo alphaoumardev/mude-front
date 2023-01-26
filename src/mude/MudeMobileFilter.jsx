@@ -1,7 +1,6 @@
 import {Dialog, Transition} from "@headlessui/react";
 import {Fragment} from "react";
 import {AiOutlinePlus} from "react-icons/ai";
-import {BsSearch} from "react-icons/bs";
 import MobileFilterList from "./MobileFilterList";
 const MudeMobileFilter = ({mobileFiltersOpen, setMobileFiltersOpen})=>
 {

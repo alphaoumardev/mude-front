@@ -1,6 +1,6 @@
 import {Fragment, useEffect, useState} from 'react'
 import {Menu, Transition} from '@headlessui/react'
-import {BsBookmarkHeartFill, BsFillGridFill, BsSearch} from "react-icons/bs";
+import {BsFillGridFill, BsSearch} from "react-icons/bs";
 import {HiOutlineChevronDown,} from "react-icons/hi";
 import {FcClearFilters} from "react-icons/fc";
 import MudeMobileFilter from "./MudeMobileFilter.jsx";
@@ -14,7 +14,6 @@ import ProductsFilters from "./ProductsFilters.jsx";
 import {Pagination} from 'antd';
 import {useNavigate, useParams} from "react-router-dom";
 import {HeartOutline} from "heroicons-react";
-import {AiFillHeart} from "react-icons/ai";
 import {addToWishlist, getWishlistItems} from "../redux/Actions/wishlistAction.js";
 
 const sortOptions = [
@@ -37,8 +36,7 @@ export default function Mart()
     const [currentPage, setCurrentPage] = useState(1);
 
     const dispatch = useDispatch()
-    const {articles,  totalItems,  }=useSelector(state => state.getProductsByPagegReducer) //isLoading, error,totalPages, articles_per_page, next, prevPage,
-    const {wishlistItem} = useSelector(state => state.wishlistReducer)
+    const {articles,  totalItems}=useSelector(state => state.getProductsByPagegReducer) //isLoading, error,totalPages, articles_per_page, next, prevPage,
 
     const [search, setSearch] = useState(null);
     const [color, size, tag, brand, occasion, material, length] = useState([])

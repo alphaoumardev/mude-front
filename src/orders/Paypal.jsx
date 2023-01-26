@@ -30,7 +30,7 @@ const Paypal = ({customer, order_total, address})=>
                     "client-id": "AZBav3-IKfYRTRjLEy--IkkjE7sIWz1VAWPiqX3OX_nuOFt8M7hQOafdwiZwQpNpzFI4epi7BNVwzmlR",
                     components: "buttons",
                     currency: "USD",
-                    // "disable-funding": "credit,card,p24"
+                    "disable-funding": "credit,card,p24"
                 }}>
                 <PayPalButtons
                     style={style}
@@ -39,7 +39,7 @@ const Paypal = ({customer, order_total, address})=>
                     fundingSource={undefined}
                     onClick={(data, actions)=>
                     {
-                        // return actions.reject()
+                        return actions.reject()
                         // return actions.resolve()
                     }}
                     createOrder={(data, actions) => {
@@ -75,7 +75,7 @@ const Paypal = ({customer, order_total, address})=>
                     }}
                     onError={(error)=>
                     {
-                        // console.log(error)
+                        console.error(error)
                     }}/>
             </PayPalScriptProvider>
         </div>
