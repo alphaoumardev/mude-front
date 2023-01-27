@@ -1,5 +1,5 @@
 import React from "react";
-import {AiOutlineSearch} from "react-icons/ai";
+import {AiFillStar} from "react-icons/ai";
 
 
 // generate rating
@@ -7,19 +7,19 @@ export const genRating = (rating, reviewsCount, iconSize) => {
   if (rating === 5) {
     return (
       <div className="flex">
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-yellow-300 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-yellow-300 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-yellow-300 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-yellow-300 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-yellow-300 w-${iconSize} h-${iconSize}`}
         />
 
@@ -32,19 +32,19 @@ export const genRating = (rating, reviewsCount, iconSize) => {
   if (rating === 4) {
     return (
       <div className="flex">
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-yellow-300 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-yellow-300 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-yellow-300 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-yellow-300 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-gray-600 w-${iconSize} h-${iconSize}`}
         />
 
@@ -57,19 +57,19 @@ export const genRating = (rating, reviewsCount, iconSize) => {
   if (rating === 3) {
     return (
       <div className="flex">
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-yellow-300 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-yellow-300 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-yellow-300 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-gray-600 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-gray-600 w-${iconSize} h-${iconSize}`}
         />
 
@@ -82,19 +82,19 @@ export const genRating = (rating, reviewsCount, iconSize) => {
   if (rating === 2) {
     return (
       <div className="flex">
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-yellow-300 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-yellow-300 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-gray-600 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-gray-600 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-gray-600 w-${iconSize} h-${iconSize}`}
         />
 
@@ -107,19 +107,19 @@ export const genRating = (rating, reviewsCount, iconSize) => {
   if (rating === 1) {
     return (
       <div className="flex">
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-yellow-300 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-gray-600 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-gray-600 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-gray-600 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-gray-600 w-${iconSize} h-${iconSize}`}
         />
 
@@ -132,19 +132,19 @@ export const genRating = (rating, reviewsCount, iconSize) => {
   if (rating === 0) {
     return (
       <div className="flex items-center">
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-gray-600 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-gray-600 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-gray-600 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-gray-600 w-${iconSize} h-${iconSize}`}
         />
-        <AiOutlineSearch
+        <AiFillStar
           className={`text-gray-600 w-${iconSize} h-${iconSize}`}
         />
 

@@ -25,6 +25,7 @@ import {
     orderCreateReducer, postReviewReducer,
 } from "./reducers/orderReducer.js";
 import {getHeaderCatergoriesReducer} from "./reducers/headerReducer.js";
+import {getAdminOdersReducer, } from "./reducers/adminReducer.js"
 
 export const store = configureStore({
     reducer: {
@@ -36,6 +37,8 @@ export const store = configureStore({
         getSingleProductReducer:getSingleProductReducer,
         postReviewReducer:postReviewReducer,
         getTrendingProductsReducer:getTrendingProductsReducer,
+
+        getAdminOdersReducer:getAdminOdersReducer,
 
         cartReducer ,
         wishlistReducer,

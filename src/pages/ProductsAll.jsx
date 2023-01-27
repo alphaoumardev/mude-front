@@ -1,14 +1,6 @@
 import React, {useState, useEffect, useContext} from "react";
 import PageTitle from "../components/Typography/PageTitle.jsx";
-import {Link, NavLink, useLocation} from "react-router-dom";
-// import {
-//   EditIcon,
-//   EyeIcon,
-//   GridViewIcon,
-//   HomeIcon,
-//   ListViewIcon,
-//   TrashIcon,
-// } from "../icons";
+import {Link, NavLink, useLocation, useNavigate} from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -30,68 +22,74 @@ import {
   ModalBody,
   ModalFooter,
 } from "@windmill/react-ui";
-import response from "../utils/demo/productData";
 import { genRating } from "../utils/genarateRating.jsx";
 import {EyeOutline, HomeOutline, TrashOutline, ViewGrid, ViewList} from "heroicons-react";
 import {AiFillEdit} from "react-icons/ai";
 import Sidebar from "../components/Sidebar/index.jsx";
 import Main from "../containers/Main.jsx";
 import {SidebarContext} from "../context/SidebarContext.jsx";
+import {getAllProductsByPage} from "../redux/Actions/productsActions.js";
+import {useDispatch, useSelector} from "react-redux";
 
-const ProductsAll = () => {
-  const [view, setView] = useState("grid");
+const ProductsAll = () =>
+{
+  const dispatch  = useDispatch()
+  const navigate = useNavigate()
+
+  const [view, setView] = useState("list");
+  const {articles,  totalItems,  } = useSelector(state => state.getProductsByPagegReducer) //isLoading, error,totalPages, articles_per_page, next, prevPage,
 
   // Table and grid data handlling
   const [page, setPage] = useState(1);
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
   // pagination setup
   const [resultsPerPage, setResultsPerPage] = useState(10);
-  const totalResults = response.length;
+  // const totalResults = response.length;
 
   // pagination change control
-  function onPageChange(p) {
+  function onPageChange(p)
+  {
     setPage(p);
   }
 
   // on page change, load new sliced data
   // here you would make another server request for new data
-  useEffect(() => {
-    setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, resultsPerPage]);
+  // useEffect(() =>
+  // {
+  //   setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
+  // }, [page, resultsPerPage]);
 
   // Delete action model
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDeleteProduct, setSelectedDeleteProduct] = useState(null);
-  async function openModal(productId) {
-    let product = await data.filter((product) => product.id === productId)[0];
-    // console.log(product);
+  async function openModal(productId)
+  {
+    let product = await articles.filter((product) => product.id === productId)[0];
     setSelectedDeleteProduct(product);
     setIsModalOpen(true);
   }
 
-  function closeModal() {
+  function closeModal()
+  {
     setIsModalOpen(false);
   }
 
-  // Handle list view
-  const handleChangeView = () => {
-    if (view === "list") {
-      setView("grid");
-    }
-    if (view === "grid") {
-      setView("list");
-    }
+  const handleChangeView = () =>
+  {
+    if (view === "list") { setView("grid");}
+    if (view === "grid") { setView("list");}
   };
-
   const { isSidebarOpen, closeSidebar } = useContext(SidebarContext)
   let location = useLocation()
 
   useEffect(() =>
   {
+    dispatch(getAllProductsByPage(page))
     closeSidebar()
-  }, [location])
+  }, [location, page])
 
+  // console.log(articles)
 
   return (
       <div className={`flex h-screen bg-gray-50 dark:bg-gray-900 ${isSidebarOpen && 'overflow-hidden'}`}>
@@ -100,7 +98,6 @@ const ProductsAll = () => {
           <Main>
             <div>
               <PageTitle>All Products</PageTitle>
-
               {/* Breadcum */}
               <div className="flex text-gray-800 dark:text-gray-300">
                 <div className="flex items-center text-purple-600">
@@ -180,11 +177,6 @@ const ProductsAll = () => {
                   {selectedDeleteProduct && `"${selectedDeleteProduct.name}"`}
                 </ModalBody>
                 <ModalFooter>
-                  {/* I don't like this approach. Consider passing a prop to ModalFooter
-           * that if present, would duplicate the buttons in a way similar to this.
-           * Or, maybe find some way to pass something like size="large md:regular"
-           * to Button
-           */}
                   <div className="hidden sm:block">
                     <Button layout="outline" onClick={closeModal}>
                       Cancel
@@ -222,29 +214,29 @@ const ProductsAll = () => {
                           </tr>
                         </TableHeader>
                         <TableBody>
-                          {data.map((product) => (
-                              <TableRow key={product.id}>
+                          {articles?.map((product, index) =>
+                              <TableRow key={index}>
                                 <TableCell>
+                                  <Link to={'/app/products/' + product?.id}>
                                   <div className="flex items-center text-sm">
                                     <Avatar
                                         className="hidden mr-4 md:block"
-                                        src={product.photo}
-                                        alt="Product image"
-                                    />
+                                        src={`${product?.images[0]?.image}`} alt={""}  />
                                     <div>
                                       <p className="font-semibold">{product.name}</p>
                                     </div>
                                   </div>
+                                  </Link>
                                 </TableCell>
                                 <TableCell>
-                                  <Badge type={product.qty > 0 ? "success" : "danger"}>
-                                    {product.qty > 0 ? "In Stock" : "Out of Stock"}
+                                  <Badge type={product?.stock > 0 ? "success" : "danger"}>
+                                    {product?.stock > 0 ? "In Stock" : "Out of Stock"}
                                   </Badge>
                                 </TableCell>
                                 <TableCell className="text-sm">
-                                  {genRating(product.rating, product.reviews.length, 5)}
+                                  {genRating(4, product.reviews.length, 5)}
                                 </TableCell>
-                                <TableCell className="text-sm">{product.qty}</TableCell>
+                                <TableCell className="text-sm">{product?.reviews?.length}</TableCell>
                                 <TableCell className="text-sm">{product.price}</TableCell>
                                 <TableCell>
                                   <div className="flex">
@@ -264,18 +256,18 @@ const ProductsAll = () => {
                                     <Button
                                         icon={TrashOutline}
                                         layout="outline"
-                                        onClick={() => openModal(product.id)}
+                                        onClick={() => openModal(product?.id)}
                                         aria-label="Delete"
                                     />
                                   </div>
                                 </TableCell>
                               </TableRow>
-                          ))}
+                          )}
                         </TableBody>
                       </Table>
                       <TableFooter>
                         <Pagination
-                            totalResults={totalResults}
+                            totalResults={totalItems}
                             resultsPerPage={resultsPerPage}
                             label="Table navigation"
                             onChange={onPageChange}
@@ -286,41 +278,45 @@ const ProductsAll = () => {
               ) : (
                   <>
                     {/* Car list */}
-                    <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-8">
-                      {data.map((product) => (
+                    <div className="grid grid-cols-2 gap-x-6 sm:grid-cols-4 lg:col-span-4 lg:gap-x-5 lg:gap-y-5">
+                      {articles?.map((product) => (
                           <div className="" key={product.id}>
                             <Card>
-                              <img
-                                  className="object-cover w-full"
-                                  src={product.photo}
-                                  alt="product"
-                              />
+                              <div onClick={()=>navigate(`/app/product/${product?.id}`)}  className="w-10/12 max-h-6/12 aspect-w-1 aspect-h-1 overflow-hidden group-hover:opacity-75">
+                                <img
+                                    // src={`http://127.0.0.1:8000/${product?.images[0]?.image}`}
+                                    //TODO: REVIEW THE THE REASON
+                                    src={product?.images[0]?.image}
+                                    alt={product?.name}
+                                    className=" object-center object-contain cursor-pointer"
+                                />
+                              </div>
                               <CardBody>
                                 <div className="mb-3 flex items-center justify-between">
                                   <p className="font-semibold truncate  text-gray-600 dark:text-gray-300">
                                     {product.name}
                                   </p>
                                   <Badge
-                                      type={product.qty > 0 ? "success" : "danger"}
+                                      type={product?.stock > 0 ? "success" : "danger"}
                                       className="whitespace-nowrap"
                                   >
                                     <p className="break-normal">
-                                      {product.qty > 0 ? `In Stock` : "Out of Stock"}
+                                      {product?.stock > 0 ? `In Stock` : "Out of Stock"}
                                     </p>
                                   </Badge>
                                 </div>
 
                                 <p className="mb-2 text-purple-500 font-bold text-lg">
-                                  {product.price}
+                                  {product?.price}
                                 </p>
 
                                 <p className="mb-8 text-gray-600 dark:text-gray-400">
-                                  {product.shortDescription}
+                                  {/*{product?.description}*/}
                                 </p>
 
                                 <div className="flex items-center justify-between">
                                   <div>
-                                    <Link to={`/app/product/${product.id}`}>
+                                    <Link to={`/app/product/${product?.id}`}>
                                       <Button
                                           icon={EyeOutline}
                                           className="mr-3"
@@ -353,7 +349,7 @@ const ProductsAll = () => {
                     </div>
 
                     <Pagination
-                        totalResults={totalResults}
+                        totalResults={totalItems}
                         resultsPerPage={resultsPerPage}
                         label="Table navigation"
                         onChange={onPageChange}

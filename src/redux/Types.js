@@ -169,3 +169,9 @@ export  const GET_ONSALE_FAIL = "GET_ONSALE_FAIL"
 export  const GET_SLIDERS_REQUEST = "GET_SLIDERS_REQUEST"
 export  const GET_SLIDERS_SUCCESS = "GET_SLIDERS_SUCCESS"
 export  const GET_SLIDERS_FAIL = "GET_SLIDERS_FAIL"
+
+
+//Admin
+
+export const S_GET_ORDERS = "GET_ORDERS"
+export const F_GET_ORDERS = "GET_ORDERS"
