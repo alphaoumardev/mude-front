@@ -1,9 +1,8 @@
 import Billing from "./Billing.jsx";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {getAddressAction, getMyOrderAction} from "../redux/Actions/orderAction.js";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import EditAddress from "./EditAddress.jsx";
 
 
 function classNames(...classes) {return classes.filter(Boolean).join(' ')}
@@ -12,7 +11,6 @@ const OrderDetail = ()=>
 {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [open, setOpen] = useState(false);
 
     const {address} = useSelector(state => state.getShippingAddressReducer)
     const {orderItem} = useSelector(state => state.getMyorderReducer)
