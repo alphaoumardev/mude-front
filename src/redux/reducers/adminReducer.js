@@ -1,5 +1,5 @@
 import {
-    S_GET_ORDERS, F_GET_ORDERS,
+    S_GET_CATEGORIES, F_GET_CATEGORIES, S_GET_ORDERS, F_GET_ORDERS,
 } from '../Types'
 
 const initialState={
@@ -34,3 +34,22 @@ export const getAdminOdersReducer = (state=initialState, action)=>
     }
 }
 
+export const getProductCategoriesReducer = (state={categories:[]}, action)=>
+{
+    switch (action.type)
+    {
+        case S_GET_CATEGORIES:
+            return{
+                ...state,
+                categories: action.payload,
+            }
+        case F_GET_CATEGORIES:
+            return{
+                ...state,
+                // error: action.payload,
+                categories: []
+            }
+        default:
+            return state
+    }
+}

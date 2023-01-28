@@ -34,3 +34,26 @@ export const getAllOrdersAction = (page) => async (dispatch) =>
         }
     }
 }
+
+export const getProductCategoryAction = () => async (dispatch) =>
+{
+    try
+    {
+        await axios.get(`/api/mptt-categories/`).then(res =>
+        {
+            dispatch(
+                {
+                    type: O.S_GET_CATEGORIES,
+                    payload: res.data
+                })
+            // console.log(res.data)
+        })
+    }
+    catch (error)
+    {
+        dispatch({
+            type: O.F_GET_CATEGORIES,
+            payload: "Something went wrong"
+        })
+    }
+}

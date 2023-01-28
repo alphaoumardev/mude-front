@@ -175,3 +175,6 @@ export  const GET_SLIDERS_FAIL = "GET_SLIDERS_FAIL"
 
 export const S_GET_ORDERS = "GET_ORDERS"
 export const F_GET_ORDERS = "GET_ORDERS"
+
+export const S_GET_CATEGORIES = "S_GET_CATEGORIES"
+export const F_GET_CATEGORIES = "F_GET_CATEGORIES"
