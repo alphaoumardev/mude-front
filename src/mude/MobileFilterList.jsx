@@ -14,7 +14,6 @@ const ProductsFilters = ()=>
     {
         dispatch(getHeaderCategoriesAction())
         dispatch(getProductFiltersAction())
-
     }, [dispatch]);
     // console.log(colors)
     return(
