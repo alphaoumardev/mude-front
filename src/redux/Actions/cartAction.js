@@ -62,7 +62,7 @@ export const removeItemFromCart = (id) => async (dispatch) =>
         {
             dispatch({
                 type: A.CART_REMOVE_ITEM,
-                payload: id,
+                payload: res.data,
             })
             dispatch(getCartItems())
             localStorage.removeItem('cartItem')
@@ -86,6 +86,7 @@ export const updateCartItem = (id, quantity, product) => async (dispatch) =>
         })
     }
 }
+
 // export const saveShippingAddress = (data) => (dispatch) =>
 // {
 //     dispatch({
@@ -95,11 +96,11 @@ export const updateCartItem = (id, quantity, product) => async (dispatch) =>
 //     // localStorage.setItem('shippingAddress', JSON.stringify(data))
 // }
 
-export const savePaymentMethod = (data)=> (dispatch)=>
-{
-    dispatch({
-        type:A.CART_PAYMENT,
-        payload: data,
-    })
-    // localStorage.setItem('payment', JSON.stringify(data))
-}
+// export const savePaymentMethod = (data)=> (dispatch)=>
+// {
+//     dispatch({
+//         type:A.CART_PAYMENT,
+//         payload: data,
+//     })
+//     // localStorage.setItem('payment', JSON.stringify(data))
+// }
