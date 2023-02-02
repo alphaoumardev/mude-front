@@ -53,3 +53,23 @@ export const getProductCategoriesReducer = (state={categories:[]}, action)=>
             return state
     }
 }
+
+export const addProductReducer = (state={categories:[]}, action)=>
+{
+    switch (action.type)
+    {
+        case S_GET_CATEGORIES:
+            return{
+                ...state,
+                categories: action.payload,
+            }
+        case F_GET_CATEGORIES:
+            return{
+                ...state,
+                // error: action.payload,
+                categories: []
+            }
+        default:
+            return state
+    }
+}

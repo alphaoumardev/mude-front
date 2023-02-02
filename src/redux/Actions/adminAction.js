@@ -57,3 +57,31 @@ export const getProductCategoryAction = () => async (dispatch) =>
         })
     }
 }
+
+export const addProductAction = (category, brand, name, sku, description,
+                                 price, status, stock, onsale, discount,
+                                 color, size, tag, length, material, occasion) => async (dispatch) =>
+{
+    const body = {category, brand, name, sku, description,
+                    price, status, stock, onsale, discount,
+                    color, size, tag, length, material, occasion}
+    try
+    {
+        await axios.post(`/api/add-product/`).then(res =>
+        {
+            dispatch(
+                {
+                    type: O.S_ADDPRODUCT,
+                    payload: res.data
+                })
+            // console.log(res.data)
+        })
+    }
+    catch (error)
+    {
+        dispatch({
+            type: O.F_ADDPRODUCT,
+            payload: "Something went wrong"
+        })
+    }
+}

@@ -178,3 +178,6 @@ export const F_GET_ORDERS = "GET_ORDERS"
 
 export const S_GET_CATEGORIES = "S_GET_CATEGORIES"
 export const F_GET_CATEGORIES = "F_GET_CATEGORIES"
+
+export const S_ADD_PRODUCT = "S_ADD_PRODUCT"
+export const F_ADD_PRODUCT = "F_ADD_PRODUCT"

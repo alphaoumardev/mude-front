@@ -63,86 +63,86 @@ export const getAddressAction = () => async (dispatch) =>
 
 }
 
-// export const createOrderAction = (customer, address, amount, order_reference) => async (dispatch) =>
-// {
-//     if(localToken)
-//     {
-//         const body = JSON.stringify({customer, address, amount, order_reference})
-//
-//         try
-//         {
-//             dispatch({type: O.ORDER_CREATE_REQUEST})
-//             await axios.post(`/api/orders/`,body, config).then((res)=>
-//             {
-//                 dispatch({
-//                     type:O.ORDER_CREATE_SUCCESS,
-//                     payload: res.data,
-//                 })
-//                 console.log(res.data)
-//                 localStorage.removeItem('cartItems')
-//             })
-//         } catch (error)
-//         {
-//             console.log(error)
-//             dispatch({
-//                 type: O.ORDER_CREATE_FAIL,
-//                 payload: error.response && error.response.data.detail ? error.response.data.detail : error.message
-//             })
-//         }
-//         }
-// }
-//
-// export const getMyOrderAction = () => async (dispatch) =>
-// {
-//     if(localToken)
-//     {
-//         try
-//         {
-//             dispatch({type: O.ORDER_MY_REQUEST})
-//             await axios.get('/api/orders/', config).then(res =>
-//             {
-//                 dispatch({type: O.ORDER_MY_SUCCESS, payload: res.data})
-//                 // console.log(res.data)
-//             })
-//         } catch (error)
-//         {
-//             dispatch({
-//                 type:O.ORDER_MY_FAIL,
-//                 payload: "Something went wrong"
-//             })
-//         }
-//     }
-// }
+export const createOrderAction = (customer, address, amount, order_reference) => async (dispatch) =>
+{
+    if(localToken)
+    {
+        const body = JSON.stringify({customer, address, amount, order_reference})
+
+        try
+        {
+            dispatch({type: O.ORDER_CREATE_REQUEST})
+            await axios.post(`/api/orders/`,body, config).then((res)=>
+            {
+                dispatch({
+                    type:O.ORDER_CREATE_SUCCESS,
+                    payload: res.data,
+                })
+                console.log(res.data)
+                localStorage.removeItem('cartItems')
+            })
+        } catch (error)
+        {
+            console.log(error)
+            dispatch({
+                type: O.ORDER_CREATE_FAIL,
+                payload: error.response && error.response.data.detail ? error.response.data.detail : error.message
+            })
+        }
+        }
+}
+
+export const getMyOrderAction = () => async (dispatch) =>
+{
+    if(localToken)
+    {
+        try
+        {
+            dispatch({type: O.ORDER_MY_REQUEST})
+            await axios.get('/api/orders/', config).then(res =>
+            {
+                dispatch({type: O.ORDER_MY_SUCCESS, payload: res.data})
+                // console.log(res.data)
+            })
+        } catch (error)
+        {
+            dispatch({
+                type:O.ORDER_MY_FAIL,
+                payload: "Something went wrong"
+            })
+        }
+    }
+}
 
 
-// export const addReview = (customer, rate, product, comment) => async (dispatch) =>
-// {
-//     if(localToken)
-//     {
-//         try
-//         {
-//             const body = JSON.stringify({customer, rate, product, comment})
-//
-//             dispatch({type: O.REVIEW_REQUEST})
-//             await axios.post(`/api/post-review/`, body, config).then(res =>
-//             {
-//                 dispatch(
-//                     {
-//                         type: O.REVIEW_SUCCESS,
-//                         payload: res.data,
-//                     })
-//                 dispatch(getSingleProductAction(product))
-//                 // console.log(res.data)
-//             })
-//         } catch (error)
-//         {
-//             dispatch({
-//                 type: O.REVIEW_FAIL,
-//                 payload: error.response && error.response.data.detail ? error.response.data.detail : error.message
-//             })
-//         }
-//     }
-// }
+export const addReview = (customer, rate, product, comment) => async (dispatch) =>
+{
+    if(localToken)
+    {
+        try
+        {
+            const body = JSON.stringify({customer, rate, product, comment})
+
+            dispatch({type: O.REVIEW_REQUEST})
+            await axios.post(`/api/post-review/`, body, config).then(res =>
+            {
+                dispatch(
+                    {
+                        type: O.REVIEW_SUCCESS,
+                        payload: res.data,
+                    })
+                dispatch(getSingleProductAction(product))
+                // console.log(res.data)
+            })
+        } catch (error)
+        {
+            dispatch({
+                type: O.REVIEW_FAIL,
+                payload: error.response && error.response.data.detail ? error.response.data.detail : error.message
+            })
+        }
+    }
+}
 
 export const addToOrderItem = (id, color, size, quantity, username) => async (dispatch) =>
 {

@@ -12,7 +12,6 @@ import {HomeOutline} from "heroicons-react";
 import {
   AiFillFileAdd,
   AiFillLayout,
-  AiOutlineArrowDown,
   AiOutlineFile,
   AiOutlineMinus,
   AiOutlinePlus,
@@ -21,9 +20,7 @@ import Sidebar from "../components/Sidebar/index.jsx";
 import Main from "../containers/Main.jsx";
 import {SidebarContext} from "../context/SidebarContext.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {getProductCategoryAction} from "../redux/Actions/adminAction.js";
-import {getHeaderCategoriesAction} from "../redux/Actions/headerActions.js";
-import ProductsFilters from "../components/ProductsFilters.jsx";
+import {addProductAction, getProductCategoryAction} from "../redux/Actions/adminAction.js";
 import {Disclosure} from "@headlessui/react";
 import {getProductFiltersAction} from "../redux/Actions/productsActions.js";
 const FormTitle = ({ children }) =>
@@ -44,6 +41,14 @@ const AddProduct = () =>
   const {colors, sizes, tags, lengths, materials, brands, occasions} = useSelector(state => state.getProductsFiltersReducer)
 
   const [category, setCategory] = useState('');
+  const [name, setName] = useState('');
+  const [sku, setSku] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState(20);
+  const [status, setStatus] = useState('');
+  const [stock, setStock] = useState('');
+  const [onsale, setOnsale] = useState('');
+  const [discount, setDiscount] = useState('');
 
   const [color, setColor] = useState([]);
   const [size, setSize] = useState([]);
@@ -53,15 +58,25 @@ const AddProduct = () =>
   const [material, setMaterial] = useState([]);
   const [length, setLength] = useState([]);
 
+  const [images, setImages] = useState([]);
+
   useEffect(() =>
   {
     dispatch(getProductCategoryAction())
     dispatch(getProductFiltersAction())
     // closeSidebar()
   }, [dispatch])
+  const submitProduct = (product)=>
+  {
+    product.preventDefault()
+    dispatch(addProductAction(category, brand, name, sku, description,
+        price, status, stock, onsale, discount,
+        color, size, tag, length, material, occasion, images))
+  }
 
-  // console.log(categories)
-
+  console.log(category, brand, name, sku, description,
+      price, status, stock, onsale, discount,
+      color, size, tag, length, material, occasion)
   // const options = ['Option 1', 'Option 2', 'Option 3'];
   // const [selectedOptions, setSelectedOptions] = useState([]);
   //
@@ -89,24 +104,24 @@ const AddProduct = () =>
                 <p className="mx-2">Add new Product</p>
               </div>
 
-              <form className="w-full mt-8 grid gap-4 grid-col md:grid-cols-3 ">
+              <form onSubmit={submitProduct} className="w-full mt-8 grid gap-4 grid-col md:grid-cols-3 ">
                 <Card className="row-span-2 md:col-span-2">
                   <CardBody>
 
                     <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                       <div className="flex items-center space-x-3 sm:pl-4">
 
-                        <select  id="underline_select" onChange={(e)=>setCategory(e.target.value)} title="Choose a topic or add one" required={true}
-                                className=" border border-b border-gray-900 bg-gray-100 p-6 rounded-lg flex items-center text-center capitalize font-bold cursor-pointer block px-2 pr-8 w-full text-sm text-gray-900 border-b-1 border-0 appearance-none bg-transparent dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                        <select id="underline_select" onChange={(e)=>setCategory(e.target.value)} title="Choose a topic or add one" required={true}
+                                className=" border border-b border-gray-900 bg-gray-100 p-6 rounded-lg
+                                flex items-center text-center capitalize font-bold cursor-pointer block
+                                px-2 pr-8 w-full text-sm text-gray-900 border-b-1 border-0 appearance-none bg-transparent dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                           <option> Select Product Category </option>
                           {categories?.map((item, index)=>
-                              <>
                               <optgroup 　key={index} label={item.name}>
-                                {item.subcates.map((subcategory, i) =>
-                                    <option key={i} value={subcategory.name}>{subcategory.name}</option>
+                                {item?.subcates?.map((subcategory, i) =>
+                                    <option key={i} value={subcategory?.id}>{subcategory.name}</option>
                                 )}
                               </optgroup>
-                              </>
                           )}
 
                         </select>
@@ -121,7 +136,9 @@ const AddProduct = () =>
                             <div className="flex text-sm text-gray-600">
                               <label htmlFor="file-upload"  className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                 <span>Upload the product images </span>
-                                <input id="file-upload" name="file-upload" type="file" className="sr-only"/>
+                                <input id="file-upload" name="file-upload"
+                                       onChange={(e)=>setImages(e.target.files)}
+                                       type="file" className="sr-only"/>
                               </label>
                             </div>
                             <p className="text-xs text-gray-500"> PNG, JPG, GIF up to 10MB</p>
@@ -133,15 +150,15 @@ const AddProduct = () =>
                     <div className="grid grid-cols-6 gap-6">
                       <div className="col-span-6 sm:col-span-3">
                         <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                          Product Name
+                          Product Name(Title)
                         </label>
                         <input
-                            // onChange={(e)=>setNickname(e.target.value)}
+                            required={true}
+                            onChange={(e)=>setName(e.target.value)}
                             type="text"
                             name="first-name"
                             id="first-name"
-                            // defaultValue={1}
-                            // min={1}
+                            role={"textbox"}
                             autoComplete="given-name"
                             className="mt-1 block w-full capitalize border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
@@ -152,6 +169,8 @@ const AddProduct = () =>
                           Product Sku
                         </label>
                         <input
+                            required={true}
+                            onChange={(e)=>setSku(e.target.value)}
                             // defaultValue={customer?.user?.username}
                             type="number"
                             name="sku"
@@ -164,32 +183,51 @@ const AddProduct = () =>
                     </div>
 
                     <div className="grid grid-cols-6 gap-6">
-                      <div className="col-span-6 sm:col-span-3">
+                      <div className="col-span-6 sm:col-span-2">
                         <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                          Product Name
+                          Price
                         </label>
                         <input
-                            // onChange={(e)=>setNickname(e.target.value)}
+                            onChange={(e)=>setPrice(e.target.value)}
                             type="text"
                             name="first-name"
                             id="first-name"
-                            // defaultValue={1}
-                            // min={1}
+                            defaultValue={20}
+                            required={true}
                             autoComplete="given-name"
                             className="mt-1 block w-full capitalize border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
                       </div>
 
-                      <div className="col-span-6 sm:col-span-3">
+                      <div className="col-span-6 sm:col-span-2">
                         <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
-                          Product Sku
+                          Discount
                         </label>
                         <input
-                            // defaultValue={customer?.user?.username}
+                            required={true}
+                            onChange={(e)=>setDiscount(e.target.value)}
+                            defaultValue={1}
                             type="number"
                             name="sku"
                             id="sku"
-                            minLength={12}
+                            min={0.1}
+                            max={1}
+                            autoComplete="family-name"
+                            className="mt-1 block w-full capitalize border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        />
+                      </div>
+                      <div className="col-span-6 sm:col-span-2">
+                        <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
+                          Stock
+                        </label>
+                        <input
+                            required={true}
+                            onChange={(e)=>setStock(e.target.value)}
+                            defaultValue={10}
+                            type="number"
+                            name="stock"
+                            id="stock"
+                            max={1}
                             autoComplete="family-name"
                             className="mt-1 block w-full capitalize border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
@@ -202,10 +240,12 @@ const AddProduct = () =>
                           Brand Name
                         </label>
                         <select
+                            required={true}
                             id="location"
                             name="location"
                             className="border-2  mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                             defaultValue="Canada"
+                            onChange={(e)=>setBrand(e.target.value)}
                         >
                           {brands?.map((option, optionIdx) =>
                               <option key={optionIdx} value={option?.id}>{option.brand_name}</option>
@@ -217,62 +257,50 @@ const AddProduct = () =>
                           Status
                         </label>
                         <select
+                            required={true}
                             id="location"
                             name="location"
                             className="border-2 mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                             defaultValue="Canada"
+                            onChange={(e)=>setStatus(e.target.value)}
                         >
-                          <option>Unknown</option>
-                          <option>Yes</option>
-                          <option>No</option>
+                          <option value={"Unknown"}>Unknown</option>
+                          <option value={"Yes"}>Yes</option>
+                          <option value={"No"}>No</option>
                         </select>
                       </div>
 
                       <div className="col-span-6 sm:col-span-2 ">
                         <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
-                          Discount
+                          On Sale
                         </label>
                         <select
+                            required={true}
                             id="location"
                             name="location"
                             className=" border-2 mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                             defaultValue="Canada"
+                            onChange={(e)=>setOnsale(e.target.value)}
                         >
-                          <option>Regular</option>
-                          <option>New</option>
-                          <option>Onsale</option>
+                          <option value={"Regular"}>Regular</option>
+                          <option value={"New"}>New</option>
+                          <option value={"Onsale"}>Onsale</option>
                         </select>
                       </div>
                     </div>
 
-
-                    <FormTitle>Product Price</FormTitle>
-                    <Label>
-                      <input
-                          // onChange={(e)=>setNickname(e.target.value)}
-                          type="text"
-                          name="first-name"
-                          id="first-name"
-                          // defaultValue={customer?.nickname}
-                          autoComplete="given-name"
-                          className="mt-1 block w-full capitalize border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      />
-                      {/*<Input className="mb-4" placeholder="Enter product price here" />*/}
-                    </Label>
-
                     <FormTitle>Short description</FormTitle>
                     <Label>
                       <textarea
-                          // onChange={(e)=>setNickname(e.target.value)}
+                          required={true}
+                          onChange={(e)=>setDescription(e.target.value)}
                           rows="4"
                           name="first-name"
                           id="first-name"
-                          // defaultValue={customer?.nickname}
                           autoComplete="given-name"
                           className="mt-1 block w-full capitalize border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       />
                     </Label>
-
 
                     {/*<ProductsFilters/>*/}
 
@@ -529,7 +557,6 @@ const AddProduct = () =>
                         </div>
                       </div>
                     </div>
-
                     <div className="w-full">
                       <Button size="large" iconLeft={AiFillFileAdd} className="mt-5">
                         Add Product
@@ -537,7 +564,6 @@ const AddProduct = () =>
                     </div>
                   </CardBody>
                 </Card>
-
                 <Card className="h-48">
                   <CardBody>
                     <div className="flex mb-8">
