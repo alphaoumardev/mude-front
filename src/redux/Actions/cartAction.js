@@ -87,20 +87,20 @@ export const updateCartItem = (id, quantity, product) => async (dispatch) =>
     }
 }
 
-// export const saveShippingAddress = (data) => (dispatch) =>
-// {
-//     dispatch({
-//         type:A.CART_SAVE_SHIPPING_ADDRESS,
-//         payload: data,
-//     })
-//     // localStorage.setItem('shippingAddress', JSON.stringify(data))
-// }
+export const saveShippingAddress = (data) => (dispatch) =>
+{
+    dispatch({
+        type:A.CART_SAVE_SHIPPING_ADDRESS,
+        payload: data,
+    })
+    // localStorage.setItem('shippingAddress', JSON.stringify(data))
+}
 
-// export const savePaymentMethod = (data)=> (dispatch)=>
-// {
-//     dispatch({
-//         type:A.CART_PAYMENT,
-//         payload: data,
-//     })
-//     // localStorage.setItem('payment', JSON.stringify(data))
-// }
+export const savePaymentMethod = (data)=> (dispatch)=>
+{
+    dispatch({
+        type:A.CART_PAYMENT,
+        payload: data,
+    })
+    // localStorage.setItem('payment', JSON.stringify(data))
+}
