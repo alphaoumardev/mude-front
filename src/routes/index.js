@@ -8,7 +8,7 @@ const SingleProduct = lazy(() => import("../pages/SingleProduct.jsx"));
 const AddProduct = lazy(() => import("../pages/AddProduct.jsx"));
 const Customers = lazy(() => import("../pages/Customers.jsx"));
 const Chats = lazy(() => import("../pages/Chats.jsx"));
-const Profile = lazy(() => import("../pages/Profile.jsx"));
+// const Profile = lazy(() => import("../pages/Profile.jsx"));
 const Settings = lazy(() => import("../pages/Settings.jsx"));
 const Page404 = lazy(() => import("../pages/404.jsx"));
 const Blank = lazy(() => import("../pages/Blank.jsx"));
