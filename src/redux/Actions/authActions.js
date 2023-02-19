@@ -195,7 +195,6 @@ export const postContactUs = (customer, subject, content) => async dispatch =>
     }
 }
 
-
 //TODO:These apply to the profile actions menager
 export const updateUserProfile = (first_name, last_name, email, password)=> async dispatch =>
 {
