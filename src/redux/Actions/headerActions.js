@@ -11,13 +11,13 @@ export const postActionPayloadError = (type, error) => (
 });
 const freeAccess ={ headers: {'Content-Type': 'application/json'}}
 
-const config = {
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${localToken}`,
-        'Accept': 'application/json'
-    }
-}
+// const config = {
+//     headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': `Token ${localToken}`,
+//         'Accept': 'application/json'
+//     }
+// }
 
 export const getHeaderCategoriesAction = ()=> async dispatch =>
 {
