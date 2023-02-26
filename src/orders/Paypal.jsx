@@ -30,7 +30,7 @@ const Paypal = ({customer, order_total, address})=>
                     "client-id": "AZBav3-IKfYRTRjLEy--IkkjE7sIWz1VAWPiqX3OX_nuOFt8M7hQOafdwiZwQpNpzFI4epi7BNVwzmlR",
                     components: "buttons",
                     currency: "USD",
-                    "disable-funding": "credit,card,p24"
+                    // "disable-funding": "credit,card,p24"
                 }}>
                 <PayPalButtons
                     style={style}

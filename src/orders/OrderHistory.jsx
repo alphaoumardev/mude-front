@@ -1,8 +1,8 @@
 const orders = [
     {
         number: 'WU88191111',
-        date: 'January 22, 2021',
-        datetime: '2021-01-22',
+        date: 'January 22, 2023',
+        datetime: '2023-01-22',
         invoiceHref: '#',
         total: '$104.00',
         products: [
@@ -20,7 +20,7 @@ const orders = [
                 name: "Men's 3D Glasses Artwork Tee",
                 href: '#',
                 price: '$36.00',
-                status: 'Delivered Jan 25, 2021',
+                status: 'Delivered Jan 25, 2023',
                 imageSrc: 'https://tailwindui.com/img/ecommerce-images/order-history-page-04-product-01.jpg',
                 imageAlt: 'Black tee with intersecting red, white, and green curved lines on front.',
             },
@@ -29,7 +29,7 @@ const orders = [
                 name: "Men's 3D Glasses Artwork Tee",
                 href: '#',
                 price: '$36.00',
-                status: 'Delivered Jan 25, 2021',
+                status: 'Delivered Jan 25, 2023',
                 imageSrc: 'https://tailwindui.com/img/ecommerce-images/order-history-page-04-product-01.jpg',
                 imageAlt: 'Black tee with intersecting red, white, and green curved lines on front.',
             },

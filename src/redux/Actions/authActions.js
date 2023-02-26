@@ -186,7 +186,7 @@ export const postContactUs = (customer, subject, content) => async dispatch =>
                     type: UPDATE_PROFILE_SUCCESS,
                     payload: res.data,
                 })
-            console.log(res.data)
+            // console.log(res.data)
         })
     }
     catch (error)
