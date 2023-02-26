@@ -14,7 +14,6 @@ const Orders = () =>
   // pagination setup
   // const [resultsPerPage, setResultPerPage] = useState(1);
   const [filter, setFilter] = useState("all");
-
   const handleFilter = (filter_name) =>
   {
     // console.log(filter_name);
@@ -41,6 +40,7 @@ const Orders = () =>
 
     useEffect(() =>
     {
+
       closeSidebar()
     }, [location])
 

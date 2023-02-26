@@ -12,11 +12,11 @@ const config = {
 
 export const getAllOrdersAction = (page) => async (dispatch) =>
 {
-    if(localToken)
-    {
+    // if(localToken)
+    // {
         try
         {
-            await axios.get(`/api/all-orders/?page=${page}`, config).then(res =>
+            await axios.get(`/api/all-orders/?page=${page}`, ).then(res =>
             {
                 dispatch(
                     {
@@ -32,7 +32,7 @@ export const getAllOrdersAction = (page) => async (dispatch) =>
                 payload: "Something went wrong"
             })
         }
-    }
+    // }
 }
 
 export const getProductCategoryAction = () => async (dispatch) =>

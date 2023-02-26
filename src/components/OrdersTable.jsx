@@ -63,7 +63,9 @@ const OrdersTable = ({  filter }) =>
     // }
   }, [page, totalItems, filter]);
 
-  console.log(totalItems)
+  // console.log(totalItems)
+  console.log(orders)
+
   return (
     <div>
       {/* Table */}
